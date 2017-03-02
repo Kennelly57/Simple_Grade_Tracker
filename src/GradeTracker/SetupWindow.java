@@ -1,4 +1,4 @@
-package sample;
+package GradeTracker;
 
 
 import javafx.application.Application;
@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class SetupWindow extends Application {
-    Scene crsIDandNameScene;
+    private Scene crsIDandNameScene;
 
     @Override
     public void start(Stage primaryStage) {

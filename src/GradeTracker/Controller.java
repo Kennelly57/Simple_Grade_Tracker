@@ -1,4 +1,4 @@
-package sample;
+package GradeTracker;
 
 public class Controller {
 }
