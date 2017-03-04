@@ -33,7 +33,7 @@ public class AssignmentSetupWindow extends Application {
         GridPane dataPane = generateAssignmentCreationPane();
         aswBorderPane.setCenter(dataPane);
 
-        //------------------------------CREATE_FINALIZE_BUTFON-----------------------------------
+        //------------------------------CREATE_FINALIZE_BUTTON-----------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("Create");
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
