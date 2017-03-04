@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+//This is a sample class created by IntelliJ
 public class Main extends Application {
 
     @Override
