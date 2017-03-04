@@ -48,7 +48,7 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
-        Scene aswScene = new Scene(overviewBorderPane, 325, 350);
+        Scene aswScene = new Scene(overviewBorderPane, 500, 350);
         primaryStage.setScene(aswScene);
         primaryStage.show();
     }
@@ -59,63 +59,22 @@ public class CoursesOverviewDisplay extends Application {
         dataGrid.setVgap(10);
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
 
-        TextField categoryNameTF = new TextField();
-        TextField weightTF = new TextField();
+        TextField courseIdTF = new TextField();
+        TextField courseNameTF = new TextField();
+        TextField courseGradeTF = new TextField();
 
-        HBox subItemHBox = generateSubItemHBox();
+        Label courseIdLabel = new Label("Course Id:");
+        Label courseNameLabel = new Label("Name:");
+        Label courseGradeLabel = new Label("Predicted Grade:");
 
-        Label categoryNameLabel = new Label("Category Name:");
-        Label weightLabel = new Label("Weight:");
-        Label subItemsLabel = new Label("Subitems:");
-
-        VBox relevantFieldsVBox = generateRelevantFieldsVBox();
-
-        dataGrid.add(categoryNameLabel, 0, 0);
-        dataGrid.add(categoryNameTF, 1, 0);
-        dataGrid.add(weightLabel, 0, 1);
-        dataGrid.add(weightTF, 1, 1);
-        dataGrid.add(subItemsLabel, 0, 2);
-        dataGrid.add(subItemHBox, 1, 2);
-        dataGrid.add(relevantFieldsVBox, 0, 3);
+        dataGrid.add(courseIdLabel, 0, 0);
+        dataGrid.add(courseIdTF, 0, 1);
+        dataGrid.add(courseNameLabel, 1, 0);
+        dataGrid.add(courseNameTF, 1, 1);
+        dataGrid.add(courseGradeLabel, 2, 0);
+        dataGrid.add(courseGradeTF, 2, 1);
 
         return dataGrid;
-    }
-
-    private HBox generateSubItemHBox() {
-        ToggleGroup subItemsToggle = new ToggleGroup();
-        RadioButton btnSubItemsYes = new RadioButton("Yes");
-        RadioButton btnSubItemsNo = new RadioButton("No");
-        btnSubItemsYes.setToggleGroup(subItemsToggle);
-        btnSubItemsNo.setToggleGroup(subItemsToggle);
-
-        HBox subItemsHbox = new HBox();
-        subItemsHbox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
-        subItemsHbox.getChildren().add(btnSubItemsYes);
-        subItemsHbox.getChildren().add(btnSubItemsNo);
-
-        return subItemsHbox;
-    }
-
-    private VBox generateRelevantFieldsVBox(){
-        VBox relevantFieldsVBox = new VBox();
-        Text relFieldsLabel = new Text("Relevant Fields");
-        relevantFieldsVBox.getChildren().add(relFieldsLabel);
-        relevantFieldsVBox.setMargin(relFieldsLabel, new Insets(10,0,10,0));
-
-        CheckBox pointsPossibleCB = new CheckBox("Points Possible");
-        CheckBox scorePointsCB = new CheckBox("Score (points)");
-        CheckBox scorePercentCB = new CheckBox("Score (percent)");
-        CheckBox weightCB = new CheckBox("Weight");
-        CheckBox weightedScoreCB = new CheckBox("Weighted Score");
-
-        List<CheckBox> cbList = Arrays.asList(
-                pointsPossibleCB, scorePointsCB, scorePercentCB,
-                weightCB, weightedScoreCB);
-        for(int i = 0; i < cbList.size(); i++){
-            relevantFieldsVBox.getChildren().add(cbList.get(i));
-        }
-
-        return relevantFieldsVBox;
     }
 
     public static void main(String[] args) {launch(args);}
