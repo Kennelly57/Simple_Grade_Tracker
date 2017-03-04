@@ -51,7 +51,7 @@ public class OverviewDisplay extends Application {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         table = new TableView<>();
-        table.setItems(getProduct());
+        table.setItems(getTerm());
         table.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
 
         VBox vBox = new VBox();
@@ -63,7 +63,7 @@ public class OverviewDisplay extends Application {
     }
 
     //Get all of the products
-    public ObservableList<SampleCourse> getProduct() {
+    public ObservableList<SampleCourse> getTerm() {
 
         SampleTerm myTerm = new SampleTerm("WI2017");
         List<SampleCourse> myTermList = myTerm.getCourses();

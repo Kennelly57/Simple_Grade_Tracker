@@ -19,8 +19,6 @@ import java.util.*;
 import java.util.List;
 import java.util.Observable;
 
-/***********
-
 public class CoursesOverviewDisplay_FirstTry extends Application {
     @Override
     public void start(Stage primaryStage){
@@ -29,14 +27,18 @@ public class CoursesOverviewDisplay_FirstTry extends Application {
 
     public void start(Stage primaryStage, String termName) {
 
+        SampleTerm myTerm = new SampleTerm("WI2017");
+        List<SampleCourse> myTermList = myTerm.getCourses();
+
         BorderPane overviewBorderPane = new BorderPane();
         overviewBorderPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Your courses for ".concat(termName).concat(":"));
         overviewBorderPane.setTop(setupTitle);
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        //GridPane dataPane = generateOverviewCreationPane();
-        //overviewBorderPane.setCenter(dataPane);
+        GridPane dataPane = generateOverviewPane(myTermList);
+        overviewBorderPane.setCenter(dataPane);
+        overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
@@ -58,34 +60,35 @@ public class CoursesOverviewDisplay_FirstTry extends Application {
     }
 
 
-    public GridPane generateOverviewCreationPane(){
+    public GridPane generateOverviewPane(List<SampleCourse> myTermList){
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
         dataGrid.setVgap(10);
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
+        dataGrid.setGridLinesVisible(true);
 
-        TextField courseIdTF = new TextField();
-        TextField courseNameTF = new TextField();
-        TextField courseGradeTF = new TextField();
-
-        Label courseIdLabel = new Label("Course Id:");
-        Label courseNameLabel = new Label("Name:");
-        Label courseGradeLabel = new Label("Predicted Grade:");
+        Label courseIdLabel = new Label("Course Id");
+        Label courseNameLabel = new Label("Name");
+        Label courseGradeLabel = new Label("Grade");
 
         dataGrid.add(courseIdLabel, 0, 0);
-        dataGrid.add(courseIdTF, 0, 1);
         dataGrid.add(courseNameLabel, 1, 0);
-        dataGrid.add(courseNameTF, 1, 1);
         dataGrid.add(courseGradeLabel, 2, 0);
-        dataGrid.add(courseGradeTF, 2, 1);
+
+        // Generate Table of Course Values
+        for (int i=0; i<myTermList.size(); i++) {
+            Label tempID = new Label(myTermList.get(i).getId());
+            dataGrid.add(tempID, 0, i+1);
+
+            Label tempName = new Label(myTermList.get(i).getName());
+            dataGrid.add(tempName, 1, i+1);
+
+            Label tempGrade = new Label(myTermList.get(i).getGrade());
+            dataGrid.add(tempGrade, 2, i+1);
+        }
 
         return dataGrid;
     }
 
-    public ObservableList<SampleTerm> getTerm() {
-        ObservableList<SampleTerm> term = FXCollections.observableArrayList();
-    }
-
     public static void main(String[] args) {launch(args);}
 }
-    */
