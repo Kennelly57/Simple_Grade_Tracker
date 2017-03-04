@@ -20,11 +20,14 @@ import java.util.List;
 public class SetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
+    private Stage univPrimaryStage;
 
     @Override
     public void start(Stage primaryStage) {
+        univPrimaryStage = primaryStage;
         primaryStage.setTitle("Course Setup");
-        crsIDandNameScene = generateGradeDistribution();
+        crsIDandNameScene = generateCrsIDandName();
+        gradeDistributionScene = generateGradeDistroSetup();
         primaryStage.setScene(crsIDandNameScene);
         primaryStage.show();
 
@@ -63,7 +66,8 @@ public class SetupWindow extends Application {
         btnNext.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // primaryStage.setScene(gradeDistributionScene);
+                univPrimaryStage.setScene(gradeDistributionScene);
+                univPrimaryStage.show();
             }
         });
 
@@ -76,9 +80,10 @@ public class SetupWindow extends Application {
         }
 
 
-    private Scene generateGradeDistribution() {
+    private Scene generateGradeDistroSetup() {
         BorderPane setupGradesPane = new BorderPane();
-        gradeDistributionScene = new Scene(setupGradesPane, 400, 2000);
+        setupGradesPane.setPadding(new Insets(15, 15, 15, 25));
+        gradeDistributionScene = new Scene(setupGradesPane, 400, 525);
 
         VBox gradePane = new VBox();
         Text title = new Text("Configure the grade distribution:");
@@ -87,6 +92,21 @@ public class SetupWindow extends Application {
         gradePane.getChildren().add(gradeGrid);
 
         setupGradesPane.setLeft(gradePane);
+
+        //------------------------------CREATE_NEXT_BUTFON---------------------------------------
+        Button btnNext = new Button();
+        btnNext.setText("Next");
+        btnNext.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                univPrimaryStage.setScene(crsIDandNameScene);
+                univPrimaryStage.show();
+            }
+        });
+
+        setupGradesPane.setBottom(btnNext);
+        setupGradesPane.setAlignment(btnNext, Pos.BOTTOM_RIGHT);
+        //---------------------------------------------------------------------------------------
 
         return gradeDistributionScene;
     }
