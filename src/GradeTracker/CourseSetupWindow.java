@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -42,6 +43,7 @@ public class CourseSetupWindow extends Application {
         crsIDandNamePane.setAlignment(setupTitle, Pos.CENTER);
 
         crsIDandNameScene = new Scene(crsIDandNamePane, 300, 200);
+
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
         GridPane inputGrid = new GridPane();
@@ -107,8 +109,21 @@ public class CourseSetupWindow extends Application {
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                univPrimaryStage.setScene(crsIDandNameScene);
-                univPrimaryStage.show();
+//                univPrimaryStage.setScene(crsIDandNameScene);
+//                univPrimaryStage.show();
+
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(univPrimaryStage);
+                new AssignmentSetupWindow().start(dialog, "victory");
+
+
+//                VBox dialogVbox = new VBox(20);
+//                dialogVbox.getChildren().add(new Text("This is a Dialog"));
+//                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+//                dialog.setScene(dialogScene);
+//                dialog.show();
+
             }
         });
 
