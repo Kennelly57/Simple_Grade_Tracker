@@ -34,7 +34,7 @@ public class CoursesOverviewDisplay extends Application {
         GridPane dataPane = generateAssignmentCreationPane();
         overviewBorderPane.setCenter(dataPane);
 
-        //------------------------------CREATE_FINALIZE_BUTTON-----------------------------------
+        //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("+");
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
@@ -48,8 +48,8 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
-        Scene aswScene = new Scene(overviewBorderPane, 500, 350);
-        primaryStage.setScene(aswScene);
+        Scene overviewScene = new Scene(overviewBorderPane, 500, 350);
+        primaryStage.setScene(overviewScene);
         primaryStage.show();
     }
 
