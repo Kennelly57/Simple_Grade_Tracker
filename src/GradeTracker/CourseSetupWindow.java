@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 import java.util.List;
 
-public class SetupWindow extends Application {
+public class CourseSetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
     private Stage univPrimaryStage;
@@ -100,7 +101,7 @@ public class SetupWindow extends Application {
 
         setupGradesPane.setCenter(gradePane);
 
-        //------------------------------CREATE_NEXT_BUTFON---------------------------------------
+        //------------------------------CREATE_BUTTONS---------------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("Finish");
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
@@ -111,8 +112,23 @@ public class SetupWindow extends Application {
             }
         });
 
-        setupGradesPane.setBottom(btnFinish);
-        setupGradesPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        Button btnBack = new Button();
+        btnBack.setText("Back");
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                univPrimaryStage.setScene(crsIDandNameScene);
+                univPrimaryStage.show();
+            }
+        });
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.SOMETIMES);
+        HBox btnHBox = new HBox();
+        btnHBox.getChildren().add(btnBack);
+        btnHBox.getChildren().add(spacer);
+        btnHBox.getChildren().add(btnFinish);
+        btnHBox.setAlignment(Pos.BOTTOM_RIGHT);
+        setupGradesPane.setBottom(btnHBox);
         //---------------------------------------------------------------------------------------
 
         return gradeDistributionScene;
