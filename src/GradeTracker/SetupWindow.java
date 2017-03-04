@@ -35,16 +35,18 @@ public class SetupWindow extends Application {
 
     private Scene generateCrsIDandName() {
         BorderPane crsIDandNamePane = new BorderPane();
+        crsIDandNamePane.setPadding(new Insets(15, 15, 15, 25));
+        Text setupTitle = new Text("Set up a new Course:");
+        crsIDandNamePane.setTop(setupTitle);
+        crsIDandNamePane.setAlignment(setupTitle, Pos.CENTER);
+
         crsIDandNameScene = new Scene(crsIDandNamePane, 300, 200);
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
         GridPane inputGrid = new GridPane();
-        inputGrid.setPadding(new Insets(15, 25, 25, 25));
+        //inputGrid.setPadding(new Insets(15, 25, 25, 25));
         inputGrid.setHgap(10);
         inputGrid.setVgap(10);
-
-        Text gridTitle = new Text("Set up a new Course:");
-        inputGrid.add(gridTitle, 0, 0);
 
         Label identificationLabel = new Label("Course ID:");
         Label crsNameLabel = new Label("Course Name:");
@@ -73,7 +75,7 @@ public class SetupWindow extends Application {
 
         crsIDandNamePane.setBottom(btnNext);
         crsIDandNamePane.setAlignment(btnNext, Pos.BOTTOM_RIGHT);
-        crsIDandNamePane.setMargin(btnNext, new Insets(0, 15, 15, 0));
+        //crsIDandNamePane.setMargin(btnNext, new Insets(0, 15, 15, 0));
         //---------------------------------------------------------------------------------------
 
         return crsIDandNameScene;
@@ -83,20 +85,25 @@ public class SetupWindow extends Application {
     private Scene generateGradeDistroSetup() {
         BorderPane setupGradesPane = new BorderPane();
         setupGradesPane.setPadding(new Insets(15, 15, 15, 25));
-        gradeDistributionScene = new Scene(setupGradesPane, 400, 525);
+        Text setupTitle = new Text("Set up a new Course:");
+        setupGradesPane.setTop(setupTitle);
+        setupGradesPane.setAlignment(setupTitle, Pos.CENTER);
+
+        gradeDistributionScene = new Scene(setupGradesPane, 400, 555);
 
         VBox gradePane = new VBox();
+        gradePane.setPadding(new Insets(15,0, 5, 0));
         Text title = new Text("Configure the grade distribution:");
         GridPane gradeGrid = generateGradingCurvePane();
         gradePane.getChildren().add(title);
         gradePane.getChildren().add(gradeGrid);
 
-        setupGradesPane.setLeft(gradePane);
+        setupGradesPane.setCenter(gradePane);
 
         //------------------------------CREATE_NEXT_BUTFON---------------------------------------
-        Button btnNext = new Button();
-        btnNext.setText("Next");
-        btnNext.setOnAction(new EventHandler<ActionEvent>() {
+        Button btnFinish = new Button();
+        btnFinish.setText("Finish");
+        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 univPrimaryStage.setScene(crsIDandNameScene);
@@ -104,8 +111,8 @@ public class SetupWindow extends Application {
             }
         });
 
-        setupGradesPane.setBottom(btnNext);
-        setupGradesPane.setAlignment(btnNext, Pos.BOTTOM_RIGHT);
+        setupGradesPane.setBottom(btnFinish);
+        setupGradesPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
         return gradeDistributionScene;
@@ -136,18 +143,18 @@ public class SetupWindow extends Application {
                 gradeCPlus, gradeC, gradeCMinus,
                 gradeDPlus, gradeD, gradeDMinus);
 
-        TextField tfAPlus = new TextField();
-        TextField tfA = new TextField();
-        TextField tfAMinus = new TextField();
-        TextField tfBPlus = new TextField();
-        TextField tfB = new TextField();
-        TextField tfBMinus = new TextField();
-        TextField tfCPlus = new TextField();
-        TextField tfC = new TextField();
-        TextField tfCMinus = new TextField();
-        TextField tfDPlus = new TextField();
-        TextField tfD = new TextField();
-        TextField tfDMinus = new TextField();
+        TextField tfAPlus = new TextField("96");
+        TextField tfA = new TextField("93");
+        TextField tfAMinus = new TextField("90");
+        TextField tfBPlus = new TextField("86");
+        TextField tfB = new TextField("83");
+        TextField tfBMinus = new TextField("80");
+        TextField tfCPlus = new TextField("76");
+        TextField tfC = new TextField("73");
+        TextField tfCMinus = new TextField("70");
+        TextField tfDPlus = new TextField("66");
+        TextField tfD = new TextField("63");
+        TextField tfDMinus = new TextField("60");
 
         List<TextField> textFieldList = Arrays.asList(
                 tfAPlus, tfA, tfAMinus,
