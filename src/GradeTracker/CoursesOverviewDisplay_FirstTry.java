@@ -1,6 +1,7 @@
 package GradeTracker;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,10 +15,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
+import java.util.Observable;
 
-public class CoursesOverviewDisplay extends Application {
+/***********
+
+public class CoursesOverviewDisplay_FirstTry extends Application {
     @Override
     public void start(Stage primaryStage){
         start(primaryStage, "WI2017");
@@ -31,8 +35,8 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setTop(setupTitle);
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        GridPane dataPane = generateOverviewCreationPane();
-        overviewBorderPane.setCenter(dataPane);
+        //GridPane dataPane = generateOverviewCreationPane();
+        //overviewBorderPane.setCenter(dataPane);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
@@ -52,6 +56,7 @@ public class CoursesOverviewDisplay extends Application {
         primaryStage.setScene(overviewScene);
         primaryStage.show();
     }
+
 
     public GridPane generateOverviewCreationPane(){
         GridPane dataGrid = new GridPane();
@@ -77,5 +82,10 @@ public class CoursesOverviewDisplay extends Application {
         return dataGrid;
     }
 
+    public ObservableList<SampleTerm> getTerm() {
+        ObservableList<SampleTerm> term = FXCollections.observableArrayList();
+    }
+
     public static void main(String[] args) {launch(args);}
 }
+    */
