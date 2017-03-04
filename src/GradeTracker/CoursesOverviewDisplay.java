@@ -13,16 +13,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.*;
 import java.util.List;
 import java.util.Observable;
 
-public class CoursesOverviewDisplay_FirstTry extends Application {
+public class CoursesOverviewDisplay extends Application {
+    private Stage univPrimaryStage;
     @Override
     public void start(Stage primaryStage){
+
+        univPrimaryStage = primaryStage;
         start(primaryStage, "WI2017");
+
     }
 
     public void start(Stage primaryStage, String termName) {
@@ -46,7 +51,10 @@ public class CoursesOverviewDisplay_FirstTry extends Application {
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Adding");
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(univPrimaryStage);
+                new CourseSetupWindow().start(dialog);
             }
         });
 

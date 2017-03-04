@@ -21,7 +21,7 @@ import java.util.*;
 /**
  * Created by michelsd on 3/4/17.
  */
-public class OverviewDisplay extends Application {
+public class _howTableWorks extends Application {
 
     Stage window;
     TableView<SampleCourse> table;

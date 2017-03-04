@@ -2,22 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="075594a3-e05e-43f7-8f6f-fdcf747da563" name="Default" comment="">
-<<<<<<< HEAD
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/OverviewDisplay.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/OverviewDisplay.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java" afterPath="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java" afterPath="$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java" />
-=======
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$1.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$1.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/Controller.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/LoginView.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/sample.fxml" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java" afterPath="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java" afterPath="$PROJECT_DIR$/src/GradeTracker/_howTableWorks.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$2.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$3.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/Main.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java" afterPath="$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
     </list>
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,21 +25,31 @@
     <favorites_list name="w17_cs257_grade_tracker" />
   </component>
   <component name="FileEditorManager">
-<<<<<<< HEAD
     <leaf>
-      <file leaf-file-name="OverviewDisplay.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java">
+      <file leaf-file-name="_howTableWorks.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GradeTracker/_howTableWorks.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="566">
-              <caret line="70" column="97" lean-forward="true" selection-start-line="67" selection-start-column="8" selection-end-line="70" selection-end-column="97" />
-=======
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CourseSetupWindow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java">
+            <state relative-caret-position="360">
+              <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CoursesOverviewDisplay.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-735">
-              <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
-              <folding />
+            <state relative-caret-position="209">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1488670446000" expanded="false" signature="740:742" ph=" { " />
+                <marker date="1488670446000" expanded="true" signature="823:829" ph=" }" />
+                <marker date="1488670446000" expanded="false" signature="1813:1815" ph=" { " />
+                <marker date="1488670446000" expanded="true" signature="2037:2051" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,37 +58,7 @@
         <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentSetupWindow.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="19" column="41" lean-forward="true" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
-              <folding>
-                <element signature="e#497#498#0" expanded="true" />
-                <element signature="e#546#547#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CoursesOverviewDisplay_FirstTry.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <marker date="1488669347000" expanded="false" signature="683:693" ph=" { " />
-                <marker date="1488669347000" expanded="false" signature="723:729" ph=" }" />
-                <marker date="1488669347000" expanded="false" signature="1713:1732" ph=" { " />
-                <marker date="1488669347000" expanded="false" signature="1761:1775" ph=" }" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssignmentSetupWindow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentSetupWindow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+              <caret line="23" column="16" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="120" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -94,23 +67,10 @@
       <file leaf-file-name="CourseSetupWindow.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1230">
-              <caret line="120" column="16" lean-forward="false" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
+            <state relative-caret-position="182">
+              <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sample.fxml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/sample.fxml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -118,10 +78,10 @@
         <entry file="file://$PROJECT_DIR$/src/GradeTracker/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
               <folding>
-                <element signature="e#641#642#0" expanded="true" />
-                <element signature="e#669#670#0" expanded="true" />
+                <element signature="e#696#697#0" expanded="true" />
+                <element signature="e#724#725#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -161,50 +121,21 @@
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>launch</find>
-      <find>start</find>
-      <find>main</find>
-      <find>overviewCrea</find>
-      <find>GirdPane</find>
-      <find>window</find>
-      <find>stage</find>
-<<<<<<< HEAD
-      <find>generate</find>
-=======
-      <find>fni</find>
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
+      <find>dialog</find>
+      <find>univ</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GradleLocalSettings">
-    <option name="externalProjectsViewState">
-      <projects_view />
-    </option>
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/GradeTracker/SetupWindow.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/AssignmentSetupWindow.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/CoursesDisplay.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/Main.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/SampleCourse.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/SampleTerm.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java" />
         <option value="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java" />
-        <option value="$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java" />
+        <option value="$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay.java" />
+        <option value="$PROJECT_DIR$/src/GradeTracker/_howTableWorks.java" />
       </list>
     </option>
   </component>
@@ -217,7 +148,7 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="31" />
     <option name="y" value="23" />
-    <option name="width" value="1095" />
+    <option name="width" value="1443" />
     <option name="height" value="977" />
   </component>
   <component name="ProjectView">
@@ -260,6 +191,10 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GradeTracker" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -271,122 +206,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GradeTracker" />
+              <option name="myItemId" value=".idea" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
-  <component name="PropertiesComponent">
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="js.eslint.eslintPackage" value="" />
-    <property name="settings.editor.selected.configurable" value="preferences.fileTypes" />
-  </component>
-  <component name="RecentsManager">
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="GradeTracker" />
-    </key>
-  </component>
-<<<<<<< HEAD
-  <component name="RunManager">
-    <configuration default="false" name="CoursesOverviewDisplay_FirstTry" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-=======
-  <component name="RunManager" selected="Application.CourseSetupWindow">
-    <configuration default="false" name="CourseSetupWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
+  <component name="RunManager" selected="Application.CoursesOverviewDisplay">
+    <configuration default="false" name="CoursesOverviewDisplay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="GradeTracker.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="GradeTracker.CoursesOverviewDisplay_FirstTry" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="W17_CS257_Grade_Tracker" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="OverviewDisplay" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="MAIN_CLASS_NAME" value="OverviewDisplay" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="W17_CS257_Grade_Tracker" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="OverviewDisplay (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="GradeTracker.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="GradeTracker.OverviewDisplay" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="W17_CS257_Grade_Tracker" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="AssignmentSetupWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="GradeTracker.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="GradeTracker.AssignmentSetupWindow" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="W17_CS257_Grade_Tracker" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="CourseSetupWindow" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="GradeTracker.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="GradeTracker.CourseSetupWindow" />
+      <option name="MAIN_CLASS_NAME" value="GradeTracker.CoursesOverviewDisplay" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -636,7 +475,6 @@
       <setting name="passParentEnv" value="true" />
       <setting name="launchBrowser" value="true" />
       <setting name="launchBrowserUrl" value="" />
-      <setting name="depsClasspath" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -758,12 +596,6 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
-      <node-interpreter>project</node-interpreter>
-      <node-options />
-      <gulpfile />
-      <tasks />
-      <arguments />
-      <envs />
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.npm" factoryName="npm">
@@ -779,28 +611,12 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Application.CoursesOverviewDisplay_FirstTry" />
-      <item index="1" class="java.lang.String" itemvalue="Application.OverviewDisplay" />
-      <item index="2" class="java.lang.String" itemvalue="Application.OverviewDisplay (1)" />
-      <item index="3" class="java.lang.String" itemvalue="Application.AssignmentSetupWindow" />
-      <item index="4" class="java.lang.String" itemvalue="Application.CourseSetupWindow" />
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Application.CoursesOverviewDisplay" />
     </list>
     <recent_temporary>
-      <list size="5">
-<<<<<<< HEAD
-        <item index="0" class="java.lang.String" itemvalue="Application.CoursesOverviewDisplay_FirstTry" />
-        <item index="1" class="java.lang.String" itemvalue="Application.OverviewDisplay (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Application.AssignmentSetupWindow" />
-        <item index="3" class="java.lang.String" itemvalue="Application.CourseSetupWindow" />
-        <item index="4" class="java.lang.String" itemvalue="Application.OverviewDisplay" />
-=======
-        <item index="0" class="java.lang.String" itemvalue="Application.CourseSetupWindow" />
-        <item index="1" class="java.lang.String" itemvalue="Application.OverviewDisplay (1)" />
-        <item index="2" class="java.lang.String" itemvalue="Application.OverviewDisplay" />
-        <item index="3" class="java.lang.String" itemvalue="Application.CoursesOverviewDisplay_FirstTry" />
-        <item index="4" class="java.lang.String" itemvalue="Application.SampleTerm" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Application.CoursesOverviewDisplay" />
       </list>
     </recent_temporary>
   </component>
@@ -811,35 +627,14 @@
     <configuration />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="075594a3-e05e-43f7-8f6f-fdcf747da563" name="Default" comment="" />
-      <created>1488582432250</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1488582432250</updated>
-<<<<<<< HEAD
-      <workItem from="1488582433546" duration="14624000" />
-=======
-      <workItem from="1488582433546" duration="10234000" />
-      <workItem from="1488666907208" duration="1199000" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
-    </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-<<<<<<< HEAD
-    <option name="totallyTimeSpent" value="14624000" />
+    <option name="totallyTimeSpent" value="810000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="31" y="23" width="1095" height="977" extended-state="0" />
-    <editor active="true" />
-=======
-    <option name="totallyTimeSpent" value="11433000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="31" y="23" width="1117" height="977" extended-state="0" />
+    <frame x="31" y="23" width="1443" height="977" extended-state="0" />
     <editor active="false" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -850,34 +645,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32207206" sideWeight="0.50223714" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36563876" sideWeight="0.49776286" order="6" side_tool="false" content_ui="tabs" />
-=======
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1376652" sideWeight="0.49776286" order="6" side_tool="false" content_ui="tabs" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36563876" sideWeight="0.49776286" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29406393" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22314623" sideWeight="0.5" order="6" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-<<<<<<< HEAD
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22687225" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-=======
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39867842" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="9" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -911,12 +698,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="processedProjectFiles" value="true" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <option name="time" value="2" />
@@ -928,17 +709,14 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java">
+    <entry file="file://$PROJECT_DIR$/src/GradeTracker/SetupWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="30" column="0" lean-forward="true" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/SetupWindow.java" />
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/Controller.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -949,7 +727,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/LoginView.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="210">
           <caret line="14" column="38" lean-forward="false" selection-start-line="14" selection-start-column="38" selection-end-line="15" selection-end-column="36" />
           <folding />
@@ -957,17 +734,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/notes.txt">
-=======
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/sample.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
@@ -985,36 +751,14 @@
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
-          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+          <caret line="23" column="5" lean-forward="false" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
           <folding>
-            <element signature="e#641#642#0" expanded="true" />
-            <element signature="e#669#670#0" expanded="true" />
+            <element signature="e#696#697#0" expanded="true" />
+            <element signature="e#724#725#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1230">
-          <caret line="120" column="16" lean-forward="false" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
-          <folding />
-=======
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/SampleTerm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="35" column="53" lean-forward="true" selection-start-line="35" selection-start-column="8" selection-end-line="35" selection-end-column="53" />
-          <folding>
-            <element signature="e#194#208#0" expanded="false" />
-            <element signature="e#681#682#0" expanded="false" />
-            <element signature="e#717#718#0" expanded="false" />
-            <element signature="e#763#764#0" expanded="false" />
-            <element signature="e#800#801#0" expanded="false" />
-          </folding>
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
         </state>
       </provider>
     </entry>
@@ -1029,78 +773,59 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/OverviewDisplay.java">
-      <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="566">
-          <caret line="70" column="97" lean-forward="true" selection-start-line="67" selection-start-column="8" selection-end-line="70" selection-end-column="97" />
-=======
-        <state relative-caret-position="211">
-          <caret line="38" column="78" lean-forward="false" selection-start-line="38" selection-start-column="74" selection-end-line="38" selection-end-column="78" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/SampleCourse.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
         <state relative-caret-position="75">
           <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
-=======
-        <state relative-caret-position="195">
-          <caret line="13" column="33" lean-forward="true" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="12" lean-forward="false" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java">
       <provider selected="true" editor-type-id="text-editor">
-<<<<<<< HEAD
-        <state relative-caret-position="150">
-          <caret line="24" column="37" lean-forward="true" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-=======
-        <state relative-caret-position="-735">
-          <caret line="27" column="32" lean-forward="false" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
+        <state relative-caret-position="182">
+          <caret line="31" column="57" lean-forward="true" selection-start-line="31" selection-start-column="57" selection-end-line="31" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
-<<<<<<< HEAD
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay_FirstTry.java">
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="705">
-          <caret line="51" column="0" lean-forward="true" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state relative-caret-position="465">
+          <caret line="31" column="26" lean-forward="false" selection-start-line="31" selection-start-column="26" selection-end-line="31" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GradeTracker/CoursesOverviewDisplay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1488669347000" expanded="false" signature="683:693" ph=" { " />
-            <marker date="1488669347000" expanded="false" signature="723:729" ph=" }" />
-            <marker date="1488669347000" expanded="false" signature="1713:1732" ph=" { " />
-            <marker date="1488669347000" expanded="false" signature="1761:1775" ph=" }" />
-=======
+            <marker date="1488670446000" expanded="false" signature="740:742" ph=" { " />
+            <marker date="1488670446000" expanded="true" signature="823:829" ph=" }" />
+            <marker date="1488670446000" expanded="false" signature="1813:1815" ph=" { " />
+            <marker date="1488670446000" expanded="true" signature="2037:2051" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GradeTracker/_howTableWorks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentSetupWindow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="19" column="41" lean-forward="true" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-          <folding>
-            <element signature="e#497#498#0" expanded="true" />
-            <element signature="e#546#547#0" expanded="true" />
->>>>>>> ffac8db9272f24a1c15eed02830c4c182c8f21df
-          </folding>
+          <caret line="23" column="16" lean-forward="false" selection-start-line="17" selection-start-column="0" selection-end-line="120" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
