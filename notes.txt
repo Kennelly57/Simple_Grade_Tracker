@@ -1,0 +1,5 @@
+CREATE NEW ASSIGNMENT
+- Default settngs for create new assignment
+- Weight slider/ numerical input getting
+- make sure can only check relevant fields that make sense
+
