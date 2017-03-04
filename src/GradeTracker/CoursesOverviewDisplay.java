@@ -31,7 +31,7 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setTop(setupTitle);
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        GridPane dataPane = generateAssignmentCreationPane();
+        GridPane dataPane = generateOverviewCreationPane();
         overviewBorderPane.setCenter(dataPane);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
@@ -53,7 +53,7 @@ public class CoursesOverviewDisplay extends Application {
         primaryStage.show();
     }
 
-    public GridPane generateAssignmentCreationPane(){
+    public GridPane generateOverviewCreationPane(){
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
         dataGrid.setVgap(10);
