@@ -8,13 +8,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 import java.util.*;
 import java.util.List;
@@ -42,6 +41,7 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         GridPane dataPane = generateOverviewPane(myTermList);
+
         overviewBorderPane.setCenter(dataPane);
         overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
 
@@ -85,7 +85,25 @@ public class CoursesOverviewDisplay extends Application {
 
         // Generate Table of Course Values
         for (int i=0; i<myTermList.size(); i++) {
-            Label tempID = new Label(myTermList.get(i).getId());
+            final String idStr = myTermList.get(i).getId();
+            Label tempID = new Label(idStr);
+
+            tempID.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+
+//                    CourseSetupWindow courseSetupWindow = new CourseSetupWindow();
+//                    Scene scene = courseSetupWindow.generateGradeDistroSetup();
+                    
+                    FlowPane flowPane = new FlowPane();
+                    Scene newScene = new Scene(flowPane);
+                    univPrimaryStage.setScene(newScene);
+
+
+
+                }
+            });
+
             dataGrid.add(tempID, 0, i+1);
 
             Label tempName = new Label(myTermList.get(i).getName());
