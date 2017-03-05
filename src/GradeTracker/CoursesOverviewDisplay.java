@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 import java.util.*;
 import java.util.List;
 import java.util.Observable;

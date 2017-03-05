@@ -10,11 +10,16 @@ public interface Assignment {
 
     public String getGrade();
 
-    public float getPointsPossible();
+    public double getPointsPossible();
 
-    public float getPointsScore();
+    public double getPointsScore();
 
-    public float getPercentageScore();
+    public double getPercentageScore();
+
+    public double getWeight();
+
+    public double getWeightedScore();
 
     public boolean completed();
+
 }

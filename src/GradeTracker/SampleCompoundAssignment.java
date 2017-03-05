@@ -30,7 +30,7 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public String getGrade(){ // We could make this log(n), but I don't feel like it at the moment.
-        float percentageScore = this.getPercentageScore();
+        double percentageScore = this.getPercentageScore();
         String[] grades = new String[] {"A+", "A", "A-",
                                         "B+", "B", "B-",
                                         "C+", "C", "C-",
@@ -43,8 +43,8 @@ public class SampleCompoundAssignment implements Assignment {
         return "F";
     }
 
-    public float getPointsPossible(){
-        float pointsPossibleSum = 0;
+    public double getPointsPossible(){
+        double pointsPossibleSum = 0;
         for (Assignment subAssignment : subAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsPossibleSum += subAssignment.getPointsPossible();
@@ -54,8 +54,8 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
 
-    public float getPointsScore(){
-        float pointsAchievedSum = 0;
+    public double getPointsScore(){
+        double pointsAchievedSum = 0;
         for (Assignment subAssignment : subAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsAchievedSum += subAssignment.getPointsScore();
@@ -65,9 +65,9 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
 
-    public float getPercentageScore(){
-        float pointsPossibleSum = 0;
-        float pointsAchievedSum = 0;
+    public double getPercentageScore(){
+        double pointsPossibleSum = 0;
+        double pointsAchievedSum = 0;
         for (Assignment subAssignment : subAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsPossibleSum += subAssignment.getPointsPossible();
@@ -75,6 +75,16 @@ public class SampleCompoundAssignment implements Assignment {
             }
         }
         return pointsAchievedSum/pointsPossibleSum;
+    }
+
+    // NOT CUREENTLY IN USE
+    public double getWeight(){
+        return -1;
+    }
+
+    // NOT CUREENTLY IN USE
+    public double getWeightedScore(){
+        return -1;
     }
 
     public void addAssignment(Assignment newAssignment){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF DUPLICATE NAMES!

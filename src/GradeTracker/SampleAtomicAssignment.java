@@ -6,9 +6,11 @@ package GradeTracker;
 public class SampleAtomicAssignment implements Assignment {
     private String name;
     private String grade;
-    private float pointsPossible;
-    private float pointsScore;
-    private float percentageScore;
+    private double pointsPossible;
+    private double pointsScore;
+    private double percentageScore;
+    private double weight;
+    private double weightedScore;
     private boolean completed;
 
     public SampleAtomicAssignment(String assignmentName){
@@ -32,29 +34,36 @@ public class SampleAtomicAssignment implements Assignment {
         return this.grade;
     }
 
-
-    public void setPointsPossible(float newPointsPossible){
+    public void setPointsPossible(double newPointsPossible){
         this.pointsPossible = newPointsPossible;
     }
-
-    public float getPointsPossible(){
+    public double getPointsPossible(){
         return this.pointsPossible;
     }
 
-    public void setPointsScore(Float newPointsScore){
+    public void setPointsScore(double newPointsScore){
         this.pointsScore = newPointsScore;
     }
-
-    public float getPointsScore(){
+    public double getPointsScore(){
         return this.pointsScore;
     }
 
-    public void setPercentageScore(Float newPercentageScore){
+    public void setPercentageScore(double newPercentageScore){
         this.percentageScore = newPercentageScore;
     }
-
-    public float getPercentageScore(){
+    public void calculatePercentageScore() { setPercentageScore(getPointsScore() / getPointsPossible()); }
+    public double getPercentageScore(){
         return this.percentageScore;
+    }
+
+    public void setWeight(double newWeight) { this.weight = newWeight; }
+    public double getWeight() {return this.weight; }
+
+    public void setWeightedScore(double newWeightedScore) { this.weightedScore = newWeightedScore; }
+    public void calculateWeightedScore() { setWeightedScore(getPercentageScore() * getWeight()); }
+    public double getWeightedScore() {
+        calculateWeightedScore();
+        return this.weightedScore;
     }
 
     public boolean completed(){
