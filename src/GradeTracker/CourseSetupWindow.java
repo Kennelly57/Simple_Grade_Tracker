@@ -85,7 +85,7 @@ public class CourseSetupWindow extends Application {
         }
 
 
-    private Scene generateGradeDistroSetup() {
+    public Scene generateGradeDistroSetup() {
         BorderPane setupGradesPane = new BorderPane();
         setupGradesPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Set up a new Course:");
