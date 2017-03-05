@@ -32,7 +32,6 @@ public class CourseSetupWindow extends Application {
         gradeDistributionScene = generateGradeDistroSetup();
         primaryStage.setScene(crsIDandNameScene);
         primaryStage.show();
-
     }
 
     private Scene generateCrsIDandName() {
