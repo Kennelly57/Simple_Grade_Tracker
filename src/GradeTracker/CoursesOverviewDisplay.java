@@ -123,13 +123,8 @@ public class CoursesOverviewDisplay extends Application {
             tempID.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-
-//                    CourseSetupWindow courseSetupWindow = new CourseSetupWindow();
-//                    Scene scene = courseSetupWindow.generateGradeDistroSetup();
-                    
-                    FlowPane flowPane = new FlowPane();
-                    Scene newScene = new Scene(flowPane);
-                    univPrimaryStage.setScene(newScene);
+                    AssignmentsOverviewDisplay newDisplay = new AssignmentsOverviewDisplay();
+                    newDisplay.start(univPrimaryStage);
                 }
             });
 

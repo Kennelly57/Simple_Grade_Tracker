@@ -34,9 +34,40 @@ public class AssignmentsOverviewDisplay extends Application {
 
     public void start(Stage primaryStage, String courseName) {
 
-        SampleTerm myTerm = new SampleTerm("WI2017");
-        List<SampleCourse> myTermList = myTerm.getCourses();
+        List<Assignment> myAssignments = makeDemoAssignmentList();
 
+        BorderPane overviewBorderPane = new BorderPane();
+        overviewBorderPane.setPadding(new Insets(15, 15, 15, 25));
+        Text setupTitle = new Text("Courses --> ".concat(courseName).concat(":"));
+        overviewBorderPane.setTop(setupTitle);
+        overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
+
+        GridPane dataPane = generateOverviewPane(myAssignments);
+        overviewBorderPane.setCenter(dataPane);
+        overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+
+        //------------------------------CREATE_ADD_BUTTON-----------------------------------
+        Button btnFinish = new Button();
+        btnFinish.setText("+");
+        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(univPrimaryStage);
+                new CourseSetupWindow().start(dialog);
+            }
+        });
+
+        overviewBorderPane.setBottom(btnFinish);
+        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        //---------------------------------------------------------------------------------------
+        Scene overviewScene = new Scene(overviewBorderPane, 500, 350);
+        primaryStage.setScene(overviewScene);
+        primaryStage.show();
+    }
+
+    private List<Assignment> makeDemoAssignmentList() {
         List<Assignment> myAssignments = new ArrayList<Assignment>();
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
@@ -77,36 +108,7 @@ public class AssignmentsOverviewDisplay extends Application {
         myAssignments.add(articleDiscussion);
         myAssignments.add(participation);
         myAssignments.add(finalExam);
-
-        BorderPane overviewBorderPane = new BorderPane();
-        overviewBorderPane.setPadding(new Insets(15, 15, 15, 25));
-        Text setupTitle = new Text("Courses --> ".concat(courseName).concat(":"));
-        overviewBorderPane.setTop(setupTitle);
-        overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
-
-        GridPane dataPane = generateOverviewPane(myAssignments);
-        overviewBorderPane.setCenter(dataPane);
-        overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
-
-        //------------------------------CREATE_ADD_BUTTON-----------------------------------
-        Button btnFinish = new Button();
-        btnFinish.setText("+");
-        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(univPrimaryStage);
-                new CourseSetupWindow().start(dialog);
-            }
-        });
-
-        overviewBorderPane.setBottom(btnFinish);
-        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
-        //---------------------------------------------------------------------------------------
-        Scene overviewScene = new Scene(overviewBorderPane, 500, 350);
-        primaryStage.setScene(overviewScene);
-        primaryStage.show();
+        return myAssignments;
     }
 
 
@@ -122,14 +124,14 @@ public class AssignmentsOverviewDisplay extends Application {
         Label scorePtsHeader = new Label("Score (pts)");
         Label scorePercentHeader = new Label("Score (%)");
         Label weightHeader = new Label("Weight");
-        Label weightedScore = new Label("Weighted Score");
-
+        Label weightedHeader = new Label("Weighted Score");
 
         dataGrid.add(nameHeader, 0, 0);
         dataGrid.add(pointsPosHeader, 1, 0);
         dataGrid.add(scorePtsHeader, 2, 0);
         dataGrid.add(scorePercentHeader, 3, 0);
-        dataGrid.add(weightHeader, 4, 0);
+        dataGrid.add(weightedHeader, 4, 0);
+
         // Generate Table of Course Values
         for (int i=0; i<myAssignments.size(); i++) {
             Label tempName = new Label(myAssignments.get(i).getName());
