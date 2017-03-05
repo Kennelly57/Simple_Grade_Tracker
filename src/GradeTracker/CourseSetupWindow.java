@@ -42,7 +42,7 @@ public class CourseSetupWindow extends Application {
         crsIDandNamePane.setTop(setupTitle);
         crsIDandNamePane.setAlignment(setupTitle, Pos.CENTER);
 
-        crsIDandNameScene = new Scene(crsIDandNamePane, 300, 200);
+        crsIDandNameScene = new Scene(crsIDandNamePane, 350, 200);
 
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
@@ -92,7 +92,7 @@ public class CourseSetupWindow extends Application {
         setupGradesPane.setTop(setupTitle);
         setupGradesPane.setAlignment(setupTitle, Pos.CENTER);
 
-        gradeDistributionScene = new Scene(setupGradesPane, 400, 555);
+        gradeDistributionScene = new Scene(setupGradesPane, 400, 575);
 
         VBox gradePane = new VBox();
         gradePane.setPadding(new Insets(15,0, 5, 0));

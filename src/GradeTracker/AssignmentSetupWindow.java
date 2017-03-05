@@ -47,7 +47,7 @@ public class AssignmentSetupWindow extends Application {
         aswBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
-        Scene aswScene = new Scene(aswBorderPane, 325, 350);
+        Scene aswScene = new Scene(aswBorderPane, 450, 350);
         primaryStage.setScene(aswScene);
         primaryStage.show();
     }
