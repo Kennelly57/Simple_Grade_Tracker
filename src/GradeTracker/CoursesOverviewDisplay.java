@@ -86,7 +86,7 @@ public class CoursesOverviewDisplay extends Application {
         });
 
         overviewBorderPane.setBottom(btnFinish);
-        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT); //sdfjkl
         //---------------------------------------------------------------------------------------
 
         Scene overviewScene = new Scene(overviewBorderPane, 1000, 500);
