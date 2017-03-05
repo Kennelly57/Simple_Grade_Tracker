@@ -1,0 +1,18 @@
+.root {
+    -fx-font-size: 16pt;
+    -fx-font-family: "Times New Roman";
+    -fx-base: rgb(116, 158, 224);
+    -fx-background: rgb(208, 215, 226);
+}
+
+#dataPane {
+    -fx-border-color: antiquewhite;
+    -fx-grid-lines-visible: false;
+    -fx-background-color: palegreen; -fx-padding: 2; -fx-hgap: 2; -fx-vgap: 2;
+    -fx-snap-to-pixel: false;
+}
+
+#gridNodes {
+    -fx-background-color: aliceblue;
+    -fx-alignment: center;
+}
