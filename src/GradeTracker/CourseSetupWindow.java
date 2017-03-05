@@ -109,13 +109,7 @@ public class CourseSetupWindow extends Application {
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                univPrimaryStage.setScene(crsIDandNameScene);
-//                univPrimaryStage.show();
-
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(univPrimaryStage);
-                new AssignmentSetupWindow().start(dialog, "victory");
+                univPrimaryStage.hide();
 
 
 //                VBox dialogVbox = new VBox(20);
