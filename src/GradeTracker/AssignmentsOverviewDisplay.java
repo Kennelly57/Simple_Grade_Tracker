@@ -4,14 +4,14 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,6 +43,33 @@ public class AssignmentsOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         GridPane dataPane = generateOverviewPane(myAssignments);
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n: dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 6){
+                    control.setId("categories");
+                    columnCounter++;
+                }
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+
+        ColumnConstraints oneSixth = new ColumnConstraints();
+        oneSixth.setPercentWidth(100/6.0);
+        oneSixth.setHalignment(HPos.CENTER);
+        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100/2.0);
+        oneHalf.setValignment(VPos.CENTER);
+        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
         overviewBorderPane.setCenter(dataPane);
         overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
 
@@ -62,7 +89,12 @@ public class AssignmentsOverviewDisplay extends Application {
         overviewBorderPane.setBottom(btnFinish);
         overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
-        Scene overviewScene = new Scene(overviewBorderPane, 500, 350);
+
+        
+
+        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
+        dataPane.getStylesheets().add(css);
+        Scene overviewScene = new Scene(overviewBorderPane, 1400, 500);
         primaryStage.setScene(overviewScene);
         primaryStage.show();
     }
@@ -130,7 +162,8 @@ public class AssignmentsOverviewDisplay extends Application {
         dataGrid.add(pointsPosHeader, 1, 0);
         dataGrid.add(scorePtsHeader, 2, 0);
         dataGrid.add(scorePercentHeader, 3, 0);
-        dataGrid.add(weightedHeader, 4, 0);
+        dataGrid.add(weightHeader, 4, 0);
+        dataGrid.add(weightedHeader, 5, 0);
 
         // Generate Table of Course Values
         for (int i=0; i<myAssignments.size(); i++) {
