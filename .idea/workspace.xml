@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="075594a3-e05e-43f7-8f6f-fdcf747da563" name="Default" comment="Added drafts of assignment objects">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GradeTracker/Assignment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GradeTracker/AssignmentOverview.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GradeTracker/SampleAtomicAssignment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GradeTracker/SampleCompoundAssignment.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/GradeTracker/SampleFlexibleAssignment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$2.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$3.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/CourseSetupWindow.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/SampleCourse.class" afterPath="$PROJECT_DIR$/out/production/W17_CS257_Grade_Tracker/GradeTracker/SampleCourse.class" />
+    <list default="true" id="075594a3-e05e-43f7-8f6f-fdcf747da563" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/GradeTracker/AssignmentOverview.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java" afterPath="$PROJECT_DIR$/src/GradeTracker/CourseSetupWindow.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/GradeTracker/SampleCourse.java" afterPath="$PROJECT_DIR$/src/GradeTracker/SampleCourse.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -113,23 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SampleFlexibleAssignment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SampleFlexibleAssignment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/GradeTracker/SampleFlexibleAssignment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="420">
               <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AssignmentOverview.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentOverview.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="70" lean-forward="false" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -714,7 +692,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1488678460419</updated>
-      <workItem from="1488678464720" duration="7103000" />
+      <workItem from="1488678464720" duration="7331000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed window sizes so buttons don't get cut off under macOS.">
       <created>1488679023711</created>
@@ -723,11 +701,18 @@
       <option name="project" value="LOCAL" />
       <updated>1488679023711</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added drafts of assignment objects">
+      <created>1488685596292</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1488685596292</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7913000" />
+    <option name="totallyTimeSpent" value="8141000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="298" y="23" width="1443" height="973" extended-state="0" />
@@ -1033,20 +1018,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentOverview.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/GradeTracker/SampleFlexibleAssignment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GradeTracker/AssignmentOverview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="70" lean-forward="false" selection-start-line="5" selection-start-column="70" selection-end-line="5" selection-end-column="70" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
