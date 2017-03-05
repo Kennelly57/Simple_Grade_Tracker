@@ -4,8 +4,11 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -14,7 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
+import java.io.File;
 import java.util.*;
 import java.util.List;
 import java.util.Observable;
@@ -41,9 +44,34 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         GridPane dataPane = generateOverviewPane(myTermList);
-
         overviewBorderPane.setCenter(dataPane);
-        overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n: dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 3){
+                    control.setId("categories");
+                    columnCounter++;
+                }
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+
+        ColumnConstraints oneThird = new ColumnConstraints();
+        oneThird.setPercentWidth(100/3.0);
+        oneThird.setHalignment(HPos.CENTER);
+        dataPane.getColumnConstraints().addAll(oneThird, oneThird, oneThird);
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100/2.0);
+        oneHalf.setValignment(VPos.CENTER);
+        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
@@ -62,9 +90,12 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
-        Scene overviewScene = new Scene(overviewBorderPane, 500, 350);
+        Scene overviewScene = new Scene(overviewBorderPane, 1000, 500);
+        File f = new File("src/GradeTracker/basicStyle.css");
+        overviewScene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
         primaryStage.setScene(overviewScene);
         primaryStage.show();
+
     }
 
 
