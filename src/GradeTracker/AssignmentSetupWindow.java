@@ -39,7 +39,7 @@ public class AssignmentSetupWindow extends Application {
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Finalized");
+                primaryStage.hide();
             }
         });
 

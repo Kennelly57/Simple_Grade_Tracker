@@ -82,7 +82,7 @@ public class AssignmentsOverviewDisplay extends Application {
                 final Stage dialog = new Stage();
                 dialog.initModality(Modality.APPLICATION_MODAL);
                 dialog.initOwner(univPrimaryStage);
-                new CourseSetupWindow().start(dialog);
+                new AssignmentSetupWindow().start(dialog);
             }
         });
 
