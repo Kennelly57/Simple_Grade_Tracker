@@ -8,8 +8,8 @@ import java.util.*;
 public class ModelCourse {
     private String id;
     private String name;
-    private String grade;
     private int[] gradingScale;
+    private String[] grades;
 
     private Map<String, SampleAtomicAssignment> atomicAsssignmentCategories;
     private Map<String, SampleCompoundAssignment> compoundAsssignmentCategories;
@@ -23,6 +23,11 @@ public class ModelCourse {
     public ModelCourse(String courseId, String courseName, int[] gScale) {
         this.id = courseId;
         this.name = courseName;
+
+        this.grades = new String[] {"A+", "A", "A-",
+                "B+", "B", "B-",
+                "C+", "C", "C-",
+                "D+", "D", "D-",};
 
         //Is there a way to check that grading scale returns what we think it should?
         this.gradingScale = gScale;
@@ -53,8 +58,36 @@ public class ModelCourse {
         return this.name;
     }
 
+    public int[] getGradingScale() {
+        return gradingScale;
+    }
+
+    public void setGradingScale(int[] newGradingScale){
+        this.gradingScale = newGradingScale;
+    }
+
     public String getGrade() {
-        return this.grade;
+        double currentPerecentage = 0;
+        double percentageScore;
+        double weightedScore;
+        if (this.weightBalanced()){
+            for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
+                percentageScore = atomicAssignment.getPercentageScore();
+                weightedScore = percentageScore * assignmentCategoryWeights.get(atomicAssignment.getName());
+                currentPerecentage += weightedScore;
+            }
+
+            for (int i = 0; i < this.grades.length; i++) {
+                if (currentPerecentage > this.gradingScale[i]){
+                    return this.grades[i];
+                }
+            }
+            return "F";
+
+        } else{
+            return "ERROR";
+        }
+
     }
 
 
