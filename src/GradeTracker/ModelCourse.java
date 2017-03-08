@@ -38,13 +38,21 @@ public class ModelCourse implements Cloneable {
     }
 
     public ModelCourse clone(){
-        ModelCourse clone = new ModelCourse(this.id, this.name, this.gradingScale);
-        for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
-            SampleCompoundAssignment compoundAssignmentClone = compoundAssignment.clone();
-            clone().addCompoundAssignmentCategory();//FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
+        int weight;
+        ModelCourse modelClone = new ModelCourse(this.id, this.name, this.gradingScale);
+
+        for (SampleCompoundAssignment compoundAssignmentCategory : compoundAsssignmentCategories.values()) {
+            SampleCompoundAssignment compoundAssignmentClone = compoundAssignmentCategory.clone();
+            weight = assignmentCategoryWeights.get(compoundAssignmentClone.getName());
+            modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight);//FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
+        }
+        for (SampleAtomicAssignment atomicAssignmentCategory : atomicAsssignmentCategories.values()) {
+            SampleAtomicAssignment atomicAssignmentClone = atomicAssignmentCategory.clone();
+            weight = assignmentCategoryWeights.get(atomicAssignmentClone.getName());
+            modelClone.addAtomicAssignmentCategory(atomicAssignmentClone, weight);
         }
 
-        return clone;
+        return modelClone;
     }
 
     public String getId() {
@@ -115,6 +123,12 @@ public class ModelCourse implements Cloneable {
         return this.totalWeight == 100;
     }
 
+    protected void addAtomicAssignmentCategory(SampleAtomicAssignment atomicAssignment, Integer weight) {
+        totalWeight = totalWeight + weight;
+        atomicAsssignmentCategories.put(atomicAssignment.getName(), atomicAssignment);
+        assignmentCategoryWeights.put(atomicAssignment.getName(), weight);
+    }
+
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight){
         return addCompoundAssignmentCategory(assignmentCategoryName, weight, this.gradingScale);
     }
@@ -124,6 +138,13 @@ public class ModelCourse implements Cloneable {
         compoundAsssignmentCategories.put(assignmentCategoryName, new SampleCompoundAssignment(assignmentCategoryName, gScale));
         assignmentCategoryWeights.put(assignmentCategoryName, weight);
         return this.weightBalanced();
+    }
+
+    protected void addCompoundAssignmentCategory(SampleCompoundAssignment compoundAssignment, int weight){
+        String assignmentCategoryName = compoundAssignment.getName();
+        totalWeight = totalWeight + weight;
+        compoundAsssignmentCategories.put(assignmentCategoryName, compoundAssignment);
+        assignmentCategoryWeights.put(assignmentCategoryName, weight);
     }
 
     public boolean setAssignmentCategoryWeight(String assignmentCategoryName, int weight){
