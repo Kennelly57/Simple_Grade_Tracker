@@ -37,6 +37,7 @@ public class ModelCourse implements Cloneable {
         this.assignmentCategoryWeights = new TreeMap<String, Integer>();
     }
 
+    @Override
     public ModelCourse clone(){
         int weight;
         ModelCourse modelClone = new ModelCourse(this.id, this.name, this.gradingScale);
@@ -117,16 +118,14 @@ public class ModelCourse implements Cloneable {
 
     //WE NEED TO AVOID DUPLICATE NAMES
     public boolean addAtomicAssignmentCategory(String assignmentCategoryName, Integer weight) {
-        totalWeight = totalWeight + weight;
-        atomicAsssignmentCategories.put(assignmentCategoryName, new SampleAtomicAssignment(assignmentCategoryName));
-        assignmentCategoryWeights.put(assignmentCategoryName, weight);
-        return this.totalWeight == 100;
+        return addAtomicAssignmentCategory(new SampleAtomicAssignment(assignmentCategoryName), weight);
     }
 
-    protected void addAtomicAssignmentCategory(SampleAtomicAssignment atomicAssignment, Integer weight) {
+    protected boolean addAtomicAssignmentCategory(SampleAtomicAssignment atomicAssignment, Integer weight) {
         totalWeight = totalWeight + weight;
         atomicAsssignmentCategories.put(atomicAssignment.getName(), atomicAssignment);
         assignmentCategoryWeights.put(atomicAssignment.getName(), weight);
+        return this.totalWeight == 100;
     }
 
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight){
@@ -149,7 +148,7 @@ public class ModelCourse implements Cloneable {
 
     public boolean setAssignmentCategoryWeight(String assignmentCategoryName, int weight){
         if (assignmentCategoryWeights.containsKey(assignmentCategoryName)){
-            assignmentCategoryWeights.replace(assignmentCategoryName, weight);
+            assignmentCategoryWeights.put(assignmentCategoryName, weight);
             computeTotalWeight();
             return this.weightBalanced();
         }
@@ -164,6 +163,30 @@ public class ModelCourse implements Cloneable {
         compoundAsssignmentCategories.remove(assignmentCategoryName);
         totalWeight = totalWeight - weight;
         return this.weightBalanced();
+    }
+
+    public boolean addAtomicAssignmentToCompoundCategory(String categoryName, String assignmentName){
+        return addAtomicAssignmentToCompoundCategory(categoryName, new SampleAtomicAssignment(assignmentName));
+    }
+
+    public boolean addAtomicAssignmentToCompoundCategory(String categoryName, SampleAtomicAssignment atomicAssignment){
+        if (compoundAsssignmentCategories.containsKey(categoryName) &&
+                ! compoundAsssignmentCategories.get(categoryName).contains(atomicAssignment.getName())){
+            compoundAsssignmentCategories.get(categoryName).addAssignment(atomicAssignment);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeAssignmentFromCompoundCategory(String categoryName, String assignmentName){
+        if (compoundAsssignmentCategories.containsKey(categoryName) &&
+                ! compoundAsssignmentCategories.get(categoryName).contains(assignmentName)){
+            compoundAsssignmentCategories.get(categoryName).removeAssignment(assignmentName);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setAssignmentScore(String assignmentName, int score) {

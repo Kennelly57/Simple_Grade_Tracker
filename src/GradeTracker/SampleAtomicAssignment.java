@@ -18,6 +18,7 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         this.name = assignmentName;
     }
 
+    @Override
     public SampleAtomicAssignment clone(){
         SampleAtomicAssignment clone = new SampleAtomicAssignment(this.name);
         clone.setScore(this.name, this.pointsScore);
@@ -26,8 +27,6 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         if(this.completed){
             clone.completed();
         }
-
-
         return clone;
     }
 

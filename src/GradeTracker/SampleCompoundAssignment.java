@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleCompoundAssignment implements Assignment, Cloneable{
+public class SampleCompoundAssignment implements Assignment{
     private String name;
     private boolean completed;
     private int[] gradingScale;
@@ -21,6 +21,7 @@ public class SampleCompoundAssignment implements Assignment, Cloneable{
         subAssignmentMap = new HashMap<String, Assignment>();
     }
 
+    @Override
     public SampleCompoundAssignment clone(){
         SampleCompoundAssignment clone = new SampleCompoundAssignment(this.name, this.gradingScale);
         if (this.completed()){
