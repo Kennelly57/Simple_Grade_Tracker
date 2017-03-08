@@ -3,7 +3,7 @@ package GradeTracker;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleAtomicAssignment implements Assignment {
+public class SampleAtomicAssignment implements AssignmentViewable {
     private String name;
     private String grade;
     private double pointsPossible;
@@ -16,6 +16,18 @@ public class SampleAtomicAssignment implements Assignment {
     public SampleAtomicAssignment(String assignmentName){
         completed = false;
         this.name = assignmentName;
+    }
+
+    public boolean contains(String assignmentName){
+        return assignmentName.equalsIgnoreCase(this.name);
+    }
+
+    public boolean setScore(String assignmentName, int score){
+        if(assignmentName.equalsIgnoreCase(this.name)){
+            this.setPointsScore(score);
+            return true;
+        }
+        return false;
     }
 
     public void setName(String newName){

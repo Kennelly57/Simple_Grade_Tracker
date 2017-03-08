@@ -6,19 +6,29 @@ import java.util.Map;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleCompoundAssignment implements Assignment {
+public class SampleCompoundAssignment implements AssignmentViewable {
     private String name;
     private boolean completed;
     private int[] gradingScale;
 
     //Question: How do we deal with points based vs percentage based weighting
     private Boolean compound;
-    private Map<String, Assignment> subAssignmentMap;
+    private Map<String, AssignmentViewable> subAssignmentMap;
 
-    public SampleCompoundAssignment(int[] newGradingScale){
+    public SampleCompoundAssignment(String name, int[] newGradingScale){
         completed = false;
+        this.name = name;
         this.gradingScale = newGradingScale;//CAN WE TEST TO VERIFY THIS IS CORRECTLY FORMATED
-        subAssignmentMap = new HashMap<String, Assignment>();
+        subAssignmentMap = new HashMap<String, AssignmentViewable>();
+    }
+
+    public boolean contains(String assignmentName){
+        for (AssignmentViewable subAssignment: subAssignmentMap.values()) {
+            if(subAssignment.contains(assignmentName)){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void setName(String newName){
@@ -45,9 +55,9 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsPossible(){
         double pointsPossibleSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
-            if(subAssignment.completed()){
-                pointsPossibleSum += subAssignment.getPointsPossible();
+        for (AssignmentViewable subAssignmentViewable : subAssignmentMap.values()) {
+            if(subAssignmentViewable.completed()){
+                pointsPossibleSum += subAssignmentViewable.getPointsPossible();
             }
         }
         return pointsPossibleSum;
@@ -56,9 +66,9 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsScore(){
         double pointsAchievedSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
-            if(subAssignment.completed()){
-                pointsAchievedSum += subAssignment.getPointsScore();
+        for (AssignmentViewable subAssignmentViewable : subAssignmentMap.values()) {
+            if(subAssignmentViewable.completed()){
+                pointsAchievedSum += subAssignmentViewable.getPointsScore();
             }
         }
         return pointsAchievedSum;
@@ -68,10 +78,10 @@ public class SampleCompoundAssignment implements Assignment {
     public double getPercentageScore(){
         double pointsPossibleSum = 0;
         double pointsAchievedSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
-            if(subAssignment.completed()){
-                pointsPossibleSum += subAssignment.getPointsPossible();
-                pointsAchievedSum += subAssignment.getPointsScore();
+        for (AssignmentViewable subAssignmentViewable : subAssignmentMap.values()) {
+            if(subAssignmentViewable.completed()){
+                pointsPossibleSum += subAssignmentViewable.getPointsPossible();
+                pointsAchievedSum += subAssignmentViewable.getPointsScore();
             }
         }
         return pointsAchievedSum/pointsPossibleSum;
@@ -87,13 +97,26 @@ public class SampleCompoundAssignment implements Assignment {
         return -1;
     }
 
-    public void addAssignment(Assignment newAssignment){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF DUPLICATE NAMES!
-        subAssignmentMap.put(newAssignment.getName(), newAssignment);
+    public void addAssignment(AssignmentViewable newAssignmentViewable){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF DUPLICATE NAMES!
+        subAssignmentMap.put(newAssignmentViewable.getName(), newAssignmentViewable);
     }
 
-    public Assignment getAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
-        Assignment target = subAssignmentMap.get(targetName);
+
+    public AssignmentViewable getAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
+        AssignmentViewable target = subAssignmentMap.get(targetName);
         return target;
+    }
+
+    public boolean setScore(String assignmentName, int score) {
+        if (this.contains(assignmentName)){
+            for (AssignmentViewable subAssignment : subAssignmentMap.values()) {
+                if (subAssignment.contains(assignmentName)){
+                    subAssignment.setScore(assignmentName, score);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void removeAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
