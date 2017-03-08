@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by michelsd on 3/4/17.
  */
-public class ModelCourse {
+public class ModelCourse implements Cloneable {
     private String id;
     private String name;
     private int[] gradingScale;
@@ -37,6 +37,15 @@ public class ModelCourse {
         this.assignmentCategoryWeights = new TreeMap<String, Integer>();
     }
 
+    public ModelCourse clone(){
+        ModelCourse clone = new ModelCourse(this.id, this.name, this.gradingScale);
+        for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
+            SampleCompoundAssignment compoundAssignmentClone = compoundAssignment.clone();
+            clone().addCompoundAssignmentCategory();//FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
+        }
+
+        return clone;
+    }
 
     public String getId() {
         return this.id;
@@ -66,14 +75,21 @@ public class ModelCourse {
         this.gradingScale = newGradingScale;
     }
 
-    public String getGrade() {
+    public String getGrade() { //THIS DOESN'T ACCOUNT FOR INCOMPLETE ASSIGNMENTS
         double currentPerecentage = 0;
+        double currentPossible = 0;
         double percentageScore;
         double weightedScore;
         if (this.weightBalanced()){
             for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
                 percentageScore = atomicAssignment.getPercentageScore();
                 weightedScore = percentageScore * assignmentCategoryWeights.get(atomicAssignment.getName());
+                currentPerecentage += weightedScore;
+            }
+
+            for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
+                percentageScore = compoundAssignment.getPercentageScore();
+                weightedScore = percentageScore * assignmentCategoryWeights.get(compoundAssignment.getName());
                 currentPerecentage += weightedScore;
             }
 
@@ -136,7 +152,7 @@ public class ModelCourse {
         } else {//ADD ERROR CHECKING!!!
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.contains(assignmentName)){
-                    AssignmentViewable assignment = assignmentCategory.getAssignment(assignmentName);
+                    Assignment assignment = assignmentCategory.getAssignment(assignmentName);
                 }
             }
         }

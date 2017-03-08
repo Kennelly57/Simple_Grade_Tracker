@@ -32,15 +32,15 @@ public class AssignmentsOverviewDisplay extends Application {
 
     public void start(Stage primaryStage, String courseName) {
 
-        List<AssignmentViewable> myAssignmentViewables = makeDemoAssignmentList();
+        List<Assignment> myAssignments = makeDemoAssignmentList();
 
         BorderPane overviewBorderPane = new BorderPane();
         overviewBorderPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Courses --> ".concat(courseName).concat(":"));
         overviewBorderPane.setTop(setupTitle);
-        overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        GridPane dataPane = generateOverviewPane(myAssignmentViewables);
+        GridPane dataPane = generateOverviewPane(myAssignments);
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n: dataPane.getChildren()) {
@@ -69,7 +69,7 @@ public class AssignmentsOverviewDisplay extends Application {
         oneHalf.setValignment(VPos.CENTER);
         dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
         overviewBorderPane.setCenter(dataPane);
-        overviewBorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
@@ -85,7 +85,7 @@ public class AssignmentsOverviewDisplay extends Application {
         });
 
         overviewBorderPane.setBottom(btnFinish);
-        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
         
@@ -97,8 +97,8 @@ public class AssignmentsOverviewDisplay extends Application {
         primaryStage.show();
     }
 
-    private List<AssignmentViewable> makeDemoAssignmentList() {
-        List<AssignmentViewable> myAssignmentViewables = new ArrayList<AssignmentViewable>();
+    private List<Assignment> makeDemoAssignmentList() {
+        List<Assignment> myAssignments = new ArrayList<Assignment>();
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
         midtermExams.setPointsPossible(300);
@@ -133,16 +133,16 @@ public class AssignmentsOverviewDisplay extends Application {
         finalExam.setWeight(.571);
         finalExam.calculateWeightedScore();
 
-        myAssignmentViewables.add(midtermExams);
-        myAssignmentViewables.add(problemSets);
-        myAssignmentViewables.add(articleDiscussion);
-        myAssignmentViewables.add(participation);
-        myAssignmentViewables.add(finalExam);
-        return myAssignmentViewables;
+        myAssignments.add(midtermExams);
+        myAssignments.add(problemSets);
+        myAssignments.add(articleDiscussion);
+        myAssignments.add(participation);
+        myAssignments.add(finalExam);
+        return myAssignments;
     }
 
 
-    public GridPane generateOverviewPane(List<AssignmentViewable> myAssignmentViewables){
+    public GridPane generateOverviewPane(List<Assignment> myAssignments){
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
         dataGrid.setVgap(10);
@@ -164,23 +164,23 @@ public class AssignmentsOverviewDisplay extends Application {
         dataGrid.add(weightedHeader, 5, 0);
 
         // Generate Table of Course Values
-        for (int i = 0; i< myAssignmentViewables.size(); i++) {
-            Label tempName = new Label(myAssignmentViewables.get(i).getName());
+        for (int i = 0; i< myAssignments.size(); i++) {
+            Label tempName = new Label(myAssignments.get(i).getName());
             dataGrid.add(tempName, 0, i+1);
 
-            Label tempPointsPos = new Label(Double.toString(myAssignmentViewables.get(i).getPointsPossible()));
+            Label tempPointsPos = new Label(Double.toString(myAssignments.get(i).getPointsPossible()));
             dataGrid.add(tempPointsPos, 1, i+1);
 
-            Label tempPointsScore = new Label(Double.toString(myAssignmentViewables.get(i).getPointsScore()));
+            Label tempPointsScore = new Label(Double.toString(myAssignments.get(i).getPointsScore()));
             dataGrid.add(tempPointsScore, 2, i+1);
 
-            Label tempPercentScore = new Label(Double.toString(myAssignmentViewables.get(i).getPercentageScore()));
+            Label tempPercentScore = new Label(Double.toString(myAssignments.get(i).getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i+1);
 
-            Label tempWeight = new Label(Double.toString(myAssignmentViewables.get(i).getWeight()));
+            Label tempWeight = new Label(Double.toString(myAssignments.get(i).getWeight()));
             dataGrid.add(tempWeight, 4, i+1);
 
-            Label tempWeightedScore = new Label(Double.toString(myAssignmentViewables.get(i).getWeightedScore()));
+            Label tempWeightedScore = new Label(Double.toString(myAssignments.get(i).getWeightedScore()));
             dataGrid.add(tempWeightedScore, 5, i+1);
         }
 

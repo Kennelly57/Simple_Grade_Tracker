@@ -39,7 +39,7 @@ public class CourseSetupWindow extends Application {
         crsIDandNamePane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Set up a new Course:");
         crsIDandNamePane.setTop(setupTitle);
-        crsIDandNamePane.setAlignment(setupTitle, Pos.CENTER);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         crsIDandNameScene = new Scene(crsIDandNamePane, 350, 200);
 
@@ -76,7 +76,7 @@ public class CourseSetupWindow extends Application {
         });
 
         crsIDandNamePane.setBottom(btnNext);
-        crsIDandNamePane.setAlignment(btnNext, Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(btnNext, Pos.BOTTOM_RIGHT);
         //crsIDandNamePane.setMargin(btnNext, new Insets(0, 15, 15, 0));
         //---------------------------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ public class CourseSetupWindow extends Application {
         setupGradesPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Set up a new Course:");
         setupGradesPane.setTop(setupTitle);
-        setupGradesPane.setAlignment(setupTitle, Pos.CENTER);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         gradeDistributionScene = new Scene(setupGradesPane, 400, 575);
 

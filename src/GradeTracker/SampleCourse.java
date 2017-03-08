@@ -10,7 +10,7 @@ public class SampleCourse {
     private String name;
     private String grade;
     private float[] gradingScale;
-    private List<AssignmentViewable> assignmentViewables;
+    private List<Assignment> assignments;
 
     public SampleCourse(String courseId, String courseName, String courseGrade) {
         this.id = courseId;
@@ -19,7 +19,7 @@ public class SampleCourse {
         this.gradingScale = new float[12];
     }
 
-    public SampleCourse(String courseId, String courseName, String courseGrade, float[] gScale, List<AssignmentViewable> assignmentViewableList) {
+    public SampleCourse(String courseId, String courseName, String courseGrade, float[] gScale, List<Assignment> assignmentList) {
         this.id = courseId;
         this.name = courseName;
         this.grade = courseGrade;
@@ -27,7 +27,7 @@ public class SampleCourse {
         //Is there a way to check that grading scale returns what we think it should?
         this.gradingScale = gScale;
 
-        this.assignmentViewables = assignmentViewableList;
+        this.assignments = assignmentList;
     }
 
 

@@ -28,7 +28,7 @@ public class AssignmentSetupWindow extends Application {
         aswBorderPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Create a new ".concat(setupType).concat(":"));
         aswBorderPane.setTop(setupTitle);
-        aswBorderPane.setAlignment(setupTitle, Pos.CENTER);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         GridPane dataPane = generateAssignmentCreationPane();
         aswBorderPane.setCenter(dataPane);
@@ -44,7 +44,7 @@ public class AssignmentSetupWindow extends Application {
         });
 
         aswBorderPane.setBottom(btnFinish);
-        aswBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
         Scene aswScene = new Scene(aswBorderPane, 450, 350);
@@ -88,7 +88,7 @@ public class AssignmentSetupWindow extends Application {
         btnSubItemsNo.setToggleGroup(subItemsToggle);
 
         HBox subItemsHbox = new HBox();
-        subItemsHbox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
+        HBox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
         subItemsHbox.getChildren().add(btnSubItemsYes);
         subItemsHbox.getChildren().add(btnSubItemsNo);
 
@@ -99,7 +99,7 @@ public class AssignmentSetupWindow extends Application {
         VBox relevantFieldsVBox = new VBox();
         Text relFieldsLabel = new Text("Relevant Fields");
         relevantFieldsVBox.getChildren().add(relFieldsLabel);
-        relevantFieldsVBox.setMargin(relFieldsLabel, new Insets(10,0,10,0));
+        VBox.setMargin(relFieldsLabel, new Insets(10,0,10,0));
 
         CheckBox pointsPossibleCB = new CheckBox("Points Possible");
         CheckBox scorePointsCB = new CheckBox("Score (points)");

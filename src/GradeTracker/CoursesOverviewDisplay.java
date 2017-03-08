@@ -40,7 +40,7 @@ public class CoursesOverviewDisplay extends Application {
         overviewBorderPane.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Your courses for ".concat(termName).concat(":"));
         overviewBorderPane.setTop(setupTitle);
-        overviewBorderPane.setAlignment(setupTitle, Pos.CENTER);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         GridPane dataPane = generateOverviewPane(myTermList);
         overviewBorderPane.setCenter(dataPane);
@@ -86,7 +86,7 @@ public class CoursesOverviewDisplay extends Application {
         });
 
         overviewBorderPane.setBottom(btnFinish);
-        overviewBorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
         Scene overviewScene = new Scene(overviewBorderPane, 1000, 500);
