@@ -1,5 +1,8 @@
-package GradeTracker;
+package GradeTracker.Overviews;
 
+import GradeTracker.Assignment;
+import GradeTracker.Samples.SampleAtomicAssignment;
+import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -1,5 +1,8 @@
 package GradeTracker;
 
+import GradeTracker.Samples.SampleAtomicAssignment;
+import GradeTracker.Samples.SampleCompoundAssignment;
+
 import java.util.*;
 
 /**

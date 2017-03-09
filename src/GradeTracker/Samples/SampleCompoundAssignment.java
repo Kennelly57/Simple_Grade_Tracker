@@ -1,4 +1,6 @@
-package GradeTracker;
+package GradeTracker.Samples;
+
+import GradeTracker.Assignment;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +8,7 @@ import java.util.Map;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleCompoundAssignment implements Assignment{
+public class SampleCompoundAssignment implements Assignment {
     private String name;
     private boolean completed;
     private int[] gradingScale;

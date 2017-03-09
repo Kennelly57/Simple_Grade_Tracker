@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.Samples;
 import java.util.*;
 
 /**

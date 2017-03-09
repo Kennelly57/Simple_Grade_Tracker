@@ -1,4 +1,6 @@
-package GradeTracker;
+package GradeTracker.Samples;
+
+import GradeTracker.Assignment;
 
 import java.util.List;
 

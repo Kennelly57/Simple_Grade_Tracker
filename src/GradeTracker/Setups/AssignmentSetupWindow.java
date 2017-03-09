@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.Setups;
 
 
 import javafx.application.Application;

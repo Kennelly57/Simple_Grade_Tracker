@@ -1,7 +1,9 @@
-package GradeTracker;
+package GradeTracker.Overviews;
 
+import GradeTracker.Setups.CourseSetupWindow;
+import GradeTracker.Samples.SampleCourse;
+import GradeTracker.Samples.SampleTerm;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -17,10 +19,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.util.*;
 import java.util.List;
-import java.util.Observable;
 
 public class CoursesOverviewDisplay extends Application {
     private Stage univPrimaryStage;
