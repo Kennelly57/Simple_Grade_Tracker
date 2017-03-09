@@ -80,11 +80,22 @@ public class GTModel {
         return false;
     }
 
-    public void setAssignmentScore(String courseID, String assignmentName, int score) {
+    public boolean setAssignmentScore(String courseID, String assignmentName, int score) {
         if(this.courseMap.containsKey(courseID)){
-            this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
+            return this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
+        } else {
+            return false;
         }
     }
+
+    public boolean setAssignmentPointsPossible(String courseID, String assignmentName, double pointsPossible) {
+        if(this.courseMap.containsKey(courseID)) {
+            return this.courseMap.get(courseID).setAssignmentPointsPossible(assignmentName, pointsPossible);
+        } else {
+            return false;
+        }
+    }
+
     //-------------------------------------------------------------------------------------------------------------
 
     //----------------------------------------OBSERVER PATTERN METHODS---------------------------------------------

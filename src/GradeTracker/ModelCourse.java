@@ -192,16 +192,18 @@ public class ModelCourse implements Cloneable {
         }
     }
 
-    public void setAssignmentScore(String assignmentName, int score) {
+    public boolean setAssignmentScore(String assignmentName, int score) {
         if (atomicAsssignmentCategories.containsKey(assignmentName)) {
             SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
-            assignment.setPointsScore(score);
+            return assignment.setScore(assignmentName, score);
         } else {//ADD ERROR CHECKING!!!
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.contains(assignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(assignmentName);
+                    return assignment.setScore(assignmentName, score);
                 }
             }
+            return false;
         }
     }
 
