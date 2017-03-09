@@ -29,6 +29,7 @@ public class GTModel {
         if (! courseMap.containsKey(courseID)) {
             ModelCourse courseToAdd = new ModelCourse(courseID, courseName, gScale);
             courseMap.put(courseID, courseToAdd);
+            this.updateCourse(courseID);
             return true;
         }
         return false;
@@ -37,6 +38,7 @@ public class GTModel {
     public boolean removeCourse(String courseID){
         if (courseMap.containsKey(courseID)){
             courseMap.remove(courseID);
+            this.updateCourse(courseID);
             return true;
         }
         return false;
@@ -46,6 +48,7 @@ public class GTModel {
     //-------------------------------------COURSE PASS-THROUGH METHODS---------------------------------------------
     public boolean addAtomicAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             return courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
         } else {
             return false;
@@ -54,6 +57,7 @@ public class GTModel {
 
     public boolean addCompoundAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             return courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
         } else {
             return false;
@@ -62,12 +66,14 @@ public class GTModel {
 
     public void setGradingScale(String courseID, int[] newGradingScale){
         if(this.courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             this.courseMap.get(courseID).setGradingScale(newGradingScale);
         }
     }
 
     public boolean setAssignmentCategoryWeight(String courseID, String assignmentCategoryName, int weight){
         if(this.courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             return this.courseMap.get(courseID).setAssignmentCategoryWeight(assignmentCategoryName, weight);
         }
         return false;
@@ -75,6 +81,7 @@ public class GTModel {
 
     public boolean removeAssignmentCategory(String courseID, String assignmentCategoryName) {
         if(this.courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             return this.courseMap.get(courseID).removeAssignmentCategory(assignmentCategoryName);
         }
         return false;
@@ -82,6 +89,7 @@ public class GTModel {
 
     public boolean setAssignmentScore(String courseID, String assignmentName, int score) {
         if(this.courseMap.containsKey(courseID)){
+            this.updateCourse(courseID);
             return this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
         } else {
             return false;
@@ -90,6 +98,7 @@ public class GTModel {
 
     public boolean setAssignmentPointsPossible(String courseID, String assignmentName, double pointsPossible) {
         if(this.courseMap.containsKey(courseID)) {
+            this.updateCourse(courseID);
             return this.courseMap.get(courseID).setAssignmentPointsPossible(assignmentName, pointsPossible);
         } else {
             return false;
@@ -116,6 +125,7 @@ public class GTModel {
     }
 
     public Map<String, ModelCourse> getLatestCourses(){
+        System.out.println("Sending latestCourses");
         return latestCourses;
     }
 

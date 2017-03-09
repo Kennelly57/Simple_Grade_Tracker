@@ -1,6 +1,9 @@
 package GradeTracker.Overviews;
 
 import GradeTracker.Assignment;
+import GradeTracker.GTModel;
+import GradeTracker.GTObserver;
+import GradeTracker.ModelCourse;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCourse;
@@ -25,18 +28,27 @@ import javafx.stage.Stage;
 
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by michelsd on 3/8/17.
  */
-public class MainDisplay extends Application {
+public class MainDisplay extends Application implements GTObserver {
     public static Stage univPrimaryStage;
     private double numberOfCourses = 3;
+    private GTModel model;
+    private Map<String, ModelCourse> latestCourses;
+    private boolean upToDate;
 
     @Override
     public void start(Stage primaryStage) {
         univPrimaryStage = primaryStage;
+        model = new GTModel();
+        model.registerObserver(this);
+        this.updateCourses();
+
         showCourses();
     }
 
@@ -100,6 +112,7 @@ public class MainDisplay extends Application {
     }
 
     public void showCourses() {
+        this.updateCourses();
 
         // Temp, demo term
         SampleTerm myTerm = new SampleTerm("WI2017");
@@ -157,10 +170,18 @@ public class MainDisplay extends Application {
     }
 
     public void showCategories() {
+        this.updateCourses();
+
+        List<Assignment> myAssignments = new LinkedList<Assignment>();
+        for (Assignment assignmentCat: latestCourses.get("TEST 101").getAtomicAssignmentCategories().values()) {
+            myAssignments.add(assignmentCat);
+        }
+        System.out.println("List Complete");
+
         // Temp, demo term
         SampleTerm myTerm = new SampleTerm("WI2017");
         List<SampleCourse> myTermList = myTerm.getCourses();
-        List<Assignment> myAssignments = makeDemoAssignmentList();
+        //List<Assignment> myAssignments = makeDemoAssignmentList();
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -201,6 +222,8 @@ public class MainDisplay extends Application {
     }
 
     public void showAssignments() {
+        this.updateCourses();
+
         // Temp, demo term
         SampleTerm myTerm = new SampleTerm("WI2017");
         List<SampleCourse> myTermList = myTerm.getCourses();
@@ -243,13 +266,31 @@ public class MainDisplay extends Application {
     private List<Assignment> makeDemoAssignmentList() {
         List<Assignment> myAssignments = new ArrayList<Assignment>();
 
+        String courseID = "TEST 101";
+        System.out.println("ASSEMBLED COURSE");
+        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
+
+        this.model.addCourse(courseID, "Test Course", gScale);
+
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
+
+        this.model.addAtomicAssignmentCategory(courseID, "Midterm Exams", 42);
+        this.model.setAssignmentPointsPossible(courseID, "Midterm Exams", 300);
+        this.model.setAssignmentScore(courseID, "Midterm Exams", 210);
+
+        System.out.println("ASSEMBLED Assignment");
+
         midtermExams.setPointsPossible(300);
         midtermExams.setPercentageScore(.695);
         midtermExams.setWeight(.4286);
         midtermExams.calculateWeightedScore();
 
         SampleAtomicAssignment problemSets = new SampleAtomicAssignment("Problem Sets");
+
+        this.model.addAtomicAssignmentCategory(courseID, "Problem Sets", 22);
+        this.model.setAssignmentPointsPossible(courseID, "Problem Sets", 160);
+        this.model.setAssignmentScore(courseID, "Problem Sets", 125);
+
         problemSets.setPointsPossible(160);
         problemSets.setPercentageScore(.818);
         problemSets.setWeight(.2286);
@@ -262,6 +303,11 @@ public class MainDisplay extends Application {
         articleDiscussion.setWeight(.571);
         articleDiscussion.calculateWeightedScore();
 
+        this.model.addAtomicAssignmentCategory(courseID, "Article Discussion", 31);
+        this.model.setAssignmentPointsPossible(courseID, "Article Discussion", 50);
+        this.model.setAssignmentScore(courseID, "Article Discussion", 50);
+
+
         SampleAtomicAssignment participation = new SampleAtomicAssignment("Participation");
         participation.setPointsPossible(50);
         participation.setPointsScore(50);
@@ -269,12 +315,32 @@ public class MainDisplay extends Application {
         participation.setWeight(.714);
         participation.calculateWeightedScore();
 
+        this.model.addAtomicAssignmentCategory(courseID, "Participation", 25);
+        this.model.setAssignmentPointsPossible(courseID, "Participation", 40);
+        this.model.setAssignmentScore(courseID, "Participation", 40);
+
+
         SampleAtomicAssignment finalExam = new SampleAtomicAssignment("Final Exam");
         finalExam.setPointsPossible(40);
         finalExam.setPointsScore(40);
         finalExam.calculatePercentageScore();
         finalExam.setWeight(.571);
         finalExam.calculateWeightedScore();
+
+        this.model.addAtomicAssignmentCategory(courseID, "Final Exam", 22);
+        this.model.setAssignmentPointsPossible(courseID, "Final Exam", 40);
+        this.model.setAssignmentScore(courseID, "Final Exam", 40);
+
+        this.updateCourses();
+        System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
+
+        System.out.println(latestCourses.get(courseID).getName());
+
+
+        for (Assignment assignmentCat: latestCourses.get(courseID).getAtomicAssignmentCategories().values()) {
+            System.out.println(assignmentCat.getName());
+        }
+
 
         myAssignments.add(midtermExams);
         myAssignments.add(problemSets);
@@ -286,5 +352,18 @@ public class MainDisplay extends Application {
 
     public void setNumberOfCourses(){
         numberOfCourses = numberOfCourses + 1.0;
+    }
+
+    public void notifyOfChange() {
+        this.upToDate = false;
+        System.out.println("Notified of change");
+    }
+
+    private void updateCourses(){
+        if (! this.upToDate) {
+            this.latestCourses = this.model.getLatestCourses();
+            this.upToDate = true;
+            System.out.println("Updated Courses");
+        }
     }
 }
