@@ -48,7 +48,7 @@ public class ModelCourse implements Cloneable {
         for (SampleCompoundAssignment compoundAssignmentCategory : compoundAsssignmentCategories.values()) {
             SampleCompoundAssignment compoundAssignmentClone = compoundAssignmentCategory.clone();
             weight = assignmentCategoryWeights.get(compoundAssignmentClone.getName());
-            modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight);//FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
+            modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight); //FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
         }
         for (SampleAtomicAssignment atomicAssignmentCategory : atomicAsssignmentCategories.values()) {
             SampleAtomicAssignment atomicAssignmentClone = atomicAssignmentCategory.clone();

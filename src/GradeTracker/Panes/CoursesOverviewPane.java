@@ -1,12 +1,8 @@
 package GradeTracker.Panes;
 
-import GradeTracker.Overviews.AssignmentsOverviewDisplay;
-import GradeTracker.Overviews.CoursesOverviewDisplay;
 import GradeTracker.Samples.SampleCourse;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 import java.util.List;
@@ -15,6 +11,7 @@ import java.util.List;
  * Created by goodelld on 3/8/17.
  */
 public class CoursesOverviewPane {
+    // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 
     private GridPane root;
 
@@ -46,12 +43,9 @@ public class CoursesOverviewPane {
             final String idStr = myTermList.get(i).getId();
             Label tempID = new Label(idStr);
 
-            tempID.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    AssignmentsOverviewDisplay newDisplay = new AssignmentsOverviewDisplay();
-                    newDisplay.start(CoursesOverviewDisplay.getUnivPrimaryStage());
-                }
+            tempID.setOnMouseClicked((MouseEvent) -> {
+                // send itself to controller
+
             });
 
             dataGrid.add(tempID, 0, i + 1);
