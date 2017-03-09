@@ -87,6 +87,15 @@ public class ModelCourse implements Cloneable {
         this.gradingScale = newGradingScale;
     }
 
+    public Map<String, SampleAtomicAssignment> getAtomicAssignmentCategories(){
+        return atomicAsssignmentCategories;
+    }
+    public Map<String, SampleCompoundAssignment> getCompoundAssignmentCategories(){
+        return compoundAsssignmentCategories;
+    }
+    public Map<String, Integer> getCategoryWeights(){
+        return assignmentCategoryWeights;
+    }
     public String getGrade() { //THIS DOESN'T ACCOUNT FOR INCOMPLETE ASSIGNMENTS
         double currentPerecentage = 0;
         double currentPossible = 0;
