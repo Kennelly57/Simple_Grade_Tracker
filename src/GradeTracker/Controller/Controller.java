@@ -22,8 +22,6 @@ public class Controller implements ControllerInterface {
 }
 
 
-
-
 //
 //public class BeatController implements ControllerInterface {
 //    BeatModelInterface model;

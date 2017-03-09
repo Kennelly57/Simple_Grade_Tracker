@@ -17,41 +17,53 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AssignmentSetupWindow extends Application {
+
+    public static Stage stage;
+
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         start(primaryStage, "assignment");
     }
 
     public void start(Stage primaryStage, String setupType) {
-        primaryStage.setTitle(setupType.concat(" creation"));
-
-        BorderPane aswBorderPane = new BorderPane();
-        aswBorderPane.setPadding(new Insets(15, 15, 15, 25));
-        Text setupTitle = new Text("Create a new ".concat(setupType).concat(":"));
-        aswBorderPane.setTop(setupTitle);
-        BorderPane.setAlignment(setupTitle, Pos.CENTER);
-
-        GridPane dataPane = new CreateAssignmentPane().getRoot();
-        aswBorderPane.setCenter(dataPane);
-
-        //------------------------------CREATE_FINALIZE_BUTTON-----------------------------------
-        Button btnFinish = new Button();
-        btnFinish.setText("Create");
-        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                primaryStage.hide();
-            }
-        });
-
-        aswBorderPane.setBottom(btnFinish);
-        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
-        //---------------------------------------------------------------------------------------
-
+        stage = primaryStage;
+        stage.setTitle(setupType.concat(" creation"));
+        BorderPane aswBorderPane = new CreateAssignmentPane(setupType).getRoot();
         Scene aswScene = new Scene(aswBorderPane, 450, 350);
-        primaryStage.setScene(aswScene);
-        primaryStage.show();
+        stage.setScene(aswScene);
+        stage.show();
     }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+
+//------------------------------PREVIOUSLY IN START--------------------------------------------
+//        BorderPane aswBorderPane = new BorderPane();
+//        aswBorderPane.setPadding(new Insets(15, 15, 15, 25));
+//        Text setupTitle = new Text("Create a new ".concat(setupType).concat(":"));
+//        aswBorderPane.setTop(setupTitle);
+//        BorderPane.setAlignment(setupTitle, Pos.CENTER);
+//
+//        GridPane dataPane = new CreateAssignmentPane().getRoot();
+//        aswBorderPane.setCenter(dataPane);
+//
+//        //------------------------------CREATE_FINALIZE_BUTTON------------------------
+//        Button btnFinish = new Button();
+//        btnFinish.setText("Create");
+//        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent event) {
+//                primaryStage.hide();
+//            }
+//        });
+//
+//        aswBorderPane.setBottom(btnFinish);
+//        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+//        //----------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------
+
 
 //    public GridPane generateAssignmentCreationPane(){
 //        GridPane dataGrid = new CreateAssignmentPane().getRoot();
@@ -95,5 +107,3 @@ public class AssignmentSetupWindow extends Application {
 //        return relevantFieldsVBox;
 //    }
 
-    public static void main(String[] args) {launch(args);}
-}

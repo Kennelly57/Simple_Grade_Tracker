@@ -7,9 +7,6 @@ import javafx.scene.layout.GridPane;
 
 import java.util.List;
 
-/**
- * Created by goodelld on 3/8/17.
- */
 public class CoursesOverviewPane {
     // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 

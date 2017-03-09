@@ -1,28 +1,60 @@
 package GradeTracker.Panes;
 
+import GradeTracker.Setups.AssignmentSetupWindow;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class CreateAssignmentPane {
 
-    private GridPane root;
+    private BorderPane root;
 
-    public CreateAssignmentPane() {
-        root = generateAssignmentCreationPane();
+    public CreateAssignmentPane(String setupType) {
+        root = new BorderPane();
+        root.setPadding(new Insets(15, 15, 15, 25));
+        Text setupTitle = new Text("Create a new ".concat(setupType).concat(":"));
+        root.setTop(setupTitle);
+        BorderPane.setAlignment(setupTitle, Pos.CENTER);
+        GridPane dataGrid = generateGridPane();
+        root.setCenter(dataGrid);
+
+        Button btnFinish = generateButton();
+
+        root.setBottom(btnFinish);
+        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+
+
     }
 
-    public GridPane getRoot() {
+    private Button generateButton() {
+        Button btnFinish = new Button();
+        btnFinish.setText("Create");
+        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage stage = AssignmentSetupWindow.stage;
+                stage.hide();
+            }
+        });
+        return btnFinish;
+    }
+
+    public BorderPane getRoot() {
         return root;
     }
 
-    private GridPane generateAssignmentCreationPane() {
+    private GridPane generateGridPane() {
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -81,8 +113,8 @@ public class CreateAssignmentPane {
         List<CheckBox> cbList = Arrays.asList(
                 pointsPossibleCB, scorePointsCB, scorePercentCB,
                 weightCB, weightedScoreCB);
-        for(int i = 0; i < cbList.size(); i++){
-            relevantFieldsVBox.getChildren().add(cbList.get(i));
+        for (CheckBox box : cbList) {
+            relevantFieldsVBox.getChildren().add(box);
         }
 
         return relevantFieldsVBox;

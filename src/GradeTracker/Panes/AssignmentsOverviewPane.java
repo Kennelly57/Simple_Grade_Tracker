@@ -2,8 +2,13 @@ package GradeTracker.Panes;
 
 
 import GradeTracker.Assignment;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import java.util.List;
@@ -13,15 +18,16 @@ public class AssignmentsOverviewPane {
 
     private GridPane root;
 
-    public AssignmentsOverviewPane(List<Assignment> myAssignments){
-        root = generateOverviewPane(myAssignments);
+    public AssignmentsOverviewPane(List<Assignment> myAssignments) {
+        root = generateGridPane(myAssignments);
+
     }
 
     public GridPane getRoot() {
         return root;
     }
 
-    private GridPane generateOverviewPane(List<Assignment> myAssignments){
+    private GridPane generateGridPane(List<Assignment> myAssignments) {
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
         dataGrid.setVgap(10);
@@ -43,26 +49,27 @@ public class AssignmentsOverviewPane {
         dataGrid.add(weightedHeader, 5, 0);
 
         // Generate Table of Course Values
-        for (int i = 0; i< myAssignments.size(); i++) {
+        for (int i = 0; i < myAssignments.size(); i++) {
             Label tempName = new Label(myAssignments.get(i).getName());
-            dataGrid.add(tempName, 0, i+1);
+            dataGrid.add(tempName, 0, i + 1);
 
             Label tempPointsPos = new Label(Double.toString(myAssignments.get(i).getPointsPossible()));
-            dataGrid.add(tempPointsPos, 1, i+1);
+            dataGrid.add(tempPointsPos, 1, i + 1);
 
             Label tempPointsScore = new Label(Double.toString(myAssignments.get(i).getPointsScore()));
-            dataGrid.add(tempPointsScore, 2, i+1);
+            dataGrid.add(tempPointsScore, 2, i + 1);
 
             Label tempPercentScore = new Label(Double.toString(myAssignments.get(i).getPercentageScore()));
-            dataGrid.add(tempPercentScore, 3, i+1);
+            dataGrid.add(tempPercentScore, 3, i + 1);
 
             Label tempWeight = new Label(Double.toString(myAssignments.get(i).getWeight()));
-            dataGrid.add(tempWeight, 4, i+1);
+            dataGrid.add(tempWeight, 4, i + 1);
 
             Label tempWeightedScore = new Label(Double.toString(myAssignments.get(i).getWeightedScore()));
-            dataGrid.add(tempWeightedScore, 5, i+1);
+            dataGrid.add(tempWeightedScore, 5, i + 1);
         }
 
         return dataGrid;
     }
+
 }

@@ -1,7 +1,6 @@
 package GradeTracker.Overviews;
 
 import GradeTracker.Assignment;
-import GradeTracker.Controller.ControllerInterface;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCourse;
@@ -13,15 +12,10 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
@@ -37,7 +31,8 @@ import java.util.List;
  * Created by michelsd on 3/8/17.
  */
 public class MainDisplay extends Application {
-    private Stage univPrimaryStage;
+    public static Stage univPrimaryStage;
+
     @Override
     public void start(Stage primaryStage) {
         univPrimaryStage = primaryStage;
@@ -65,11 +60,11 @@ public class MainDisplay extends Application {
             }
         }
         ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100/6.0);
+        oneSixth.setPercentWidth(100 / 6.0);
         oneSixth.setHalignment(HPos.CENTER);
         dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
         RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100/2.0);
+        oneHalf.setPercentHeight(100 / 2.0);
         oneHalf.setValignment(VPos.CENTER);
         dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
         BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
@@ -81,12 +76,12 @@ public class MainDisplay extends Application {
         // TODO Refactor this into Courses Pane
         dataPane.setId("dataPane");
         int columnCounter = 0;
-        for (Node n: dataPane.getChildren()) {
+        for (Node n : dataPane.getChildren()) {
             if (n instanceof Control) {
                 Control control = (Control) n;
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
-                if (columnCounter < 3){
+                if (columnCounter < 3) {
                     control.setId("categories");
                     columnCounter++;
                 }
@@ -98,11 +93,11 @@ public class MainDisplay extends Application {
             }
         }
         ColumnConstraints oneThird = new ColumnConstraints();
-        oneThird.setPercentWidth(100/3.0);
+        oneThird.setPercentWidth(100 / 3.0);
         oneThird.setHalignment(HPos.CENTER);
         dataPane.getColumnConstraints().addAll(oneThird, oneThird, oneThird);
         RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100/2.0);
+        oneHalf.setPercentHeight(100 / 2.0);
         oneHalf.setValignment(VPos.CENTER);
         dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf);
         String css = this.getClass().getResource("basicStyle.css").toExternalForm();
@@ -141,14 +136,15 @@ public class MainDisplay extends Application {
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        Text setupTitle = new Text("Courses for Winter 2017");
+        String title = "Courses for Winter 2017";
+        Text setupTitle = new Text(title);
         GridPane dataPane = new CoursesOverviewPane(myTermList).getRoot();
         formatCoursesGridPane(dataPane);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
         root.setTop(setupTitle);
-        root.setAlignment(setupTitle,Pos.CENTER);
+        root.setAlignment(setupTitle, Pos.CENTER);
 
         root.setCenter(dataPane);
         root.setAlignment(dataPane, Pos.CENTER);
@@ -210,7 +206,7 @@ public class MainDisplay extends Application {
 
         // Place subpanes in "root" pane
         root.setTop(setupTitle);
-        root.setAlignment(setupTitle,Pos.CENTER);
+        root.setAlignment(setupTitle, Pos.CENTER);
 
         root.setCenter(dataPane);
         root.setAlignment(dataPane, Pos.CENTER);
@@ -251,7 +247,7 @@ public class MainDisplay extends Application {
 
         // Place subpanes in "root" pane
         root.setTop(setupTitle);
-        root.setAlignment(setupTitle,Pos.CENTER);
+        root.setAlignment(setupTitle, Pos.CENTER);
 
         root.setCenter(dataPane);
         root.setAlignment(dataPane, Pos.CENTER);
