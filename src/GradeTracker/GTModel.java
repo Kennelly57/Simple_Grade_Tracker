@@ -104,7 +104,9 @@ public class GTModel {
         }
     }
 
-    public Map<String, ModelCourse> getLatestCourses(){ return latestCourses; }
+    public Map<String, ModelCourse> getLatestCourses(){
+        return latestCourses;
+    }
 
     private void updateAllCourses(){ //THIS MAY SPEND TOO MUCH TIME TALKING TO OBSERVERS
         for (ModelCourse course : courseMap.values()) {
