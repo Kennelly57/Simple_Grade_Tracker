@@ -51,7 +51,7 @@ public class MainDisplay extends Application {
                 Control control = (Control) n;
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
-                if (columnCounter < numberOfCourses) {
+                if (columnCounter < 3) {
                     control.setId("categories");
                     columnCounter++;
                 }

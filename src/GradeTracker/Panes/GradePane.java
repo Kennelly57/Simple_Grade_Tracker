@@ -8,11 +8,24 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GradePane {
 
     private VBox root;
+    private TextField tfAPlus;
+    private TextField tfA;
+    private TextField tfAMinus;
+    private TextField tfBPlus;
+    private TextField tfB;
+    private TextField tfBMinus;
+    private TextField tfCPlus;
+    private TextField tfC;
+    private TextField tfCMinus;
+    private TextField tfDPlus;
+    private TextField tfD;
+    private TextField tfDMinus;
 
     public GradePane() {
         root = generateGradePane();
@@ -58,18 +71,18 @@ public class GradePane {
                 gradeCPlus, gradeC, gradeCMinus,
                 gradeDPlus, gradeD, gradeDMinus);
 
-        TextField tfAPlus = new TextField("96");
-        TextField tfA = new TextField("93");
-        TextField tfAMinus = new TextField("90");
-        TextField tfBPlus = new TextField("86");
-        TextField tfB = new TextField("83");
-        TextField tfBMinus = new TextField("80");
-        TextField tfCPlus = new TextField("76");
-        TextField tfC = new TextField("73");
-        TextField tfCMinus = new TextField("70");
-        TextField tfDPlus = new TextField("66");
-        TextField tfD = new TextField("63");
-        TextField tfDMinus = new TextField("60");
+        tfAPlus = new TextField("96");
+        tfA = new TextField("93");
+        tfAMinus = new TextField("90");
+        tfBPlus = new TextField("86");
+        tfB = new TextField("83");
+        tfBMinus = new TextField("80");
+        tfCPlus = new TextField("76");
+        tfC = new TextField("73");
+        tfCMinus = new TextField("70");
+        tfDPlus = new TextField("66");
+        tfD = new TextField("63");
+        tfDMinus = new TextField("60");
 
         List<TextField> textFieldList = Arrays.asList(
                 tfAPlus, tfA, tfAMinus,
@@ -85,4 +98,20 @@ public class GradePane {
         return gradeGrid;
     }
 
+    public LinkedList getTextFields(){
+        LinkedList<String> tempList = new LinkedList<String>();
+        tempList.add(tfAPlus.getText());
+        tempList.add(tfA.getText());
+        tempList.add(tfAMinus.getText());
+        tempList.add(tfBPlus.getText());
+        tempList.add(tfB.getText());
+        tempList.add(tfBMinus.getText());
+        tempList.add(tfCPlus.getText());
+        tempList.add(tfC.getText());
+        tempList.add(tfCMinus.getText());
+        tempList.add(tfDPlus.getText());
+        tempList.add(tfD.getText());
+        tempList.add(tfDMinus.getText());
+        return tempList;
+    }
 }

@@ -1,8 +1,7 @@
 package GradeTracker.Setups;
 
-
 import GradeTracker.Panes.GradePane;
-import GradeTracker.Panes.NameAndId;
+import GradeTracker.handleCSV;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,19 +11,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToolBar;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
-import java.util.List;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
 
 public class CourseSetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
     public Stage univPrimaryStage;
+    private handleCSV csvHandler = new handleCSV();
 
     @Override
     public void start(final Stage primaryStage) {
@@ -47,24 +45,24 @@ public class CourseSetupWindow extends Application {
 
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
-//        GridPane inputGrid = new GridPane();
-//        //inputGrid.setPadding(new Insets(15, 25, 25, 25));
-//        inputGrid.setHgap(10);
-//        inputGrid.setVgap(10);
-//
-//        Label identificationLabel = new Label("Course ID:");
-//        Label crsNameLabel = new Label("Course Name:");
-//
-//        TextField identificationTextField = new TextField();
-//        TextField crsNameTextField = new TextField();
-//
-//        inputGrid.add(identificationLabel, 0, 2);
-//        inputGrid.add(identificationTextField, 1, 2);
-//        inputGrid.add(crsNameLabel, 0, 3);
-//        inputGrid.add(crsNameTextField, 1, 3);
-//
+        GridPane inputGrid = new GridPane();
+        inputGrid.setPadding(new Insets(15, 25, 25, 25));
+        inputGrid.setHgap(10);
+        inputGrid.setVgap(10);
 
-        GridPane inputGrid = new NameAndId().getGridPane();
+        Label identificationLabel = new Label("Course ID:");
+        Label crsNameLabel = new Label("Course Name:");
+
+        TextField identificationTextField = new TextField();
+        TextField crsNameTextField = new TextField();
+
+        inputGrid.add(identificationLabel, 0, 2);
+        inputGrid.add(identificationTextField, 1, 2);
+        inputGrid.add(crsNameLabel, 0, 3);
+        inputGrid.add(crsNameTextField, 1, 3);
+
+
+        //GridPane inputGrid = new NameAndId().getGridPane();
         crsIDandNamePane.setCenter(inputGrid);
         //---------------------------------------------------------------------------------------
 
@@ -74,6 +72,8 @@ public class CourseSetupWindow extends Application {
         btnNext.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                csvHandler.dataCollector(identificationTextField.getText());
+                csvHandler.dataCollector(crsNameTextField.getText());
                 univPrimaryStage.setScene(gradeDistributionScene);
                 univPrimaryStage.show();
             }
@@ -95,9 +95,9 @@ public class CourseSetupWindow extends Application {
         setupGradesPane.setTop(setupTitle);
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        gradeDistributionScene = new Scene(setupGradesPane, 400, 575);
-
-        VBox gradePane = new GradePane().getRoot();
+        gradeDistributionScene = new Scene(setupGradesPane, 400, 650);
+        GradePane setupPane = new GradePane();
+        VBox gradePane = setupPane.getRoot();
 
 //        gradePane.setPadding(new Insets(15,0, 5, 0));
 //        Text title = new Text("Configure the grade distribution:");
@@ -113,6 +113,15 @@ public class CourseSetupWindow extends Application {
         btnFinish.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                LinkedList<String> temp = setupPane.getTextFields();
+                for (String item : temp) {
+                    csvHandler.dataCollector(item);
+                }
+                try {
+                    csvHandler.addCourse();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 univPrimaryStage.hide();
 
 
