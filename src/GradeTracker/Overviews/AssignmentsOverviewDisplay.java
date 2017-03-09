@@ -1,6 +1,7 @@
 package GradeTracker.Overviews;
 
 import GradeTracker.Assignment;
+import GradeTracker.Panes.AssignmentsOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.application.Application;
@@ -43,7 +44,7 @@ public class AssignmentsOverviewDisplay extends Application {
         overviewBorderPane.setTop(setupTitle);
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
-        GridPane dataPane = generateOverviewPane(myAssignments);
+        GridPane dataPane = new AssignmentsOverviewPane(myAssignments).getRoot();
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n: dataPane.getChildren()) {
@@ -63,16 +64,7 @@ public class AssignmentsOverviewDisplay extends Application {
             }
         }
 
-        ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100/6.0);
-        oneSixth.setHalignment(HPos.CENTER);
-        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100/2.0);
-        oneHalf.setValignment(VPos.CENTER);
-        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-        overviewBorderPane.setCenter(dataPane);
-        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+        dimenConfig(overviewBorderPane, dataPane);
 
         //------------------------------CREATE_ADD_BUTTON-----------------------------------
         Button btnFinish = new Button();
@@ -91,13 +83,29 @@ public class AssignmentsOverviewDisplay extends Application {
         BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
         //---------------------------------------------------------------------------------------
 
-        
 
-        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
-        dataPane.getStylesheets().add(css);
+        applyCSS(dataPane);
         Scene overviewScene = new Scene(overviewBorderPane, 1400, 500);
         primaryStage.setScene(overviewScene);
         primaryStage.show();
+    }
+
+    private void dimenConfig(BorderPane overviewBorderPane, GridPane dataPane) {
+        ColumnConstraints oneSixth = new ColumnConstraints();
+        oneSixth.setPercentWidth(100/6.0);
+        oneSixth.setHalignment(HPos.CENTER);
+        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100/2.0);
+        oneHalf.setValignment(VPos.CENTER);
+        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
+        overviewBorderPane.setCenter(dataPane);
+        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+    }
+
+    private void applyCSS(GridPane dataPane) {
+        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
+        dataPane.getStylesheets().add(css);
     }
 
     private List<Assignment> makeDemoAssignmentList() {
@@ -145,50 +153,50 @@ public class AssignmentsOverviewDisplay extends Application {
     }
 
 
-    public GridPane generateOverviewPane(List<Assignment> myAssignments){
-        GridPane dataGrid = new GridPane();
-        dataGrid.setHgap(10);
-        dataGrid.setVgap(10);
-        dataGrid.setPadding(new Insets(15, 0, 0, 0));
-        dataGrid.setGridLinesVisible(true);
-
-        Label nameHeader = new Label("Category");
-        Label pointsPosHeader = new Label("Points Possible");
-        Label scorePtsHeader = new Label("Score (pts)");
-        Label scorePercentHeader = new Label("Score (%)");
-        Label weightHeader = new Label("Weight");
-        Label weightedHeader = new Label("Weighted Score");
-
-        dataGrid.add(nameHeader, 0, 0);
-        dataGrid.add(pointsPosHeader, 1, 0);
-        dataGrid.add(scorePtsHeader, 2, 0);
-        dataGrid.add(scorePercentHeader, 3, 0);
-        dataGrid.add(weightHeader, 4, 0);
-        dataGrid.add(weightedHeader, 5, 0);
-
-        // Generate Table of Course Values
-        for (int i = 0; i< myAssignments.size(); i++) {
-            Label tempName = new Label(myAssignments.get(i).getName());
-            dataGrid.add(tempName, 0, i+1);
-
-            Label tempPointsPos = new Label(Double.toString(myAssignments.get(i).getPointsPossible()));
-            dataGrid.add(tempPointsPos, 1, i+1);
-
-            Label tempPointsScore = new Label(Double.toString(myAssignments.get(i).getPointsScore()));
-            dataGrid.add(tempPointsScore, 2, i+1);
-
-            Label tempPercentScore = new Label(Double.toString(myAssignments.get(i).getPercentageScore()));
-            dataGrid.add(tempPercentScore, 3, i+1);
-
-            Label tempWeight = new Label(Double.toString(myAssignments.get(i).getWeight()));
-            dataGrid.add(tempWeight, 4, i+1);
-
-            Label tempWeightedScore = new Label(Double.toString(myAssignments.get(i).getWeightedScore()));
-            dataGrid.add(tempWeightedScore, 5, i+1);
-        }
-
-        return dataGrid;
-    }
+//    private GridPane generateOverviewPane(List<Assignment> myAssignments){
+//        GridPane dataGrid = new GridPane();
+//        dataGrid.setHgap(10);
+//        dataGrid.setVgap(10);
+//        dataGrid.setPadding(new Insets(15, 0, 0, 0));
+//        dataGrid.setGridLinesVisible(true);
+//
+//        Label nameHeader = new Label("Category");
+//        Label pointsPosHeader = new Label("Points Possible");
+//        Label scorePtsHeader = new Label("Score (pts)");
+//        Label scorePercentHeader = new Label("Score (%)");
+//        Label weightHeader = new Label("Weight");
+//        Label weightedHeader = new Label("Weighted Score");
+//
+//        dataGrid.add(nameHeader, 0, 0);
+//        dataGrid.add(pointsPosHeader, 1, 0);
+//        dataGrid.add(scorePtsHeader, 2, 0);
+//        dataGrid.add(scorePercentHeader, 3, 0);
+//        dataGrid.add(weightHeader, 4, 0);
+//        dataGrid.add(weightedHeader, 5, 0);
+//
+//        // Generate Table of Course Values
+//        for (int i = 0; i< myAssignments.size(); i++) {
+//            Label tempName = new Label(myAssignments.get(i).getName());
+//            dataGrid.add(tempName, 0, i+1);
+//
+//            Label tempPointsPos = new Label(Double.toString(myAssignments.get(i).getPointsPossible()));
+//            dataGrid.add(tempPointsPos, 1, i+1);
+//
+//            Label tempPointsScore = new Label(Double.toString(myAssignments.get(i).getPointsScore()));
+//            dataGrid.add(tempPointsScore, 2, i+1);
+//
+//            Label tempPercentScore = new Label(Double.toString(myAssignments.get(i).getPercentageScore()));
+//            dataGrid.add(tempPercentScore, 3, i+1);
+//
+//            Label tempWeight = new Label(Double.toString(myAssignments.get(i).getWeight()));
+//            dataGrid.add(tempWeight, 4, i+1);
+//
+//            Label tempWeightedScore = new Label(Double.toString(myAssignments.get(i).getWeightedScore()));
+//            dataGrid.add(tempWeightedScore, 5, i+1);
+//        }
+//
+//        return dataGrid;
+//    }
 
     public static void main(String[] args) {launch(args);}
 
