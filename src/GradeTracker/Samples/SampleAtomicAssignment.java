@@ -95,6 +95,7 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
 
     public void setPointsScore(double newPointsScore){
         this.pointsScore = newPointsScore;
+        this.completed = true;
     }
     public double getPointsScore(){
         return this.pointsScore;
@@ -105,6 +106,7 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
     }
     public void calculatePercentageScore() { setPercentageScore(getPointsScore() / getPointsPossible()); }
     public double getPercentageScore(){
+        calculatePercentageScore();
         return this.percentageScore;
     }
 

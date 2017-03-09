@@ -94,9 +94,11 @@ public class ModelCourse implements Cloneable {
         double weightedScore;
         if (this.weightBalanced()){
             for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
-                percentageScore = atomicAssignment.getPercentageScore();
-                weightedScore = percentageScore * assignmentCategoryWeights.get(atomicAssignment.getName());
-                currentPerecentage += weightedScore;
+                if (atomicAssignment.completed()) {
+                    percentageScore = atomicAssignment.getPercentageScore();
+                    weightedScore = percentageScore * assignmentCategoryWeights.get(atomicAssignment.getName());
+                    currentPerecentage += weightedScore;
+                }
             }
 
             for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
@@ -196,7 +198,7 @@ public class ModelCourse implements Cloneable {
         if (atomicAsssignmentCategories.containsKey(assignmentName)) {
             SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
             return assignment.setScore(assignmentName, score);
-        } else {//ADD ERROR CHECKING!!!
+        } else {
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.contains(assignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(assignmentName);
@@ -212,7 +214,7 @@ public class ModelCourse implements Cloneable {
             SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
             assignment.setPointsPossible(pointsPossible);
             return true;
-        } else {//ADD ERROR CHECKING!!!
+        } else {
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.contains(assignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(assignmentName);

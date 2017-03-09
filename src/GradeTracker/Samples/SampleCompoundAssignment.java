@@ -101,7 +101,7 @@ public class SampleCompoundAssignment implements Assignment {
         }
         if (pointsPossibleSum == 0) {
             return 1;
-        } else {
+        } else {//THIS IS BAD BEHAVIOR. DO NOT USE IT
             return pointsAchievedSum / pointsPossibleSum;
         }
     }
@@ -163,6 +163,12 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean completed(){
+        for (Assignment assignment: subAssignmentMap.values()) {
+            if (assignment.completed()){
+                this.completed = true;
+                break;
+            }
+        }
         return this.completed;
     }
 
