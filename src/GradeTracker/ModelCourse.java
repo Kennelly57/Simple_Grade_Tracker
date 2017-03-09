@@ -204,4 +204,30 @@ public class ModelCourse implements Cloneable {
             }
         }
     }
+
+    public boolean setAssignmentPointsPossible(String assignmentName, double pointsPossible){
+        if (atomicAsssignmentCategories.containsKey(assignmentName)) {
+            SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
+            assignment.setPointsPossible(pointsPossible);
+            return true;
+        } else {//ADD ERROR CHECKING!!!
+            for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+                if (assignmentCategory.contains(assignmentName)){
+                    Assignment assignment = assignmentCategory.getAssignment(assignmentName);
+                    assignment.setPointsPossible(assignmentName, pointsPossible);
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public boolean existsAssignmentInCompoundCategories(String assignmentName){
+        for (Assignment assignmentCategory : compoundAsssignmentCategories.values()) {
+            if (assignmentCategory.contains(assignmentName)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

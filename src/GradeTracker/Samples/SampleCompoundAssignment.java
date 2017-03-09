@@ -122,8 +122,16 @@ public class SampleCompoundAssignment implements Assignment {
 
 
     public Assignment getAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
-        Assignment target = subAssignmentMap.get(targetName);
-        return target;
+        if (this.contains(targetName)){
+            for (Assignment subAssignment : subAssignmentMap.values()) {
+                if (subAssignment.getName().equalsIgnoreCase(targetName)){
+                    return subAssignment;
+                } else if (subAssignment.contains(targetName)){
+                    return subAssignment.getAssignment(targetName);
+                }
+            }
+        }
+        return null;
     }
 
     public boolean setScore(String assignmentName, double score) {
@@ -131,6 +139,18 @@ public class SampleCompoundAssignment implements Assignment {
             for (Assignment subAssignment : subAssignmentMap.values()) {
                 if (subAssignment.contains(assignmentName)){
                     subAssignment.setScore(assignmentName, score);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean setPointsPossible(String assignmentName, double score) {
+        if (this.contains(assignmentName)){
+            for (Assignment subAssignment : subAssignmentMap.values()) {
+                if (subAssignment.contains(assignmentName)){
+                    subAssignment.setPointsPossible(assignmentName, score);
                     return true;
                 }
             }

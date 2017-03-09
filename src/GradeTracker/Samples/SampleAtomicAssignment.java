@@ -69,6 +69,23 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         return this.grade;
     }
 
+    public Assignment getAssignment(String targetName){
+        if (targetName.equalsIgnoreCase(this.name)){
+            return this;
+        } else {
+            return null;
+        }
+    }
+
+    public boolean setPointsPossible(String targetName, double newPointsPossible){
+        if (this.name.equalsIgnoreCase(targetName)){
+            setPointsPossible(newPointsPossible);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public void setPointsPossible(double newPointsPossible){
         this.pointsPossible = newPointsPossible;
     }

@@ -25,6 +25,10 @@ public interface Assignment extends Cloneable {
 
     boolean setScore(String assignmentName, double Score);
 
+    boolean setPointsPossible(String assignmentName, double PointsPossible);
+
+    Assignment getAssignment(String assignmentName);
+
     void markAsCompleted();
 
     void markAsIncomplete();
