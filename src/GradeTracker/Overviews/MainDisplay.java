@@ -32,6 +32,7 @@ import java.util.List;
  */
 public class MainDisplay extends Application {
     public static Stage univPrimaryStage;
+    private double numberOfCourses = 3;
 
     @Override
     public void start(Stage primaryStage) {
@@ -41,7 +42,7 @@ public class MainDisplay extends Application {
 
 
 
-    private void formatCoursesGridPane(GridPane dataPane) {
+    private void formatCoursesGridPane(GridPane dataPane, double numberOfCourses) {
         // TODO Refactor this into Courses Pane
         dataPane.setId("dataPane");
         int columnCounter = 0;
@@ -50,7 +51,7 @@ public class MainDisplay extends Application {
                 Control control = (Control) n;
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
-                if (columnCounter < 3) {
+                if (columnCounter < numberOfCourses) {
                     control.setId("categories");
                     columnCounter++;
                 }
@@ -64,11 +65,15 @@ public class MainDisplay extends Application {
         ColumnConstraints oneThird = new ColumnConstraints();
         oneThird.setPercentWidth(100 / 3.0);
         oneThird.setHalignment(HPos.CENTER);
-        dataPane.getColumnConstraints().addAll(oneThird, oneThird, oneThird);
+        for (double i = 0.0; i < 3.0; i++){
+            dataPane.getColumnConstraints().addAll(oneThird);
+        }
         RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / 2.0);
+        oneHalf.setPercentHeight(100 / numberOfCourses);
         oneHalf.setValignment(VPos.CENTER);
-        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf);
+        for (double i = 0.0; i <= numberOfCourses; i++){
+            dataPane.getRowConstraints().addAll(oneHalf);
+        }
         String css = this.getClass().getResource("basicStyle.css").toExternalForm();
         dataPane.getStylesheets().add(css);
     }
@@ -108,7 +113,7 @@ public class MainDisplay extends Application {
         String title = "Courses for Winter 2017";
         Text setupTitle = new Text(title);
         GridPane dataPane = new CoursesOverviewPane(myTermList, this).getRoot();
-        formatCoursesGridPane(dataPane);
+        formatCoursesGridPane(dataPane, numberOfCourses);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
@@ -277,5 +282,9 @@ public class MainDisplay extends Application {
         myAssignments.add(participation);
         myAssignments.add(finalExam);
         return myAssignments;
+    }
+
+    public void setNumberOfCourses(){
+        numberOfCourses = numberOfCourses + 1.0;
     }
 }

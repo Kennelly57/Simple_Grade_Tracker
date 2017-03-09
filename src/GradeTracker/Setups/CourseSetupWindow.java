@@ -2,7 +2,7 @@ package GradeTracker.Setups;
 
 
 import GradeTracker.Panes.GradePane;
-import GradeTracker.Panes.NameIDGridPane;
+import GradeTracker.Panes.NameAndId;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -64,7 +64,7 @@ public class CourseSetupWindow extends Application {
 //        inputGrid.add(crsNameTextField, 1, 3);
 //
 
-        GridPane inputGrid = new NameIDGridPane().getRoot();
+        GridPane inputGrid = new NameAndId().getGridPane();
         crsIDandNamePane.setCenter(inputGrid);
         //---------------------------------------------------------------------------------------
 

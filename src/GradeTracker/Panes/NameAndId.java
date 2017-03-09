@@ -1,4 +1,4 @@
-package GradeTracker.Scenes;
+package GradeTracker.Panes;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,6 +15,11 @@ import javafx.scene.text.Text;
 public class NameAndId {
 
     private Scene crsIDandNameScene;
+    private GridPane inputGrid;
+
+    public GridPane getGridPane(){
+        return inputGrid;
+    }
 
     private Scene generateCrsIDandName() {
         BorderPane crsIDandNamePane = new BorderPane();
@@ -27,7 +32,7 @@ public class NameAndId {
 
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
-        GridPane inputGrid = new GridPane();
+        inputGrid = new GridPane();
         //inputGrid.setPadding(new Insets(15, 25, 25, 25));
         inputGrid.setHgap(10);
         inputGrid.setVgap(10);
