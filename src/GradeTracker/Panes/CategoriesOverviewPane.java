@@ -3,22 +3,33 @@ package GradeTracker.Panes;
 
 import GradeTracker.Assignment;
 
+import GradeTracker.Overviews.MainDisplay;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.Node;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.*;
 
 import java.util.List;
 
-public class AssignmentsOverviewPane {
+public class CategoriesOverviewPane {
     // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 
     private GridPane root;
+    private MainDisplay mainDisplay;
 
-    public AssignmentsOverviewPane(List<Assignment> myAssignments) {
+    public CategoriesOverviewPane(List<Assignment> myAssignments, MainDisplay newMainDisplay) {
+        root = generateGridPane(myAssignments);
+        this.mainDisplay = newMainDisplay;
+    }
+
+    public CategoriesOverviewPane(List<Assignment> myAssignments) {
         root = generateGridPane(myAssignments);
 
     }
@@ -69,7 +80,42 @@ public class AssignmentsOverviewPane {
             dataGrid.add(tempWeightedScore, 5, i + 1);
         }
 
+
+        formatAssignmentGridPane(dataGrid);
         return dataGrid;
+    }
+
+    private void formatAssignmentGridPane(GridPane dataPane) {
+        // TODO refactor this into assignments pane
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n : dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 6) {
+                    control.setId("categories");
+                    columnCounter++;
+                }
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+        ColumnConstraints oneSixth = new ColumnConstraints();
+        oneSixth.setPercentWidth(100 / 6.0);
+        oneSixth.setHalignment(HPos.CENTER);
+        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100 / 2.0);
+        oneHalf.setValignment(VPos.CENTER);
+        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
+        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
+        dataPane.getStylesheets().add(css);
     }
 
 }

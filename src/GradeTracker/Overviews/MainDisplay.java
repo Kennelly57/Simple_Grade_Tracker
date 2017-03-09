@@ -5,7 +5,7 @@ import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCourse;
 import GradeTracker.Samples.SampleTerm;
-import GradeTracker.Panes.AssignmentsOverviewPane;
+import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
 import javafx.application.Application;
@@ -39,38 +39,7 @@ public class MainDisplay extends Application {
         showCourses();
     }
 
-    private void formatAssignmentGridPane(GridPane dataPane) {
-        // TODO refactor this into assignments pane
-        dataPane.setId("dataPane");
-        int columnCounter = 0;
-        for (Node n : dataPane.getChildren()) {
-            if (n instanceof Control) {
-                Control control = (Control) n;
-                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                control.setId("gridNodes");
-                if (columnCounter < 6) {
-                    control.setId("categories");
-                    columnCounter++;
-                }
-            }
-            if (n instanceof Pane) {
-                Pane pane = (Pane) n;
-                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                pane.setId("gridNodes");
-            }
-        }
-        ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100 / 6.0);
-        oneSixth.setHalignment(HPos.CENTER);
-        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / 2.0);
-        oneHalf.setValignment(VPos.CENTER);
-        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
-        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
-        dataPane.getStylesheets().add(css);
-    }
+
 
     private void formatCoursesGridPane(GridPane dataPane) {
         // TODO Refactor this into Courses Pane
@@ -138,7 +107,7 @@ public class MainDisplay extends Application {
         // Create instances of subpanes
         String title = "Courses for Winter 2017";
         Text setupTitle = new Text(title);
-        GridPane dataPane = new CoursesOverviewPane(myTermList).getRoot();
+        GridPane dataPane = new CoursesOverviewPane(myTermList, this).getRoot();
         formatCoursesGridPane(dataPane);
         HBox controlBtns = createCoursesBtnPane();
 
@@ -193,8 +162,8 @@ public class MainDisplay extends Application {
 
         // Create instances of subpanes
         Text setupTitle = new Text("Categories");
-        GridPane dataPane = new AssignmentsOverviewPane(myAssignments).getRoot();
-        formatAssignmentGridPane(dataPane);
+        GridPane dataPane = new CategoriesOverviewPane(myAssignments, this).getRoot();
+//        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();
         btnBack.setText("<--");
@@ -221,6 +190,10 @@ public class MainDisplay extends Application {
         univPrimaryStage.show();
     }
 
+    public void printDiagnostic(){
+        System.out.println("Diagnostic");
+        System.out.flush();
+    }
 
     public void showAssignments() {
         // Temp, demo term
@@ -233,8 +206,8 @@ public class MainDisplay extends Application {
 
         // Create instances of subpanes
         Text setupTitle = new Text("Assignments");
-        GridPane dataPane = new AssignmentsOverviewPane(myAssignments).getRoot();
-        formatAssignmentGridPane(dataPane);
+        GridPane dataPane = new CategoriesOverviewPane(myAssignments).getRoot();
+//        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();
         btnBack.setText("<--");

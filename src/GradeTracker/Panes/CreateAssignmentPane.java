@@ -1,5 +1,6 @@
 package GradeTracker.Panes;
 
+import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

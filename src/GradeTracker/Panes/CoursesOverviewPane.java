@@ -1,5 +1,7 @@
 package GradeTracker.Panes;
 
+import GradeTracker.Assignment;
+import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Samples.SampleCourse;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -11,6 +13,12 @@ public class CoursesOverviewPane {
     // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 
     private GridPane root;
+    private MainDisplay mainDisplay;
+
+    public CoursesOverviewPane(List<SampleCourse> myTermList, MainDisplay newMainDisplay) {
+        root = generateOverviewPane(myTermList);
+        this.mainDisplay = newMainDisplay;
+    }
 
     public CoursesOverviewPane(List<SampleCourse> myTermList) {
         root = generateOverviewPane(myTermList);
@@ -41,7 +49,13 @@ public class CoursesOverviewPane {
             Label tempID = new Label(idStr);
 
             tempID.setOnMouseClicked((MouseEvent) -> {
-                // send itself to controller
+                // Send to assignment overview scene
+                System.out.println("PRINTED");
+                System.out.flush();
+                this.mainDisplay.printDiagnostic();
+                this.mainDisplay.showCategories();
+
+
 
             });
 
