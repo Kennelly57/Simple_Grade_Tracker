@@ -1,5 +1,6 @@
 package GradeTracker.Overviews;
 
+import GradeTracker.Overviews.AssignmentsOverviewDisplay;
 import GradeTracker.Setups.CourseSetupWindow;
 import GradeTracker.Samples.SampleCourse;
 import GradeTracker.Samples.SampleTerm;

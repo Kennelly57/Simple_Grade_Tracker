@@ -1,6 +1,7 @@
 package GradeTracker.Setups;
 
 
+import GradeTracker.Panes.NameIDGridPane;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,10 +23,10 @@ import java.util.List;
 public class CourseSetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
-    private Stage univPrimaryStage;
+    public Stage univPrimaryStage;
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(final Stage primaryStage) {
         univPrimaryStage = primaryStage;
         primaryStage.setTitle("Course Setup");
         crsIDandNameScene = generateCrsIDandName();
@@ -45,22 +46,24 @@ public class CourseSetupWindow extends Application {
 
 
         //------------------------------CREATE_INPUT_GRID---------------------------------------
-        GridPane inputGrid = new GridPane();
-        //inputGrid.setPadding(new Insets(15, 25, 25, 25));
-        inputGrid.setHgap(10);
-        inputGrid.setVgap(10);
+//        GridPane inputGrid = new GridPane();
+//        //inputGrid.setPadding(new Insets(15, 25, 25, 25));
+//        inputGrid.setHgap(10);
+//        inputGrid.setVgap(10);
+//
+//        Label identificationLabel = new Label("Course ID:");
+//        Label crsNameLabel = new Label("Course Name:");
+//
+//        TextField identificationTextField = new TextField();
+//        TextField crsNameTextField = new TextField();
+//
+//        inputGrid.add(identificationLabel, 0, 2);
+//        inputGrid.add(identificationTextField, 1, 2);
+//        inputGrid.add(crsNameLabel, 0, 3);
+//        inputGrid.add(crsNameTextField, 1, 3);
+//
 
-        Label identificationLabel = new Label("Course ID:");
-        Label crsNameLabel = new Label("Course Name:");
-
-        TextField identificationTextField = new TextField();
-        TextField crsNameTextField = new TextField();
-
-        inputGrid.add(identificationLabel, 0, 2);
-        inputGrid.add(identificationTextField, 1, 2);
-        inputGrid.add(crsNameLabel, 0, 3);
-        inputGrid.add(crsNameTextField, 1, 3);
-
+        GridPane inputGrid = new NameIDGridPane().getRoot();
         crsIDandNamePane.setCenter(inputGrid);
         //---------------------------------------------------------------------------------------
 
