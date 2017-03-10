@@ -99,7 +99,7 @@ public class GTModel {
         return false;
     }
 
-    public boolean setAssignmentScore(String courseID, String assignmentName, int score) {
+    public boolean setAssignmentScore(String courseID, String assignmentName, double score) {
         if(this.courseMap.containsKey(courseID)){
             boolean successBoolean = this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
             this.updateCourse(courseID);

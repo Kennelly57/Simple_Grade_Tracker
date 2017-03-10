@@ -204,7 +204,7 @@ public class ModelCourse implements Cloneable {
         }
     }
 
-    public boolean setAssignmentScore(String assignmentName, int score) {
+    public boolean setAssignmentScore(String assignmentName, double score) {
         if (atomicAsssignmentCategories.containsKey(assignmentName)) {
             SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
             return assignment.setScore(assignmentName, score);
