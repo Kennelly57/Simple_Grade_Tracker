@@ -17,6 +17,9 @@ import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
@@ -73,8 +76,21 @@ public class CategoriesOverviewPane {
             Label tempPointsPos = new Label(Double.toString(atomAss.getPointsPossible()));
             dataGrid.add(tempPointsPos, 1, i + 1);
 
-            Label tempPointsScore = new Label(Double.toString(atomAss.getPointsScore()));
-            dataGrid.add(tempPointsScore, 2, i + 1);
+            TextField pointsScore = new TextField();
+            String currPointsScore = Double.toString(atomAss.getPointsScore());
+            pointsScore.setPromptText(currPointsScore);
+
+            pointsScore.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent ke) {
+                    if (ke.getCode().equals(KeyCode.ENTER)) {
+                        double updateVal = Double.parseDouble(pointsScore.getText());
+                        atomAss.setPointsScore(updateVal);
+                    }
+                }
+            });
+
+            dataGrid.add(pointsScore, 2, i + 1);
 
             Label tempPercentScore = new Label(Double.toString(atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
