@@ -163,23 +163,12 @@ public class MainDisplay extends Application implements GTObserver {
         this.updateCourses();
         System.out.println("Showing Categories");
 
-        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = course.getAtomicAssignmentCategories();
-        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = course.getCompoundAssignmentCategories();
-
-//        List<Assignment> myAssignments = new LinkedList<Assignment>();
-//        for (Assignment assignmentCat: latestCourses.get("TEST 101").getAtomicAssignmentCategories().values()) {
-//            myAssignments.add(assignmentCat);
-//        }
-//        System.out.println("List Complete");
-
-        //List<Assignment> myAssignments = makeDemoAssignmentList();
-
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
         Text setupTitle = new Text("Categories");
-        GridPane dataPane = new CategoriesOverviewPane(atomicAsssignmentCategories, compoundAsssignmentCategories, course.getCategoryWeights(), this).getRoot();
+        GridPane dataPane = new CategoriesOverviewPane(course, this).getRoot();
 //        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();

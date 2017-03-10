@@ -7,7 +7,10 @@ import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
+import GradeTracker.ModelCourse;
 import java.util.Map;
+
+import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -29,18 +32,18 @@ public class CategoriesOverviewPane {
 
     private GridPane root;
     private MainDisplay mainDisplay;
+    private ModelCourse course;
 
-    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories,
-                                  Map<String, SampleCompoundAssignment> compoundAsssignmentCategories,
-                                  Map<String, Integer> weightMap,
-                                  MainDisplay newMainDisplay) {
+    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay) {
+
+        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = myCourse.getAtomicAssignmentCategories();
+        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = myCourse.getCompoundAssignmentCategories();
+        Map<String, Integer> weightMap = myCourse.getCategoryWeights();
+
         root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories, weightMap);
         this.mainDisplay = newMainDisplay;
+        this.course = myCourse;
     }
-
-//    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories) {
-//        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories);
-//    }
 
     public GridPane getRoot() {
         return root;
@@ -85,12 +88,22 @@ public class CategoriesOverviewPane {
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsScore.setPromptText(currPointsScore);
 
+//            pointsScore.setOnAction(e -> {
+//                if (ke.getCode().equals(KeyCode.ENTER)) {
+//                    double updateVal = Double.parseDouble(pointsScore.getText());
+//                    System.out.println(updateVal);
+//                    atomAss.setPointsScore(updateVal);
+//                }
+//            });
+
             pointsScore.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
                         double updateVal = Double.parseDouble(pointsScore.getText());
+                        System.out.println(updateVal);
                         atomAss.setPointsScore(updateVal);
+                        refreshPane();
                     }
                 }
             });
@@ -136,8 +149,12 @@ public class CategoriesOverviewPane {
         return dataGrid;
     }
 
+    private void refreshPane() {
+        this.mainDisplay.showCategories(course);
+    }
+
+
     private void formatAssignmentGridPane(GridPane dataPane) {
-        // TODO refactor this into assignments pane
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n : dataPane.getChildren()) {
