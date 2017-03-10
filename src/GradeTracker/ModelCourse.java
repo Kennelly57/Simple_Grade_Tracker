@@ -116,7 +116,7 @@ public class ModelCourse implements Cloneable {
                 currentPerecentage += weightedScore;
             }
 
-            for (int i = 0; i < this.grades.length; i++) {
+            for (int i = 0; i < this.gradingScale.length; i++) {
                 if (currentPerecentage > this.gradingScale[i]){
                     return this.grades[i];
                 }

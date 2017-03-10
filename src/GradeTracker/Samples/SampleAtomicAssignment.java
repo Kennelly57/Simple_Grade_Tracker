@@ -11,8 +11,6 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
     private double pointsPossible;
     private double pointsScore;
     private double percentageScore;
-    private double weight; //GET RID OF THIS
-    private double weightedScore; //GET RID OF THIS
     private boolean completed;
 
     public SampleAtomicAssignment(String assignmentName){
@@ -110,15 +108,6 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         return this.percentageScore;
     }
 
-    public void setWeight(double newWeight) { this.weight = newWeight; }
-    public double getWeight() {return this.weight; }
-
-    public void setWeightedScore(double newWeightedScore) { this.weightedScore = newWeightedScore; }
-    public void calculateWeightedScore() { setWeightedScore(getPercentageScore() * getWeight()); }
-    public double getWeightedScore() {
-        calculateWeightedScore();
-        return this.weightedScore;
-    }
 
     public boolean completed(){
         return this.completed;

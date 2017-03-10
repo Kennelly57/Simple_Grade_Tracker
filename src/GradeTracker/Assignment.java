@@ -15,10 +15,6 @@ public interface Assignment extends Cloneable {
 
     double getPercentageScore();
 
-    double getWeight();
-
-    double getWeightedScore();
-
     boolean completed();
 
     boolean contains(String assignmentName);
