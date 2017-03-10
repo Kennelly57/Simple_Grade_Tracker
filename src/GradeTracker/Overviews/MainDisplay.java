@@ -27,6 +27,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -262,7 +263,7 @@ public class MainDisplay extends Application implements GTObserver {
 //        univPrimaryStage.show();
 //    }
 
-    private void makeDemoAssignmentList() {
+    private List<Assignment> makeDemoAssignmentList() {
         String courseID_1 = "TEST 101";
         String courseID_2 = "BIOL.362";
         String courseID_3 = "CS.111";
