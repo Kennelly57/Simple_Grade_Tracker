@@ -257,92 +257,70 @@ public class MainDisplay extends Application implements GTObserver {
 
     private void makeDemoAssignmentList() {
 
+        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
+
         String courseID_1 = "TEST 101";
         String courseID_2 = "BIOL.362";
         String courseID_3 = "CS.111";
-        String courseID_4 = "CS.121";
-
-        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
 
         this.model.addCourse(courseID_1, "Test Course", gScale);
         this.model.addCourse(courseID_2, "Ows Patterns & Colors", gScale);
         this.model.addCourse(courseID_3, "Intro CS", gScale);
-        this.model.addCourse(courseID_4, "Intro CS", gScale);
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
+        // demo stuff for test 101
         this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 42);
         this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
         this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
-
-        this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
-
-        midtermExams.setPointsPossible(300);
-        midtermExams.setPercentageScore(.695);
-        midtermExams.setWeight(.4286);
-        midtermExams.calculateWeightedScore();
-
-        SampleAtomicAssignment problemSets = new SampleAtomicAssignment("Problem Sets");
 
         this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 22);
         this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
         this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
 
-        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
-
-        problemSets.setPointsPossible(160);
-        problemSets.setPercentageScore(.818);
-        problemSets.setWeight(.2286);
-        problemSets.calculateWeightedScore();
-
-        SampleAtomicAssignment articleDiscussion = new SampleAtomicAssignment("Article Discussion");
-        articleDiscussion.setPointsPossible(40);
-        articleDiscussion.setPointsScore(40);
-        articleDiscussion.calculatePercentageScore();
-        articleDiscussion.setWeight(.571);
-        articleDiscussion.calculateWeightedScore();
-
         this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 31);
         this.model.setAssignmentPointsPossible(courseID_1, "Article Discussion", 50);
         this.model.setAssignmentScore(courseID_1, "Article Discussion", 50);
-
-
-        SampleAtomicAssignment participation = new SampleAtomicAssignment("Participation");
-        participation.setPointsPossible(50);
-        participation.setPointsScore(50);
-        participation.calculatePercentageScore();
-        participation.setWeight(.714);
-        participation.calculateWeightedScore();
 
         this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 25);
         this.model.setAssignmentPointsPossible(courseID_1, "Participation", 40);
         this.model.setAssignmentScore(courseID_1, "Participation", 40);
 
-
-        SampleAtomicAssignment finalExam = new SampleAtomicAssignment("Final Exam");
-        finalExam.setPointsPossible(40);
-        finalExam.setPointsScore(40);
-        finalExam.calculatePercentageScore();
-        finalExam.setWeight(.571);
-        finalExam.calculateWeightedScore();
-
         this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 22);
         this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
         this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
 
+
+        // demo stuff for test biol
+        this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
+
+
+        // demo stuff for test cs
+        this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_3, "CS Stuff", 160);
+        this.model.setAssignmentScore(courseID_3, "CS Stuff", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_3, "More CS Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_3, "More CS Stuff", 160);
+        this.model.setAssignmentScore(courseID_3, "More CS Stuff", 125);
+
+
+
+
         this.updateCourses();
-        System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
 
-        System.out.println(latestCourses.get(courseID_1).getName());
-
-
-        for (Assignment assignmentCat: latestCourses.get(courseID_1).getAtomicAssignmentCategories().values()) {
-            System.out.println(assignmentCat.getName());
-        }
+//        System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
+//        System.out.println(latestCourses.get(courseID_1).getName());
+//
+//        for (Assignment assignmentCat: latestCourses.get(courseID_1).getAtomicAssignmentCategories().values()) {
+//            System.out.println(assignmentCat.getName());
+//        }
     }
 
     public int getNumberOfCourses(){
