@@ -147,4 +147,18 @@ public class CategoriesOverviewPane {
         dataPane.getStylesheets().add(css);
     }
 
+    private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
+        int counter = 0;
+
+        for (SampleAtomicAssignment atomCat : atomicAsssignmentCategories.values()){
+            counter++;
+        }
+
+        for (SampleCompoundAssignment comCat : compoundAsssignmentCategories.values()){
+            counter++;
+        }
+
+        return counter;
+    }
+
 }
