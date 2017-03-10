@@ -27,8 +27,11 @@ public class CategoriesOverviewPane {
     private GridPane root;
     private MainDisplay mainDisplay;
 
-    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories, MainDisplay newMainDisplay) {
-        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories);
+    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories,
+                                  Map<String, SampleCompoundAssignment> compoundAsssignmentCategories,
+                                  Map<String, Integer> weightMap,
+                                  MainDisplay newMainDisplay) {
+        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories, weightMap);
         this.mainDisplay = newMainDisplay;
     }
 
@@ -40,7 +43,9 @@ public class CategoriesOverviewPane {
         return root;
     }
 
-    private GridPane generateGridPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories) {
+    private GridPane generateGridPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories,
+                                      Map<String, SampleCompoundAssignment> compoundAsssignmentCategories,
+                                      Map<String, Integer> weightMap) {
         System.out.println("GENERATING GRID PANE");
 
         GridPane dataGrid = new GridPane();
@@ -79,10 +84,11 @@ public class CategoriesOverviewPane {
             Label tempPercentScore = new Label(Double.toString(atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
 
-            Label tempWeight = new Label(Double.toString(atomAss.getWeight()));
+            Label tempWeight = new Label(Double.toString(weightMap.get(atomAss.getName())));
             dataGrid.add(tempWeight, 4, i + 1);
 
-            Label tempWeightedScore = new Label(Double.toString(atomAss.getWeightedScore()));
+            double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
+            Label tempWeightedScore = new Label(Double.toString(weightedScore));
             dataGrid.add(tempWeightedScore, 5, i + 1);
 
             i++;
