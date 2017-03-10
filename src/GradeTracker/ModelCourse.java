@@ -124,6 +124,7 @@ public class ModelCourse implements Cloneable {
             return "F";
 
         } else{
+            //System.out.println(this.totalWeight);
             return "ERROR";
         }
 

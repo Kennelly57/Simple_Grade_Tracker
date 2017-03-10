@@ -282,7 +282,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
-        this.model.addAtomicAssignmentCategory(courseID, "Midterm Exams", 42);
+        this.model.addAtomicAssignmentCategory(courseID, "Midterm Exams", 30);
         this.model.setAssignmentPointsPossible(courseID, "Midterm Exams", 300);
         this.model.setAssignmentScore(courseID, "Midterm Exams", 210);
 
@@ -295,7 +295,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         SampleAtomicAssignment problemSets = new SampleAtomicAssignment("Problem Sets");
 
-        this.model.addAtomicAssignmentCategory(courseID, "Problem Sets", 22);
+        this.model.addAtomicAssignmentCategory(courseID, "Problem Sets", 17);
         this.model.setAssignmentPointsPossible(courseID, "Problem Sets", 160);
         this.model.setAssignmentScore(courseID, "Problem Sets", 125);
 
@@ -311,7 +311,7 @@ public class MainDisplay extends Application implements GTObserver {
         articleDiscussion.setWeight(.571);
         articleDiscussion.calculateWeightedScore();
 
-        this.model.addAtomicAssignmentCategory(courseID, "Article Discussion", 31);
+        this.model.addAtomicAssignmentCategory(courseID, "Article Discussion", 17);
         this.model.setAssignmentPointsPossible(courseID, "Article Discussion", 50);
         this.model.setAssignmentScore(courseID, "Article Discussion", 50);
 
@@ -323,7 +323,7 @@ public class MainDisplay extends Application implements GTObserver {
         participation.setWeight(.714);
         participation.calculateWeightedScore();
 
-        this.model.addAtomicAssignmentCategory(courseID, "Participation", 25);
+        this.model.addAtomicAssignmentCategory(courseID, "Participation", 14);
         this.model.setAssignmentPointsPossible(courseID, "Participation", 40);
         this.model.setAssignmentScore(courseID, "Participation", 40);
 
