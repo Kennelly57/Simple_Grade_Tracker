@@ -1,6 +1,7 @@
 package GradeTracker.Setups;
 
 
+import GradeTracker.GTModel;
 import GradeTracker.Panes.CreateAssignmentPane;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -19,16 +20,22 @@ import java.util.List;
 public class AssignmentSetupWindow extends Application {
 
     public static Stage stage;
+    private GTModel model;
 
     @Override
     public void start(Stage primaryStage) {
-        start(primaryStage, "assignment");
+        System.out.println("DO NOT USE THE OVERRIDDEN START METHOD");
+    }//Can we use this first and give the model later?
+
+    public void start(Stage primaryStage, GTModel theModel, String currentCourseID){
+        this.model = theModel;
+        start(primaryStage, "Assignment", theModel, currentCourseID);
     }
 
-    public void start(Stage primaryStage, String setupType) {
+    public void start(Stage primaryStage, String setupType, GTModel theModel, String currentCourseID) {
         stage = primaryStage;
         stage.setTitle(setupType.concat(" creation"));
-        BorderPane aswBorderPane = new CreateAssignmentPane(setupType).getRoot();
+        BorderPane aswBorderPane = new CreateAssignmentPane(setupType, this.model, currentCourseID).getRoot();
         Scene aswScene = new Scene(aswBorderPane, 450, 350);
         stage.setScene(aswScene);
         stage.show();

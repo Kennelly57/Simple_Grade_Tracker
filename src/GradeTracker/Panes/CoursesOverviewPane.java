@@ -1,16 +1,11 @@
 package GradeTracker.Panes;
 
-import GradeTracker.Assignment;
 import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
-import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
-import GradeTracker.Samples.SampleCourse;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-import java.util.List;
 import java.util.Map;
 
 public class CoursesOverviewPane {
@@ -48,7 +43,7 @@ public class CoursesOverviewPane {
         int i = 0;
         // Generate Table of Course Values
         for (ModelCourse course: courseMap.values()) {
-            final String idStr = course.getId();
+            final String idStr = course.getID();
             Label tempID = new Label(idStr);
 
             tempID.setOnMouseClicked((MouseEvent) -> {

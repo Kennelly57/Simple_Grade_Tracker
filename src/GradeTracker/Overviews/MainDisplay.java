@@ -1,12 +1,10 @@
 package GradeTracker.Overviews;
 
-import GradeTracker.Assignment;
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
 import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
@@ -16,8 +14,6 @@ import javafx.scene.Scene;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
@@ -36,6 +32,9 @@ public class MainDisplay extends Application implements GTObserver {
     private GTModel model;
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
+
+    private int layer;
+    private ModelCourse courseShowing;
 
     @Override
     public void start(Stage primaryStage) {
@@ -107,6 +106,8 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println("courses");
         System.out.flush();
 
+        this.layer = 0;
+        System.out.println("Set Layer");
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -128,6 +129,7 @@ public class MainDisplay extends Application implements GTObserver {
         root.setBottom(controlBtns);
         root.setAlignment(dataPane, Pos.CENTER);
 
+
         // Create scene
         Scene scene = new Scene(root, 1020, 730);
         univPrimaryStage.setTitle("Courses");
@@ -135,19 +137,16 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.show();
     }
 
-    public HBox createAssBtnPane(Button btnBack) {
+    public HBox createAssBtnPane(Button btnBack, String currentCourseID) {
         HBox btnHbox = new HBox();
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
-        btnAdd.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(univPrimaryStage);
-                new AssignmentSetupWindow().start(dialog);
-            }
+        btnAdd.setOnAction(event ->  {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
         });
 
         HBox spacer = new HBox();
@@ -157,8 +156,18 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     public void showCategories(ModelCourse course) {
+        this.layer = 1;
+        this.courseShowing = course;
+
         this.updateCourses();
-        System.out.println("Showing Categories");
+        System.out.println(course);
+        System.out.println(this.latestCourses.get(course.getID()));
+        System.out.flush();
+        Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
+        for (SampleAtomicAssignment asn: tMap.values()
+             ) {
+            System.out.println(asn.getName());
+        }
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -174,7 +183,7 @@ public class MainDisplay extends Application implements GTObserver {
             this.showCourses();
         });
 
-        HBox controlBtns = createAssBtnPane(btnBack);
+        HBox controlBtns = createAssBtnPane(btnBack, course.getID());
 
         // Place subpanes in "root" pane
         root.setTop(setupTitle);
@@ -318,13 +327,31 @@ public class MainDisplay extends Application implements GTObserver {
 
     public void notifyOfChange() {
         this.upToDate = false;
-//        System.out.println("Notified of change");
+        System.out.println("Notified of change");
+
+//        if (this.layer == 0){
+//            System.out.print("Layer: ");
+//            System.out.println(this.layer);
+//            this.showCourses();
+//        } else
+
+        if (this.layer == 1){
+           this.showCategories(this.courseShowing);
+        }
     }
 
     private void updateCourses(){
         if (! this.upToDate) {
             this.latestCourses = this.model.getLatestCourses();
             this.upToDate = true;
+            for (ModelCourse course: this.latestCourses.values()
+                 ) {
+                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
+                     ) {
+                    System.out.println(assignment.getName());
+                }
+
+            }
             System.out.println("Updated Courses");
         }
     }

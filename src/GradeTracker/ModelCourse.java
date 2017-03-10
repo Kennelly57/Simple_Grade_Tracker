@@ -59,7 +59,7 @@ public class ModelCourse implements Cloneable {
         return modelClone;
     }
 
-    public String getId() {
+    public String getID() {
         return this.id;
     }
 

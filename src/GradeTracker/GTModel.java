@@ -1,5 +1,7 @@
 package GradeTracker;
 
+import GradeTracker.Samples.SampleAtomicAssignment;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -50,8 +52,13 @@ public class GTModel {
     //-------------------------------------COURSE PASS-THROUGH METHODS---------------------------------------------
     public boolean addAtomicAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
+            System.out.print("Adding category ");
+            System.out.print(categoryName);
+            System.out.print(" to ");
+            System.out.println(courseID);
+            boolean successBoolean = courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
             this.updateCourse(courseID);
-            return courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
+            return successBoolean;
         } else {
             return false;
         }
@@ -59,8 +66,9 @@ public class GTModel {
 
     public boolean addCompoundAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
+            boolean successBoolean = courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
             this.updateCourse(courseID);
-            return courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
+            return successBoolean;
         } else {
             return false;
         }
@@ -68,31 +76,34 @@ public class GTModel {
 
     public void setGradingScale(String courseID, int[] newGradingScale){
         if(this.courseMap.containsKey(courseID)){
-            this.updateCourse(courseID);
             this.courseMap.get(courseID).setGradingScale(newGradingScale);
+            this.updateCourse(courseID);
         }
     }
 
     public boolean setAssignmentCategoryWeight(String courseID, String assignmentCategoryName, int weight){
         if(this.courseMap.containsKey(courseID)){
+            boolean successBool = this.courseMap.get(courseID).setAssignmentCategoryWeight(assignmentCategoryName, weight);
             this.updateCourse(courseID);
-            return this.courseMap.get(courseID).setAssignmentCategoryWeight(assignmentCategoryName, weight);
+            return successBool;
         }
         return false;
     }
 
     public boolean removeAssignmentCategory(String courseID, String assignmentCategoryName) {
         if(this.courseMap.containsKey(courseID)){
+            boolean successBool = this.courseMap.get(courseID).removeAssignmentCategory(assignmentCategoryName);
             this.updateCourse(courseID);
-            return this.courseMap.get(courseID).removeAssignmentCategory(assignmentCategoryName);
+            return successBool;
         }
         return false;
     }
 
     public boolean setAssignmentScore(String courseID, String assignmentName, int score) {
         if(this.courseMap.containsKey(courseID)){
+            boolean successBoolean = this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
             this.updateCourse(courseID);
-            return this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
+            return successBoolean;
         } else {
             return false;
         }
@@ -100,8 +111,9 @@ public class GTModel {
 
     public boolean setAssignmentPointsPossible(String courseID, String assignmentName, double pointsPossible) {
         if(this.courseMap.containsKey(courseID)) {
+            boolean successBoolean = this.courseMap.get(courseID).setAssignmentPointsPossible(assignmentName, pointsPossible);
             this.updateCourse(courseID);
-            return this.courseMap.get(courseID).setAssignmentPointsPossible(assignmentName, pointsPossible);
+            return successBoolean;
         } else {
             return false;
         }
@@ -133,14 +145,22 @@ public class GTModel {
 
     private void updateAllCourses(){ //THIS MAY SPEND TOO MUCH TIME TALKING TO OBSERVERS
         for (ModelCourse course : courseMap.values()) {
-            updateCourse(course.getId());
+            updateCourse(course.getID());
         }
     }
 
     private boolean updateCourse(String courseID){
+        System.out.println("UPDATING COURSE UPDATING COURSE!!!!!");
         if (courseMap.containsKey(courseID)){
             ModelCourse courseClone = courseMap.get(courseID).clone();
             latestCourses.put(courseID, courseClone);
+
+            for (SampleAtomicAssignment asn: courseClone.getAtomicAssignmentCategories().values()
+                 ) {
+                System.out.print(asn.getName());
+            }
+            System.out.println(courseID);
+
             this.notifyObserversOfChange();
             return true;
         }

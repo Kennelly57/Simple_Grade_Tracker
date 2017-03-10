@@ -1,5 +1,6 @@
 package GradeTracker.Panes;
 
+import GradeTracker.GTModel;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.event.ActionEvent;
@@ -20,17 +21,71 @@ import java.util.List;
 public class CreateAssignmentPane {
 
     private BorderPane root;
+    private GTModel model;
+    private String courseID;
 
-    public CreateAssignmentPane(String setupType) {
+    public CreateAssignmentPane(String setupType, GTModel theModel, String theCourseID) {
+        this.model = theModel;
+        this.courseID = theCourseID;
+
         root = new BorderPane();
         root.setPadding(new Insets(15, 15, 15, 25));
         Text setupTitle = new Text("Create a new ".concat(setupType).concat(":"));
         root.setTop(setupTitle);
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
-        GridPane dataGrid = generateGridPane();
+
+        //-----------------------------------GENERATING DATA GRID---------------------------------
+        GridPane dataGrid = new GridPane();
+        dataGrid.setHgap(10);
+        dataGrid.setVgap(10);
+        dataGrid.setPadding(new Insets(15, 0, 0, 0));
+
+        TextField categoryNameTF = new TextField();
+        TextField weightTF = new TextField();
+
+        HBox subItemHBox = generateSubItemHBox();
+
+        Label categoryNameLabel = new Label("Category Name:");
+        Label weightLabel = new Label("Weight:");
+        Label subItemsLabel = new Label("Subitems:");
+
+        //VBox relevantFieldsVBox = generateRelevantFieldsVBox();
+
+        dataGrid.add(categoryNameLabel, 0, 0);
+        dataGrid.add(categoryNameTF, 1, 0);
+        dataGrid.add(weightLabel, 0, 1);
+        dataGrid.add(weightTF, 1, 1);
+        dataGrid.add(subItemsLabel, 0, 2);
+        dataGrid.add(subItemHBox, 1, 2);
+        //---------------------------------------------------------------------------------------
+
         root.setCenter(dataGrid);
 
-        Button btnFinish = generateButton();
+        //--------------------------------------CREATING BUTTON----------------------------------
+        Button btnFinish = new Button();
+        btnFinish.setText("Create");
+        btnFinish.setOnAction(event ->  {
+            System.out.println("CreatingAssignment");
+            String catNameString = categoryNameTF.getText();
+
+            String weightString = weightTF.getText();
+            int weightInt = 0;
+            boolean properWeight = true;
+
+            try{
+                weightInt = Integer.parseInt(weightString);
+            } catch ( Exception e){
+
+                properWeight = false;
+            }
+            if (properWeight && !catNameString.isEmpty()){
+                model.addAtomicAssignmentCategory(this.courseID, catNameString, weightInt);
+            }
+
+            Stage stage = AssignmentSetupWindow.stage;
+            stage.hide();
+        });
+        //---------------------------------------------------------------------------------------
 
         root.setBottom(btnFinish);
         BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
@@ -41,12 +96,11 @@ public class CreateAssignmentPane {
     private Button generateButton() {
         Button btnFinish = new Button();
         btnFinish.setText("Create");
-        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Stage stage = AssignmentSetupWindow.stage;
-                stage.hide();
-            }
+        btnFinish.setOnAction(event ->  {
+            System.out.println("CreatingAssignment");
+
+            Stage stage = AssignmentSetupWindow.stage;
+            stage.hide();
         });
         return btnFinish;
     }
@@ -71,7 +125,7 @@ public class CreateAssignmentPane {
         Label weightLabel = new Label("Weight:");
         Label subItemsLabel = new Label("Subitems:");
 
-        VBox relevantFieldsVBox = generateRelevantFieldsVBox();
+        //VBox relevantFieldsVBox = generateRelevantFieldsVBox();
 
         dataGrid.add(categoryNameLabel, 0, 0);
         dataGrid.add(categoryNameTF, 1, 0);
@@ -79,7 +133,7 @@ public class CreateAssignmentPane {
         dataGrid.add(weightTF, 1, 1);
         dataGrid.add(subItemsLabel, 0, 2);
         dataGrid.add(subItemHBox, 1, 2);
-        dataGrid.add(relevantFieldsVBox, 0, 3);
+        //dataGrid.add(relevantFieldsVBox, 0, 3);
 
         return dataGrid;
     }
