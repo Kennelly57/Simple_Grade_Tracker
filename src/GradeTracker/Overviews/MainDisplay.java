@@ -179,7 +179,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Create instances of subpanes
         Text setupTitle = new Text("Categories");
-        GridPane dataPane = new CategoriesOverviewPane(atomicAsssignmentCategories, compoundAsssignmentCategories, this).getRoot();
+        GridPane dataPane = new CategoriesOverviewPane(atomicAsssignmentCategories, compoundAsssignmentCategories, course.getCategoryWeights(), this).getRoot();
 //        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();
@@ -270,23 +270,23 @@ public class MainDisplay extends Application implements GTObserver {
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
         // demo stuff for test 101
-        this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 42);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 30);
         this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
         this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
 
-        this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 22);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 20);
         this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
         this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
 
-        this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 31);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 20);
         this.model.setAssignmentPointsPossible(courseID_1, "Article Discussion", 50);
         this.model.setAssignmentScore(courseID_1, "Article Discussion", 50);
 
-        this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 25);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 15);
         this.model.setAssignmentPointsPossible(courseID_1, "Participation", 40);
         this.model.setAssignmentScore(courseID_1, "Participation", 40);
 
-        this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 22);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 15);
         this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
         this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
 
