@@ -56,7 +56,7 @@ public class CoursesOverviewPane {
                 System.out.println("PRINTED");
                 System.out.flush();
                 this.mainDisplay.printDiagnostic();
-                this.mainDisplay.showCategories();
+                this.mainDisplay.showCategories(course);
             });
 
             dataGrid.add(tempID, 0, i + 1);

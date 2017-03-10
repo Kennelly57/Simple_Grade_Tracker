@@ -3,7 +3,11 @@ package GradeTracker.Panes;
 
 import GradeTracker.Assignment;
 
+import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
+import GradeTracker.Samples.SampleAtomicAssignment;
+import GradeTracker.Samples.SampleCompoundAssignment;
+import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -19,26 +23,26 @@ import javafx.scene.layout.*;
 import java.util.List;
 
 public class CategoriesOverviewPane {
-    // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 
     private GridPane root;
     private MainDisplay mainDisplay;
 
-    public CategoriesOverviewPane(List<Assignment> myAssignments, MainDisplay newMainDisplay) {
-        root = generateGridPane(myAssignments);
+    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories, MainDisplay newMainDisplay) {
+        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories);
         this.mainDisplay = newMainDisplay;
     }
 
-    public CategoriesOverviewPane(List<Assignment> myAssignments) {
-        root = generateGridPane(myAssignments);
-
-    }
+//    public CategoriesOverviewPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories) {
+//        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories);
+//    }
 
     public GridPane getRoot() {
         return root;
     }
 
-    private GridPane generateGridPane(List<Assignment> myAssignments) {
+    private GridPane generateGridPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories) {
+        System.out.println("GENERATING GRID PANE");
+
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
         dataGrid.setVgap(10);
@@ -60,26 +64,51 @@ public class CategoriesOverviewPane {
         dataGrid.add(weightedHeader, 5, 0);
 
         // Generate Table of Course Values
-        for (int i = 0; i < myAssignments.size(); i++) {
-            Label tempName = new Label(myAssignments.get(i).getName());
+
+        int i = 0;
+        for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
+            Label tempName = new Label(atomAss.getName());
             dataGrid.add(tempName, 0, i + 1);
 
-            Label tempPointsPos = new Label(Double.toString(myAssignments.get(i).getPointsPossible()));
+            Label tempPointsPos = new Label(Double.toString(atomAss.getPointsPossible()));
             dataGrid.add(tempPointsPos, 1, i + 1);
 
-            Label tempPointsScore = new Label(Double.toString(myAssignments.get(i).getPointsScore()));
+            Label tempPointsScore = new Label(Double.toString(atomAss.getPointsScore()));
             dataGrid.add(tempPointsScore, 2, i + 1);
 
-            Label tempPercentScore = new Label(Double.toString(myAssignments.get(i).getPercentageScore()));
+            Label tempPercentScore = new Label(Double.toString(atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
 
-            Label tempWeight = new Label(Double.toString(myAssignments.get(i).getWeight()));
+            Label tempWeight = new Label(Double.toString(atomAss.getWeight()));
             dataGrid.add(tempWeight, 4, i + 1);
 
-            Label tempWeightedScore = new Label(Double.toString(myAssignments.get(i).getWeightedScore()));
+            Label tempWeightedScore = new Label(Double.toString(atomAss.getWeightedScore()));
             dataGrid.add(tempWeightedScore, 5, i + 1);
+
+            i++;
         }
 
+        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
+            Label tempName = new Label(compAss.getName());
+            dataGrid.add(tempName, 0, i + 1);
+
+            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
+            dataGrid.add(tempPointsPos, 1, i + 1);
+
+            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
+            dataGrid.add(tempPointsScore, 2, i + 1);
+
+            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
+            dataGrid.add(tempPercentScore, 3, i + 1);
+
+            Label tempWeight = new Label(Double.toString(compAss.getWeight()));
+            dataGrid.add(tempWeight, 4, i + 1);
+
+            Label tempWeightedScore = new Label(Double.toString(compAss.getWeightedScore()));
+            dataGrid.add(tempWeightedScore, 5, i + 1);
+
+            i++;
+        }
 
         formatAssignmentGridPane(dataGrid);
         return dataGrid;

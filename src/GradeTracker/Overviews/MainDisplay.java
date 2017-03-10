@@ -6,6 +6,7 @@ import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
+import GradeTracker.Samples.SampleCompoundAssignment;
 import GradeTracker.Samples.SampleCourse;
 import GradeTracker.Samples.SampleTerm;
 import GradeTracker.Panes.CategoriesOverviewPane;
@@ -26,7 +27,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,7 +37,7 @@ import java.util.Map;
  */
 public class MainDisplay extends Application implements GTObserver {
     public static Stage univPrimaryStage;
-    private double numberOfCourses = 3;
+    private double numberOfCourses = 4;
     private GTModel model;
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
@@ -48,14 +48,14 @@ public class MainDisplay extends Application implements GTObserver {
         model = new GTModel();
         model.registerObserver(this);
         this.updateCourses();
+        List<Assignment> myAssignments = makeDemoAssignmentList();
 
+        System.out.println("Preparing to show courses");
+        System.out.flush();
         showCourses();
     }
 
-
-
     private void formatCoursesGridPane(GridPane dataPane, double numberOfCourses) {
-        // TODO Refactor this into Courses Pane
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n : dataPane.getChildren()) {
@@ -91,7 +91,6 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     public HBox createCoursesBtnPane() {
-        // TODO Refactor this into Courses Pane
         HBox btnHbox = new HBox();
 
         Button btnAdd = new Button();
@@ -113,14 +112,10 @@ public class MainDisplay extends Application implements GTObserver {
 
 
     public void showCourses() {
+        System.out.print("Showing ");
         this.updateCourses();
-
-        // Temp, demo term
-        SampleTerm myTerm = new SampleTerm("WI2017");
-        List<SampleCourse> myTermList = myTerm.getCourses();
-        List<Assignment> myAssignments = makeDemoAssignmentList();
-
-        // temp make modelCourse
+        System.out.println("courses");
+        System.out.flush();
 
 
         // Borderpane "root" will hold other panes
@@ -151,7 +146,6 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     public HBox createAssBtnPane(Button btnBack) {
-        // TODO refactor this into assignments pane
         HBox btnHbox = new HBox();
 
         Button btnAdd = new Button();
@@ -169,22 +163,22 @@ public class MainDisplay extends Application implements GTObserver {
         HBox spacer = new HBox();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
-        //btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
         return btnHbox;
     }
 
-    public void showCategories() {
+    public void showCategories(ModelCourse course) {
         this.updateCourses();
+        System.out.println("Showing Categories");
 
-        List<Assignment> myAssignments = new LinkedList<Assignment>();
-        for (Assignment assignmentCat: latestCourses.get("TEST 101").getAtomicAssignmentCategories().values()) {
-            myAssignments.add(assignmentCat);
-        }
-        System.out.println("List Complete");
+        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = course.getAtomicAssignmentCategories();
+        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = course.getCompoundAssignmentCategories();
 
-        // Temp, demo term
-        SampleTerm myTerm = new SampleTerm("WI2017");
-        List<SampleCourse> myTermList = myTerm.getCourses();
+//        List<Assignment> myAssignments = new LinkedList<Assignment>();
+//        for (Assignment assignmentCat: latestCourses.get("TEST 101").getAtomicAssignmentCategories().values()) {
+//            myAssignments.add(assignmentCat);
+//        }
+//        System.out.println("List Complete");
+
         //List<Assignment> myAssignments = makeDemoAssignmentList();
 
         // Borderpane "root" will hold other panes
@@ -192,7 +186,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Create instances of subpanes
         Text setupTitle = new Text("Categories");
-        GridPane dataPane = new CategoriesOverviewPane(myAssignments, this).getRoot();
+        GridPane dataPane = new CategoriesOverviewPane(atomicAsssignmentCategories, compoundAsssignmentCategories, this).getRoot();
 //        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();
@@ -226,65 +220,67 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
 
-    public void showAssignments() {
-        this.updateCourses();
+//    public void showAssignments() {
+//        this.updateCourses();
+//
+//        // Temp, demo term
+//        SampleTerm myTerm = new SampleTerm("WI2017");
+//        List<SampleCourse> myTermList = myTerm.getCourses();
+//        List<Assignment> myAssignments = makeDemoAssignmentList();
+//
+//        // Borderpane "root" will hold other panes
+//        BorderPane root = new BorderPane();
+//
+//        // Create instances of subpanes
+//        Text setupTitle = new Text("Assignments");
+//        GridPane dataPane = new CategoriesOverviewPane(myAssignments).getRoot();
+////        formatAssignmentGridPane(dataPane);
+//
+//        Button btnBack = new Button();
+//        btnBack.setText("<--");
+//        btnBack.setOnAction((ActionEvent) -> {
+//            this.showCategories();
+//        });
+//
+//
+//        HBox controlBtns = createAssBtnPane(btnBack);
+//
+//        // Place subpanes in "root" pane
+//        root.setTop(setupTitle);
+//        root.setAlignment(setupTitle, Pos.CENTER);
+//
+//        root.setCenter(dataPane);
+//        root.setAlignment(dataPane, Pos.CENTER);
+//
+//        root.setBottom(controlBtns);
+//        root.setAlignment(dataPane, Pos.CENTER);
+//
+//        // Create scene
+//        Scene scene = new Scene(root, 1020, 730);
+//        univPrimaryStage.setTitle("Courses for Winter 2017");
+//        univPrimaryStage.setScene(scene);
+//        univPrimaryStage.show();
+//    }
 
-        // Temp, demo term
-        SampleTerm myTerm = new SampleTerm("WI2017");
-        List<SampleCourse> myTermList = myTerm.getCourses();
-        List<Assignment> myAssignments = makeDemoAssignmentList();
+    private void makeDemoAssignmentList() {
+        String courseID_1 = "TEST 101";
+        String courseID_2 = "BIOL.362";
+        String courseID_3 = "CS.111";
 
-        // Borderpane "root" will hold other panes
-        BorderPane root = new BorderPane();
-
-        // Create instances of subpanes
-        Text setupTitle = new Text("Assignments");
-        GridPane dataPane = new CategoriesOverviewPane(myAssignments).getRoot();
-//        formatAssignmentGridPane(dataPane);
-
-        Button btnBack = new Button();
-        btnBack.setText("<--");
-        btnBack.setOnAction((ActionEvent) -> {
-            this.showCategories();
-        });
-
-
-        HBox controlBtns = createAssBtnPane(btnBack);
-
-        // Place subpanes in "root" pane
-        root.setTop(setupTitle);
-        root.setAlignment(setupTitle, Pos.CENTER);
-
-        root.setCenter(dataPane);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setBottom(controlBtns);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        // Create scene
-        Scene scene = new Scene(root, 1020, 730);
-        univPrimaryStage.setTitle("Courses for Winter 2017");
-        univPrimaryStage.setScene(scene);
-        univPrimaryStage.show();
-    }
-
-    private List<Assignment> makeDemoAssignmentList() {
-        List<Assignment> myAssignments = new ArrayList<Assignment>();
-
-        String courseID = "TEST 101";
         System.out.println("ASSEMBLED COURSE");
         int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
 
-        this.model.addCourse(courseID, "Test Course", gScale);
-        this.model.addCourse("BIOL.362", "Ows Patterns & Colors", gScale);
-        this.model.addCourse("CS.111", "Intro CS", gScale);
-        this.model.addCourse("CS.111", "Intro CS", gScale);
+        this.model.addCourse(courseID_1, "Test Course", gScale);
+        this.model.addCourse(courseID_2, "Ows Patterns & Colors", gScale);
+
+        this.model.addCourse(courseID_3, "Intro CS", gScale);
+        this.model.addCourse("CS.121", "Intro CS", gScale);
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
-        this.model.addAtomicAssignmentCategory(courseID, "Midterm Exams", 42);
-        this.model.setAssignmentPointsPossible(courseID, "Midterm Exams", 300);
-        this.model.setAssignmentScore(courseID, "Midterm Exams", 210);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 42);
+        this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
+        this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
 
         System.out.println("ASSEMBLED Assignment");
 
@@ -295,9 +291,9 @@ public class MainDisplay extends Application implements GTObserver {
 
         SampleAtomicAssignment problemSets = new SampleAtomicAssignment("Problem Sets");
 
-        this.model.addAtomicAssignmentCategory(courseID, "Problem Sets", 22);
-        this.model.setAssignmentPointsPossible(courseID, "Problem Sets", 160);
-        this.model.setAssignmentScore(courseID, "Problem Sets", 125);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 22);
+        this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
+        this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
 
         problemSets.setPointsPossible(160);
         problemSets.setPercentageScore(.818);
@@ -311,9 +307,9 @@ public class MainDisplay extends Application implements GTObserver {
         articleDiscussion.setWeight(.571);
         articleDiscussion.calculateWeightedScore();
 
-        this.model.addAtomicAssignmentCategory(courseID, "Article Discussion", 31);
-        this.model.setAssignmentPointsPossible(courseID, "Article Discussion", 50);
-        this.model.setAssignmentScore(courseID, "Article Discussion", 50);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 31);
+        this.model.setAssignmentPointsPossible(courseID_1, "Article Discussion", 50);
+        this.model.setAssignmentScore(courseID_1, "Article Discussion", 50);
 
 
         SampleAtomicAssignment participation = new SampleAtomicAssignment("Participation");
@@ -323,9 +319,9 @@ public class MainDisplay extends Application implements GTObserver {
         participation.setWeight(.714);
         participation.calculateWeightedScore();
 
-        this.model.addAtomicAssignmentCategory(courseID, "Participation", 25);
-        this.model.setAssignmentPointsPossible(courseID, "Participation", 40);
-        this.model.setAssignmentScore(courseID, "Participation", 40);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 25);
+        this.model.setAssignmentPointsPossible(courseID_1, "Participation", 40);
+        this.model.setAssignmentScore(courseID_1, "Participation", 40);
 
 
         SampleAtomicAssignment finalExam = new SampleAtomicAssignment("Final Exam");
@@ -335,17 +331,17 @@ public class MainDisplay extends Application implements GTObserver {
         finalExam.setWeight(.571);
         finalExam.calculateWeightedScore();
 
-        this.model.addAtomicAssignmentCategory(courseID, "Final Exam", 22);
-        this.model.setAssignmentPointsPossible(courseID, "Final Exam", 40);
-        this.model.setAssignmentScore(courseID, "Final Exam", 40);
+        this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 22);
+        this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
+        this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
 
         this.updateCourses();
         System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
 
-        System.out.println(latestCourses.get(courseID).getName());
+        System.out.println(latestCourses.get(courseID_1).getName());
 
 
-        for (Assignment assignmentCat: latestCourses.get(courseID).getAtomicAssignmentCategories().values()) {
+        for (Assignment assignmentCat: latestCourses.get(courseID_1).getAtomicAssignmentCategories().values()) {
             System.out.println(assignmentCat.getName());
         }
 
