@@ -49,7 +49,7 @@ public class MainDisplay extends Application implements GTObserver {
         model = new GTModel();
         model.registerObserver(this);
         this.updateCourses();
-        List<Assignment> myAssignments = makeDemoAssignmentList();
+        makeDemoAssignmentList();
 
         System.out.println("Preparing to show courses");
         System.out.flush();
@@ -263,7 +263,10 @@ public class MainDisplay extends Application implements GTObserver {
 //        univPrimaryStage.show();
 //    }
 
-    private List<Assignment> makeDemoAssignmentList() {
+    private void makeDemoAssignmentList() {
+
+//        List<Assignment> myAssignments = new SampleCourse();
+
         String courseID_1 = "TEST 101";
         String courseID_2 = "BIOL.362";
         String courseID_3 = "CS.111";
@@ -273,7 +276,6 @@ public class MainDisplay extends Application implements GTObserver {
 
         this.model.addCourse(courseID_1, "Test Course", gScale);
         this.model.addCourse(courseID_2, "Ows Patterns & Colors", gScale);
-
         this.model.addCourse(courseID_3, "Intro CS", gScale);
         this.model.addCourse("CS.121", "Intro CS", gScale);
 
@@ -346,13 +348,12 @@ public class MainDisplay extends Application implements GTObserver {
             System.out.println(assignmentCat.getName());
         }
 
-
-        myAssignments.add(midtermExams);
-        myAssignments.add(problemSets);
-        myAssignments.add(articleDiscussion);
-        myAssignments.add(participation);
-        myAssignments.add(finalExam);
-        return myAssignments;
+//        myAssignments.add(midtermExams);
+//        myAssignments.add(problemSets);
+//        myAssignments.add(articleDiscussion);
+//        myAssignments.add(participation);
+//        myAssignments.add(finalExam);
+//        return myAssignments;
     }
 
     public void setNumberOfCourses(){
