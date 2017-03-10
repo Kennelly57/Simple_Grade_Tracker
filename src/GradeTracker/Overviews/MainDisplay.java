@@ -9,6 +9,7 @@ import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.geometry.HPos;
@@ -57,8 +58,11 @@ public class MainDisplay extends Application implements GTObserver {
                 control.setId("gridNodes");
                 if (columnCounter < 3) {
                     control.setId("categories");
-                    columnCounter++;
                 }
+                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
+                    control.setId("labelButton");
+                }
+                columnCounter++;
             }
             if (n instanceof Pane) {
                 Pane pane = (Pane) n;
@@ -69,13 +73,13 @@ public class MainDisplay extends Application implements GTObserver {
         ColumnConstraints oneThird = new ColumnConstraints();
         oneThird.setPercentWidth(100 / 3.0);
         oneThird.setHalignment(HPos.CENTER);
-        for (double i = 0.0; i < 3.0; i++){
+        for (double i = 0.0; i < 3.0; i++) {
             dataPane.getColumnConstraints().addAll(oneThird);
         }
         RowConstraints oneHalf = new RowConstraints();
         oneHalf.setPercentHeight(100 / numberOfCourses);
         oneHalf.setValignment(VPos.CENTER);
-        for (double i = 0.0; i <= numberOfCourses; i++){
+        for (double i = 0.0; i <= numberOfCourses; i++) {
             dataPane.getRowConstraints().addAll(oneHalf);
         }
         String css = this.getClass().getResource("basicStyle.css").toExternalForm();
@@ -87,7 +91,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
-        btnAdd.setOnAction(event ->  {
+        btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(univPrimaryStage);
@@ -96,6 +100,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         btnHbox.getChildren().add(btnAdd);
         btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
+
         return btnHbox;
     }
 
@@ -129,6 +134,8 @@ public class MainDisplay extends Application implements GTObserver {
         root.setBottom(controlBtns);
         root.setAlignment(dataPane, Pos.CENTER);
 
+        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+
 
         // Create scene
         Scene scene = new Scene(root, 1020, 730);
@@ -142,7 +149,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
-        btnAdd.setOnAction(event ->  {
+        btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(univPrimaryStage);
@@ -200,14 +207,18 @@ public class MainDisplay extends Application implements GTObserver {
         root.setBottom(controlBtns);
         root.setAlignment(dataPane, Pos.CENTER);
 
+        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+
         // Create scene
-        Scene scene = new Scene(root, 1020, 730);
+        int length = model.getLatestCourses().size();
+        int height = 100 * length;
+        Scene scene = new Scene(root, 1423, height);
         univPrimaryStage.setTitle("Courses for Winter 2017");
         univPrimaryStage.setScene(scene);
         univPrimaryStage.show();
     }
 
-    public void printDiagnostic(){
+    public void printDiagnostic() {
         System.out.println("Diagnostic");
         System.out.flush();
     }
@@ -321,10 +332,10 @@ public class MainDisplay extends Application implements GTObserver {
 //        }
     }
 
-    public int getNumberOfCourses(){
+    public int getNumberOfCourses() {
         this.updateCourses();
         int counter = 0;
-        for (ModelCourse course: latestCourses.values()){
+        for (ModelCourse course : latestCourses.values()) {
             counter++;
         }
         return counter;
@@ -334,23 +345,21 @@ public class MainDisplay extends Application implements GTObserver {
         this.upToDate = false;
         System.out.println("Notified of change");
 
-        if (this.layer == 0){
+        if (this.layer == 0) {
             System.out.print("Layer: ");
             System.out.println(this.layer);
             this.showCourses();
-        } else
-
-        if (this.layer == 1){
-           this.showCategories(this.courseShowing);
+        } else if (this.layer == 1) {
+            this.showCategories(this.courseShowing);
         }
     }
 
-    private void updateCourses(){
-        if (! this.upToDate) {
+    private void updateCourses() {
+        if (!this.upToDate) {
             this.latestCourses = this.model.getLatestCourses();
             this.upToDate = true;
-            for (ModelCourse course: this.latestCourses.values()
-                 ) {
+            for (ModelCourse course : this.latestCourses.values()
+                    ) {
 //                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
 //                     ) {
 //                    System.out.println(assignment.getName());

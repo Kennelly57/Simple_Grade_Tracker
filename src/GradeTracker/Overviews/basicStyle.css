@@ -26,3 +26,11 @@
     -fx-font-size: 20pt;
     -fx-font-weight: bold;
 }
+
+#labelButton {
+    -fx-background-color: aliceblue;
+    -fx-font-family: "Times New Roman";
+    -fx-alignment: center;
+    -fx-font-size: 18pt;
+    -fx-innershadow: gaussian, 100,100,100,100;
+}

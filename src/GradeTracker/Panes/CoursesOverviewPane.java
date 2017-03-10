@@ -2,9 +2,14 @@ package GradeTracker.Panes;
 
 import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.util.Map;
 
@@ -13,16 +18,27 @@ public class CoursesOverviewPane {
 
     private GridPane root;
     private MainDisplay mainDisplay;
+    private DropShadow shadow;
+
 
     public CoursesOverviewPane(Map<String, ModelCourse> courseMap, MainDisplay newMainDisplay) {
+        makeDropShadow();
         root = generateOverviewPane(courseMap);
         this.mainDisplay = newMainDisplay;
     }
 
-    public CoursesOverviewPane(Map<String, ModelCourse> courseMap) {root = generateOverviewPane(courseMap); }
+    public CoursesOverviewPane(Map<String, ModelCourse> courseMap) {
+        makeDropShadow();
+        root = generateOverviewPane(courseMap);
+    }
 
     public GridPane getRoot() {
         return root;
+    }
+
+    private void makeDropShadow() {
+        shadow = new DropShadow();
+        shadow.setRadius(20.0);
     }
 
     private GridPane generateOverviewPane(Map<String, ModelCourse> courseMap) {
@@ -46,11 +62,27 @@ public class CoursesOverviewPane {
             final String idStr = course.getID();
             Label tempID = new Label(idStr);
 
+
+            tempID.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e) {
+                    tempID.setEffect(shadow);
+                }
+            });
+
+            tempID.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent e) {
+                    tempID.setEffect(null);
+                }
+            });
+
+
             tempID.setOnMouseClicked((MouseEvent) -> {
                 // Send to assignment overview scene
-                System.out.println("PRINTED");
-                System.out.flush();
-                this.mainDisplay.printDiagnostic();
+//                System.out.println("PRINTED");
+//                System.out.flush();
+//                this.mainDisplay.printDiagnostic();
                 this.mainDisplay.showCategories(course);
             });
 
