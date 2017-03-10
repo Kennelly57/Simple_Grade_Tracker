@@ -50,9 +50,6 @@ public class MainDisplay extends Application implements GTObserver {
         model.registerObserver(this);
         this.updateCourses();
         makeDemoAssignmentList();
-
-        System.out.println("Preparing to show courses");
-        System.out.flush();
         showCourses();
     }
 
@@ -265,19 +262,17 @@ public class MainDisplay extends Application implements GTObserver {
 
     private void makeDemoAssignmentList() {
 
-//        List<Assignment> myAssignments = new SampleCourse();
-
         String courseID_1 = "TEST 101";
         String courseID_2 = "BIOL.362";
         String courseID_3 = "CS.111";
+        String courseID_4 = "CS.121";
 
-        System.out.println("ASSEMBLED COURSE");
         int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
 
         this.model.addCourse(courseID_1, "Test Course", gScale);
         this.model.addCourse(courseID_2, "Ows Patterns & Colors", gScale);
         this.model.addCourse(courseID_3, "Intro CS", gScale);
-        this.model.addCourse("CS.121", "Intro CS", gScale);
+        this.model.addCourse(courseID_4, "Intro CS", gScale);
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
@@ -285,7 +280,9 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
         this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
 
-        System.out.println("ASSEMBLED Assignment");
+        this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
 
         midtermExams.setPointsPossible(300);
         midtermExams.setPercentageScore(.695);
@@ -297,6 +294,10 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 22);
         this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
         this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
 
         problemSets.setPointsPossible(160);
         problemSets.setPercentageScore(.818);
@@ -347,13 +348,6 @@ public class MainDisplay extends Application implements GTObserver {
         for (Assignment assignmentCat: latestCourses.get(courseID_1).getAtomicAssignmentCategories().values()) {
             System.out.println(assignmentCat.getName());
         }
-
-//        myAssignments.add(midtermExams);
-//        myAssignments.add(problemSets);
-//        myAssignments.add(articleDiscussion);
-//        myAssignments.add(participation);
-//        myAssignments.add(finalExam);
-//        return myAssignments;
     }
 
     public void setNumberOfCourses(){
