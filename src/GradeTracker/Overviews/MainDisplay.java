@@ -166,7 +166,7 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println(course);
         System.out.println(latestCourses.get(course.getID()));
 
-        course = this.latestCourses.get(course.getID());
+        course = this.latestCourses.get(course.getID()); //THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
 
         Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
 //        for (SampleAtomicAssignment asn: tMap.values()
