@@ -30,6 +30,8 @@ public class GTModel {
             ModelCourse courseToAdd = new ModelCourse(courseID, courseName, gScale);
             courseMap.put(courseID, courseToAdd);
             this.updateCourse(courseID);
+            System.out.print("ADDED COURSE: ");
+            System.out.println(courseID);
             return true;
         }
         return false;

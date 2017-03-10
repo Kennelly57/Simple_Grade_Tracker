@@ -88,14 +88,11 @@ public class MainDisplay extends Application implements GTObserver {
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
-        btnAdd.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                final Stage dialog = new Stage();
-                dialog.initModality(Modality.APPLICATION_MODAL);
-                dialog.initOwner(univPrimaryStage);
-                new CourseSetupWindow().start(dialog);
-            }
+        btnAdd.setOnAction(event ->  {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new CourseSetupWindow().start(dialog, this.model);
         });
 
         btnHbox.getChildren().add(btnAdd);

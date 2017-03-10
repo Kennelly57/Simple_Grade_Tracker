@@ -10,7 +10,7 @@ import GradeTracker.Samples.SampleCompoundAssignment;
 import GradeTracker.ModelCourse;
 import java.util.Map;
 
-import com.sun.tools.internal.ws.processor.model.Model;
+//import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;

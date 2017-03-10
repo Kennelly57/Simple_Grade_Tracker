@@ -1,5 +1,6 @@
 package GradeTracker.Setups;
 
+import GradeTracker.GTModel;
 import GradeTracker.Panes.GradePane;
 import GradeTracker.handleCSV;
 import javafx.application.Application;
@@ -22,7 +23,23 @@ public class CourseSetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
     public Stage univPrimaryStage;
+
+    private String courseID;
+    private String courseName;
+    private GTModel model;
+
     private handleCSV csvHandler = new handleCSV();
+
+    public void start(final Stage primaryStage, GTModel theModel) {
+        this.model = theModel;
+        univPrimaryStage = primaryStage;
+        primaryStage.setTitle("Course Setup");
+        crsIDandNameScene = generateCrsIDandName();
+        gradeDistributionScene = generateGradeDistroSetup();
+        primaryStage.setScene(crsIDandNameScene);
+        primaryStage.show();
+    }
+
 
     @Override
     public void start(final Stage primaryStage) {
@@ -69,14 +86,17 @@ public class CourseSetupWindow extends Application {
         //------------------------------CREATE_NEXT_BUTTON---------------------------------------
         Button btnNext = new Button();
         btnNext.setText("Next");
-        btnNext.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                csvHandler.dataCollector(identificationTextField.getText());
-                csvHandler.dataCollector(crsNameTextField.getText());
-                univPrimaryStage.setScene(gradeDistributionScene);
-                univPrimaryStage.show();
-            }
+        btnNext.setOnAction(event -> {
+
+            csvHandler.dataCollector(identificationTextField.getText());
+            csvHandler.dataCollector(crsNameTextField.getText());
+
+            this.courseID = identificationTextField.getText();
+            this.courseName = crsNameTextField.getText();
+
+            univPrimaryStage.setScene(gradeDistributionScene);
+            univPrimaryStage.show();
+
         });
 
         crsIDandNamePane.setBottom(btnNext);
@@ -110,19 +130,40 @@ public class CourseSetupWindow extends Application {
         //------------------------------CREATE_BUTTONS---------------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("Finish");
-        btnFinish.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                LinkedList<String> temp = setupPane.getTextFields();
-                for (String item : temp) {
-                    csvHandler.dataCollector(item);
+        btnFinish.setOnAction(event -> {
+            System.out.println("PRESSED");
+            LinkedList<String> gradeStringList = setupPane.getTextFields();
+            int[] gradeIntArray = new int[12];
+            boolean allInts = true;
+            try{
+                System.out.println("TRYING");
+                for (int i = 0; i < 12; i++) {
+                    System.out.println(gradeStringList.get(i));
+                    gradeIntArray[i] = Integer.parseInt(gradeStringList.get(i));
+                    System.out.println("T2");
+                    System.out.println(gradeIntArray[i]);
+                    System.out.println("Ending Loop");
+                    System.out.flush();
                 }
-                try {
-                    csvHandler.addCourse();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                univPrimaryStage.hide();
+
+            } catch (Exception e){
+                System.out.println(e);
+               allInts = false;
+            }
+
+            for (String item : gradeStringList) {
+                csvHandler.dataCollector(item);
+            }
+            try {
+                csvHandler.addCourse();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            if (allInts && !this.courseID.isEmpty() && !this.courseID.isEmpty()){
+                this.model.addCourse(courseID, courseName, gradeIntArray);
+            }
+
+            univPrimaryStage.hide();
 
 
 //                VBox dialogVbox = new VBox(20);
@@ -131,7 +172,7 @@ public class CourseSetupWindow extends Application {
 //                dialog.setScene(dialogScene);
 //                dialog.show();
 
-            }
+
         });
 
         Button btnBack = new Button();
