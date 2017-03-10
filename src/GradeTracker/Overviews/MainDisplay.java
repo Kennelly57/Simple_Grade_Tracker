@@ -111,6 +111,7 @@ public class MainDisplay extends Application implements GTObserver {
         return btnHbox;
     }
 
+
     public void showCourses() {
         this.updateCourses();
 
@@ -119,13 +120,16 @@ public class MainDisplay extends Application implements GTObserver {
         List<SampleCourse> myTermList = myTerm.getCourses();
         List<Assignment> myAssignments = makeDemoAssignmentList();
 
+        // temp make modelCourse
+
+
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
         String title = "Courses for Winter 2017";
         Text setupTitle = new Text(title);
-        GridPane dataPane = new CoursesOverviewPane(myTermList, this).getRoot();
+        GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
         formatCoursesGridPane(dataPane, numberOfCourses);
         HBox controlBtns = createCoursesBtnPane();
 
@@ -221,6 +225,7 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.flush();
     }
 
+
     public void showAssignments() {
         this.updateCourses();
 
@@ -271,6 +276,9 @@ public class MainDisplay extends Application implements GTObserver {
         int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
 
         this.model.addCourse(courseID, "Test Course", gScale);
+        this.model.addCourse("BIOL.362", "Ows Patterns & Colors", gScale);
+        this.model.addCourse("CS.111", "Intro CS", gScale);
+        this.model.addCourse("CS.111", "Intro CS", gScale);
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
 
