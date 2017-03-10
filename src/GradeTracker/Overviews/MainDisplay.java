@@ -7,8 +7,6 @@ import GradeTracker.ModelCourse;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
-import GradeTracker.Samples.SampleCourse;
-import GradeTracker.Samples.SampleTerm;
 import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
@@ -28,9 +26,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,7 +33,6 @@ import java.util.Map;
  */
 public class MainDisplay extends Application implements GTObserver {
     public static Stage univPrimaryStage;
-    private double numberOfCourses = 4;
     private GTModel model;
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
@@ -53,7 +47,8 @@ public class MainDisplay extends Application implements GTObserver {
         showCourses();
     }
 
-    private void formatCoursesGridPane(GridPane dataPane, double numberOfCourses) {
+    private void formatCoursesGridPane(GridPane dataPane) {
+        int numberOfCourses = getNumberOfCourses();
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n : dataPane.getChildren()) {
@@ -123,7 +118,7 @@ public class MainDisplay extends Application implements GTObserver {
         String title = "Courses for Winter 2017";
         Text setupTitle = new Text(title);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
-        formatCoursesGridPane(dataPane, numberOfCourses);
+        formatCoursesGridPane(dataPane);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
@@ -350,8 +345,13 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
-    public void setNumberOfCourses(){
-        numberOfCourses = numberOfCourses + 1.0;
+    public int getNumberOfCourses(){
+        this.updateCourses();
+        int counter = 0;
+        for (ModelCourse course: latestCourses.values()){
+            counter++;
+        }
+        return counter;
     }
 
     public void notifyOfChange() {
