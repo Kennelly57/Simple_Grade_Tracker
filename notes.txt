@@ -1,5 +1,4 @@
-CREATE NEW ASSIGNMENT
-- Default settngs for create new assignment
-- Weight slider/ numerical input getting
-- make sure can only check relevant fields that make sense
+NEED TO DO:
 
+- Ensure all three levels of detail function (course, category, assignment)
+- Make fields editable where they should be

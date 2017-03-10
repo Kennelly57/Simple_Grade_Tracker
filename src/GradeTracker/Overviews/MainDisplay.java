@@ -311,8 +311,6 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentScore(courseID_3, "More CS Stuff", 125);
 
 
-
-
         this.updateCourses();
 
 //        System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
@@ -334,7 +332,7 @@ public class MainDisplay extends Application implements GTObserver {
 
     public void notifyOfChange() {
         this.upToDate = false;
-        System.out.println("Notified of change");
+//        System.out.println("Notified of change");
     }
 
     private void updateCourses(){
