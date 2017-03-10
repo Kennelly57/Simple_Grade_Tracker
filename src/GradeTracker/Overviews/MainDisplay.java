@@ -160,14 +160,19 @@ public class MainDisplay extends Application implements GTObserver {
         this.courseShowing = course;
 
         this.updateCourses();
+//        System.out.println(course);
+//        System.out.println(this.latestCourses.get(course.getID()));
+//        System.out.flush();
         System.out.println(course);
-        System.out.println(this.latestCourses.get(course.getID()));
-        System.out.flush();
+        System.out.println(latestCourses.get(course.getID()));
+
+        course = this.latestCourses.get(course.getID());
+
         Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
-        for (SampleAtomicAssignment asn: tMap.values()
-             ) {
-            System.out.println(asn.getName());
-        }
+//        for (SampleAtomicAssignment asn: tMap.values()
+//             ) {
+//            System.out.println(asn.getName());
+//        }
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -329,11 +334,11 @@ public class MainDisplay extends Application implements GTObserver {
         this.upToDate = false;
         System.out.println("Notified of change");
 
-//        if (this.layer == 0){
-//            System.out.print("Layer: ");
-//            System.out.println(this.layer);
-//            this.showCourses();
-//        } else
+        if (this.layer == 0){
+            System.out.print("Layer: ");
+            System.out.println(this.layer);
+            this.showCourses();
+        } else
 
         if (this.layer == 1){
            this.showCategories(this.courseShowing);
@@ -346,10 +351,10 @@ public class MainDisplay extends Application implements GTObserver {
             this.upToDate = true;
             for (ModelCourse course: this.latestCourses.values()
                  ) {
-                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
-                     ) {
-                    System.out.println(assignment.getName());
-                }
+//                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
+//                     ) {
+//                    System.out.println(assignment.getName());
+//                }
 
             }
             System.out.println("Updated Courses");
