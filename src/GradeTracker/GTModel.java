@@ -32,8 +32,8 @@ public class GTModel {
             ModelCourse courseToAdd = new ModelCourse(courseID, courseName, gScale);
             courseMap.put(courseID, courseToAdd);
             this.updateCourse(courseID);
-            System.out.print("ADDED COURSE: ");
-            System.out.println(courseID);
+//            System.out.print("ADDED COURSE: ");
+//            System.out.println(courseID);
             return true;
         }
         return false;
@@ -52,10 +52,10 @@ public class GTModel {
     //-------------------------------------COURSE PASS-THROUGH METHODS---------------------------------------------
     public boolean addAtomicAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
-            System.out.print("Adding category ");
-            System.out.print(categoryName);
-            System.out.print(" to ");
-            System.out.println(courseID);
+//            System.out.print("Adding category ");
+//            System.out.print(categoryName);
+//            System.out.print(" to ");
+//            System.out.println(courseID);
             boolean successBoolean = courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
             this.updateCourse(courseID);
             return successBoolean;

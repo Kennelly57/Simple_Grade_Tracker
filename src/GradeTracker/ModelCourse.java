@@ -101,11 +101,16 @@ public class ModelCourse implements Cloneable {
     public String getGrade() { //THIS DOESN'T ACCOUNT FOR INCOMPLETE ASSIGNMENTS
         double currentPerecentage = 0;
         double weightSum = 0;
+        int weight = 0;
         double percentageScore;
         double weightedScore;
 
-        for (int weight: this.assignmentCategoryWeights.values()) {
-            weightSum += weight;
+        for (String asngment: this.assignmentCategoryWeights.keySet()) {
+            if ((this.atomicAsssignmentCategories.containsKey(asngment) && this.atomicAsssignmentCategories.get(asngment).completed()) ||
+                    (this.compoundAsssignmentCategories.containsKey(asngment) && this.compoundAsssignmentCategories.get(asngment).completed())) {
+                weight = this.assignmentCategoryWeights.get(asngment);
+                weightSum += weight;
+            }
         }
 
         for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
@@ -117,9 +122,11 @@ public class ModelCourse implements Cloneable {
         }
 
         for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
-            percentageScore = compoundAssignment.getPercentageScore();
-            weightedScore = percentageScore * this.assignmentCategoryWeights.get(compoundAssignment.getName()) * 100/weightSum;
-            currentPerecentage += weightedScore;
+            if (compoundAssignment.completed()) {
+                percentageScore = compoundAssignment.getPercentageScore();
+                weightedScore = percentageScore * this.assignmentCategoryWeights.get(compoundAssignment.getName()) * 100 / weightSum;
+                currentPerecentage += weightedScore;
+            }
         }
 
         for (int i = 0; i < this.gradingScale.length; i++) {

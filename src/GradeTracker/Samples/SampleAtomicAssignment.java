@@ -16,8 +16,8 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
     public SampleAtomicAssignment(String assignmentName){
         completed = false;
         this.name = assignmentName;
-        System.out.print("CREATED ATOMIC: ");
-        System.out.println(assignmentName);
+//        System.out.print("CREATED ATOMIC: ");
+//        System.out.println(assignmentName);
 //        System.out.println("");
     }
 
@@ -29,7 +29,7 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         clone.setPointsPossible(this.pointsPossible);
         if(this.completed){
             clone.completed();
-        }
+        } else {clone.markAsIncomplete();}
         return clone;
     }
 

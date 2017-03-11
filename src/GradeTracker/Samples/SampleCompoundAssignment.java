@@ -28,7 +28,7 @@ public class SampleCompoundAssignment implements Assignment {
         SampleCompoundAssignment clone = new SampleCompoundAssignment(this.name, this.gradingScale);
         if (this.completed()){
             clone.markAsCompleted();
-        }
+        } else {clone.markAsIncomplete();}
         for (Assignment assignment : subAssignmentMap.values()) {
             clone.addAssignment(assignment.clone());
         }
@@ -153,6 +153,7 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean completed(){
+        this.completed = false;
         for (Assignment assignment: subAssignmentMap.values()) {
             if (assignment.completed()){
                 this.completed = true;
