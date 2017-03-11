@@ -66,7 +66,7 @@ public class GTModel {
 
     public boolean addCompoundAssignmentCategory(String courseID, String categoryName, Integer weight){
         if (courseMap.containsKey(courseID)){
-            boolean successBoolean = courseMap.get(courseID).addAtomicAssignmentCategory(categoryName, weight);
+            boolean successBoolean = courseMap.get(courseID).addCompoundAssignmentCategory(categoryName, weight);
             this.updateCourse(courseID);
             return successBoolean;
         } else {

@@ -16,6 +16,9 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
     public SampleAtomicAssignment(String assignmentName){
         completed = false;
         this.name = assignmentName;
+        System.out.print("CREATED ATOMIC: ");
+        System.out.println(assignmentName);
+//        System.out.println("");
     }
 
     @Override

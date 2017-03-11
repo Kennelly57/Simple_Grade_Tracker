@@ -43,7 +43,16 @@ public class CreateAssignmentPane {
         TextField categoryNameTF = new TextField();
         TextField weightTF = new TextField();
 
-        HBox subItemHBox = generateSubItemHBox();
+        ToggleGroup subItemsToggle = new ToggleGroup();
+        RadioButton btnSubItemsYes = new RadioButton("Yes");
+        RadioButton btnSubItemsNo = new RadioButton("No");
+        btnSubItemsYes.setToggleGroup(subItemsToggle);
+        btnSubItemsNo.setToggleGroup(subItemsToggle);
+
+        HBox subItemsHBox = new HBox();
+        HBox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
+        subItemsHBox.getChildren().add(btnSubItemsYes);
+        subItemsHBox.getChildren().add(btnSubItemsNo);
 
         Label categoryNameLabel = new Label("Category Name:");
         Label weightLabel = new Label("Weight:");
@@ -56,7 +65,7 @@ public class CreateAssignmentPane {
         dataGrid.add(weightLabel, 0, 1);
         dataGrid.add(weightTF, 1, 1);
         dataGrid.add(subItemsLabel, 0, 2);
-        dataGrid.add(subItemHBox, 1, 2);
+        dataGrid.add(subItemsHBox, 1, 2);
         //---------------------------------------------------------------------------------------
 
         root.setCenter(dataGrid);
@@ -78,8 +87,20 @@ public class CreateAssignmentPane {
 
                 properWeight = false;
             }
-            if (properWeight && !catNameString.isEmpty()){
-                model.addAtomicAssignmentCategory(this.courseID, catNameString, weightInt);
+            if (properWeight && !catNameString.isEmpty()) {
+                if (subItemsToggle.getSelectedToggle() == btnSubItemsYes) {
+                    System.out.println();
+                    System.out.println(subItemsToggle.getSelectedToggle());
+                    model.addCompoundAssignmentCategory(this.courseID, catNameString, weightInt);
+                    System.out.println("COMPOUND LOOP");
+                    System.out.println();
+                } else {
+                    System.out.println();
+                    System.out.println(subItemsToggle.getSelectedToggle());
+                    model.addAtomicAssignmentCategory(this.courseID, catNameString, weightInt);
+                    System.out.println("ATOMIC LOOP");
+                    System.out.println();
+                }
             }
 
             Stage stage = AssignmentSetupWindow.stage;
@@ -97,7 +118,7 @@ public class CreateAssignmentPane {
         Button btnFinish = new Button();
         btnFinish.setText("Create");
         btnFinish.setOnAction(event ->  {
-            System.out.println("CreatingAssignment");
+            System.out.println("Creating-Assignment");
 
             Stage stage = AssignmentSetupWindow.stage;
             stage.hide();

@@ -106,16 +106,6 @@ public class SampleCompoundAssignment implements Assignment {
         }
     }
 
-    // NOT CUREENTLY IN USE
-    public double getWeight(){
-        return -1;
-    }
-
-    // NOT CUREENTLY IN USE
-    public double getWeightedScore(){
-        return -1;
-    }
-
     public void addAssignment(Assignment newAssignment){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF DUPLICATE NAMES!
         subAssignmentMap.put(newAssignment.getName(), newAssignment);
     }

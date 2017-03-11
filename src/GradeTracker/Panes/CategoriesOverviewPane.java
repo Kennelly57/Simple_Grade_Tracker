@@ -137,10 +137,11 @@ public class CategoriesOverviewPane {
             Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
 
-            Label tempWeight = new Label(Double.toString(compAss.getWeight()));
+            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
             dataGrid.add(tempWeight, 4, i + 1);
 
-            Label tempWeightedScore = new Label(Double.toString(compAss.getWeightedScore()));
+            double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
+            Label tempWeightedScore = new Label(Double.toString(weightedScore));
             dataGrid.add(tempWeightedScore, 5, i + 1);
 
             i++;
