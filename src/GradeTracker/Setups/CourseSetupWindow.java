@@ -144,6 +144,9 @@ public class CourseSetupWindow extends Application {
                     System.out.println(gradeIntArray[i]);
                     System.out.println("Ending Loop");
                     System.out.flush();
+                    if (i > 0 && gradeIntArray[i] > gradeIntArray[i-1]){
+                        allInts = false;
+                    }
                 }
 
             } catch (Exception e){

@@ -98,7 +98,7 @@ public class ModelCourse implements Cloneable {
     public Map<String, Integer> getCategoryWeights(){
         return this.assignmentCategoryWeights;
     }
-    public String getGrade() { //THIS DOESN'T ACCOUNT FOR INCOMPLETE ASSIGNMENTS
+    public String getGrade() {
         double currentPerecentage = 0;
         double weightSum = 0;
         int weight = 0;
@@ -135,8 +135,11 @@ public class ModelCourse implements Cloneable {
             }
         }
         System.out.println(currentPerecentage);
-        return "F";
-
+        if (this.compoundAsssignmentCategories.isEmpty() && this.atomicAsssignmentCategories.isEmpty()){
+            return "NO GRADE";
+        } else {
+            return "F";
+        }
 
     }
 
