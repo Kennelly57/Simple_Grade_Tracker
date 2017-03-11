@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -42,6 +44,16 @@ public class MainDisplay extends Application implements GTObserver {
         model.registerObserver(this);
         this.updateCourses();
         makeDemoAssignmentList();
+
+        // get screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        //set Stage boundaries to visible bounds of the main screen
+        univPrimaryStage.setX(primaryScreenBounds.getMinX());
+        univPrimaryStage.setY(primaryScreenBounds.getMinY());
+        univPrimaryStage.setWidth(primaryScreenBounds.getWidth());
+        univPrimaryStage.setHeight(primaryScreenBounds.getHeight());
+
         showCourses();
     }
 
@@ -80,8 +92,8 @@ public class MainDisplay extends Application implements GTObserver {
         for (double i = 0.0; i <= numberOfCourses; i++) {
             dataPane.getRowConstraints().addAll(oneHalf);
         }
-        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
-        dataPane.getStylesheets().add(css);
+//        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
+//        dataPane.getStylesheets().add(css);
     }
 
     public HBox createCoursesBtnPane() {
@@ -89,6 +101,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
+        btnAdd.setId("labelButton");
         btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -101,7 +114,6 @@ public class MainDisplay extends Application implements GTObserver {
 
         return btnHbox;
     }
-
 
     public void showCourses() {
         System.out.print("Showing ");
@@ -118,6 +130,7 @@ public class MainDisplay extends Application implements GTObserver {
         // Create instances of subpanes
         String title = "Courses for Winter 2017";
         Text setupTitle = new Text(title);
+        setupTitle.setId("fancytext");
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
         formatCoursesGridPane(dataPane);
         HBox controlBtns = createCoursesBtnPane();
@@ -134,18 +147,9 @@ public class MainDisplay extends Application implements GTObserver {
 
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
 
-
-        // get screen size
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-
-        //set Stage boundaries to visible bounds of the main screen
-        univPrimaryStage.setX(primaryScreenBounds.getMinX());
-        univPrimaryStage.setY(primaryScreenBounds.getMinY());
-        univPrimaryStage.setWidth(primaryScreenBounds.getWidth());
-        univPrimaryStage.setHeight(primaryScreenBounds.getHeight());
-
         // Create scene
         Scene scene = new Scene(root, 1020, 730);
+        scene.getStylesheets().add("resources/basicStyle.css");
         univPrimaryStage.setTitle("Courses");
         univPrimaryStage.setScene(scene);
         univPrimaryStage.show();
@@ -156,6 +160,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         Button btnAdd = new Button();
         btnAdd.setText("+");
+        btnAdd.setId("labelButton");
         btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -174,30 +179,25 @@ public class MainDisplay extends Application implements GTObserver {
         this.courseShowing = course;
 
         this.updateCourses();
-//        System.out.println(course);
-//        System.out.println(this.latestCourses.get(course.getID()));
-//        System.out.flush();
         System.out.println(course);
         System.out.println(latestCourses.get(course.getID()));
 
-        course = this.latestCourses.get(course.getID()); //THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        // course = this.latestCourses.get(course.getID()); //THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        // I don't think we need this? We're passing a course object?
 
         Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
-//        for (SampleAtomicAssignment asn: tMap.values()
-//             ) {
-//            System.out.println(asn.getName());
-//        }
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
         Text setupTitle = new Text("Categories");
+        setupTitle.setId("fancytext");
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
-//        formatAssignmentGridPane(dataPane);
 
         Button btnBack = new Button();
-        btnBack.setText("<--");
+        btnBack.setText("←");
+        btnBack.setId("labelButton");
         btnBack.setOnAction((ActionEvent) -> {
             this.showCourses();
         });
@@ -220,6 +220,7 @@ public class MainDisplay extends Application implements GTObserver {
         int length = model.getLatestCourses().size();
         int height = 100 * length;
         Scene scene = new Scene(root, 1423, height);
+        scene.getStylesheets().add("resources/basicStyle.css");
         univPrimaryStage.setTitle("Courses for Winter 2017");
         univPrimaryStage.setScene(scene);
         univPrimaryStage.show();

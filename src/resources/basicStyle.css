@@ -15,6 +15,13 @@
     -fx-snap-to-pixel: false;
 }
 
+#fancytext {
+    -fx-font: 60px Tahoma;
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, cadetblue 0%, cornflowerblue 50%);
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+
 #gridNodes {
     -fx-background-color: aliceblue;
     -fx-alignment: center;
