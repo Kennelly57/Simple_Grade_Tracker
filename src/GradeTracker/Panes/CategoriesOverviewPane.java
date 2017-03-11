@@ -3,6 +3,7 @@ package GradeTracker.Panes;
 
 import GradeTracker.Assignment;
 
+import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
@@ -11,6 +12,7 @@ import GradeTracker.ModelCourse;
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
+import GradeTracker.Samples.SampleCourse;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -33,8 +35,10 @@ public class CategoriesOverviewPane {
     private GridPane root;
     private MainDisplay mainDisplay;
     private ModelCourse course;
+    private GTModel model;
 
-    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay) {
+    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel theModel) {
+        this.model = theModel;
 
         Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = myCourse.getAtomicAssignmentCategories();
         Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = myCourse.getCompoundAssignmentCategories();
@@ -77,7 +81,10 @@ public class CategoriesOverviewPane {
         // Generate Table of Course Values
 
         int i = 0;
+        ModelCourse theCourse = this.course;
+        GTModel theModel = this.model;
         for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
+
             Label tempName = new Label(atomAss.getName());
             dataGrid.add(tempName, 0, i + 1);
 
@@ -103,7 +110,7 @@ public class CategoriesOverviewPane {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
                         double updateVal = Double.parseDouble(pointsScore.getText());
                         System.out.println(updateVal);
-                        atomAss.setPointsScore(updateVal);
+                        theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
                         refreshPane();
                     }
                 }
