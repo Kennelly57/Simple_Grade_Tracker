@@ -1,4 +1,3 @@
 NEED TO DO:
 
-- Ensure all three levels of detail function (course, category, assignment)
-- Make fields editable where they should be
+https://docs.google.com/document/d/1XlxxdZpOtpTa8Rursr9xyFigCMjKAJkOPurufI_4oN0/edit

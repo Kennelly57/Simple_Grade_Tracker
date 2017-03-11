@@ -9,17 +9,15 @@ import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.geometry.HPos;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -136,6 +134,15 @@ public class MainDisplay extends Application implements GTObserver {
 
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
 
+
+        // get screen size
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+
+        //set Stage boundaries to visible bounds of the main screen
+        univPrimaryStage.setX(primaryScreenBounds.getMinX());
+        univPrimaryStage.setY(primaryScreenBounds.getMinY());
+        univPrimaryStage.setWidth(primaryScreenBounds.getWidth());
+        univPrimaryStage.setHeight(primaryScreenBounds.getHeight());
 
         // Create scene
         Scene scene = new Scene(root, 1020, 730);
