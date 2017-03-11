@@ -14,12 +14,12 @@ public class SampleCourse {
     private float[] gradingScale;
     private List<Assignment> assignments;
 
-    public SampleCourse(String courseId, String courseName, String courseGrade) {
-        this.id = courseId;
-        this.name = courseName;
-        this.grade = courseGrade;
-        this.gradingScale = new float[12];
-    }
+    //public SampleCourse(String courseId, String courseName, String courseGrade) {
+//        this.id = courseId;
+//        this.name = courseName;
+//        this.grade = courseGrade;
+//        this.gradingScale = new float[12];
+//    }
 
     public SampleCourse(String courseId, String courseName, String courseGrade, float[] gScale, List<Assignment> assignmentList) {
         this.id = courseId;

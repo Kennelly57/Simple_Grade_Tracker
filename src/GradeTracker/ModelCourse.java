@@ -5,6 +5,8 @@ import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.util.*;
 
+import static java.lang.System.out;
+
 /**
  * Created by michelsd on 3/4/17.
  */
@@ -94,39 +96,40 @@ public class ModelCourse implements Cloneable {
         return compoundAsssignmentCategories;
     }
     public Map<String, Integer> getCategoryWeights(){
-        return assignmentCategoryWeights;
+        return this.assignmentCategoryWeights;
     }
     public String getGrade() { //THIS DOESN'T ACCOUNT FOR INCOMPLETE ASSIGNMENTS
         double currentPerecentage = 0;
-        double currentPossible = 0;
+        double weightSum = 0;
         double percentageScore;
         double weightedScore;
-        if (this.weightBalanced()){
-            for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
-                if (atomicAssignment.completed()) {
-                    percentageScore = atomicAssignment.getPercentageScore();
-                    weightedScore = percentageScore * assignmentCategoryWeights.get(atomicAssignment.getName());
-                    currentPerecentage += weightedScore;
-                }
-            }
 
-            for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
-                percentageScore = compoundAssignment.getPercentageScore();
-                weightedScore = percentageScore * assignmentCategoryWeights.get(compoundAssignment.getName());
+        for (int weight: this.assignmentCategoryWeights.values()) {
+            weightSum += weight;
+        }
+
+        for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
+            if (atomicAssignment.completed()) {
+                percentageScore = atomicAssignment.getPercentageScore();
+                weightedScore = percentageScore * this.assignmentCategoryWeights.get(atomicAssignment.getName()) * 100/weightSum;
                 currentPerecentage += weightedScore;
             }
-
-            for (int i = 0; i < this.gradingScale.length; i++) {
-                if (currentPerecentage > this.gradingScale[i]){
-                    return this.grades[i];
-                }
-            }
-            return "F";
-
-        } else{
-            //System.out.println(this.totalWeight);
-            return "ERROR";
         }
+
+        for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
+            percentageScore = compoundAssignment.getPercentageScore();
+            weightedScore = percentageScore * this.assignmentCategoryWeights.get(compoundAssignment.getName()) * 100/weightSum;
+            currentPerecentage += weightedScore;
+        }
+
+        for (int i = 0; i < this.gradingScale.length; i++) {
+            if (currentPerecentage > this.gradingScale[i]){
+                return this.grades[i];
+            }
+        }
+        System.out.println(currentPerecentage);
+        return "F";
+
 
     }
 

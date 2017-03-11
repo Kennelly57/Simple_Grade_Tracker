@@ -1,7 +1,7 @@
 package GradeTracker;
 
 import GradeTracker.Samples.SampleCourse;
-import GradeTracker.Samples.SampleTerm;
+//import GradeTracker.Samples.SampleTerm;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +47,10 @@ public class _howTableWorks extends Application {
         quantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
         table = new TableView<>();
-        table.setItems(getTerm());
+
+
+        //table.setItems(getTerm());
+
         table.getColumns().addAll(nameColumn, priceColumn, quantityColumn);
 
         VBox vBox = new VBox();
@@ -59,13 +62,13 @@ public class _howTableWorks extends Application {
     }
 
     //Get all of the products
-    public ObservableList<SampleCourse> getTerm() {
-
-        SampleTerm myTerm = new SampleTerm("WI2017");
-        List<SampleCourse> myTermList = myTerm.getCourses();
-
-        ObservableList<SampleCourse> coursesList = FXCollections.observableArrayList(myTermList);
-
-        return coursesList;
-    }
+//    public ObservableList<SampleCourse> getTerm() {
+//
+//        SampleTerm myTerm = new SampleTerm("WI2017");
+//        List<SampleCourse> myTermList = myTerm.getCourses();
+//
+//        ObservableList<SampleCourse> coursesList = FXCollections.observableArrayList(myTermList);
+//
+//        return coursesList;
+//    }
 }
