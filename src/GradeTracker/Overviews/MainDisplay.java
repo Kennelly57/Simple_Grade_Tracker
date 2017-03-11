@@ -191,7 +191,8 @@ public class MainDisplay extends Application implements GTObserver {
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        Text setupTitle = new Text("Categories");
+        String titleString = String.format("Courses / %s",course.getName());
+        Text setupTitle = new Text(titleString);
         setupTitle.setId("fancytext");
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 

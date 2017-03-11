@@ -27,10 +27,10 @@ public class CoursesOverviewPane {
         this.mainDisplay = newMainDisplay;
     }
 
-    public CoursesOverviewPane(Map<String, ModelCourse> courseMap) {
-        makeDropShadow();
-        root = generateOverviewPane(courseMap);
-    }
+//    public CoursesOverviewPane(Map<String, ModelCourse> courseMap) {
+//        makeDropShadow();
+//        root = generateOverviewPane(courseMap);
+//    }
 
     public GridPane getRoot() {
         return root;
