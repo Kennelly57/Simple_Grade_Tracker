@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class OfflineLists {
 
-    public void storeCourseList(ArrayList<String> data){
+    public void storeCourseList(ArrayList<ArrayList> data){
         try {
             FileOutputStream fileStream = new FileOutputStream("courseList.txt");
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
@@ -21,13 +21,13 @@ public class OfflineLists {
         }
     }
 
-    public ArrayList<String> returnCourseList(){
-        ArrayList<String> data;
+    public ArrayList<ArrayList> returnCourseList(){
+        ArrayList<ArrayList> data;
         try{
             FileInputStream fileStream = new FileInputStream("courseList.txt");
             ObjectInputStream inputStream = new ObjectInputStream(fileStream);
 
-            data = (ArrayList<String>) inputStream.readObject();
+            data = (ArrayList<ArrayList>) inputStream.readObject();
 
             inputStream.close();
             return data;
@@ -41,14 +41,22 @@ public class OfflineLists {
 
     public static void main(String args[]){
         OfflineLists test = new OfflineLists();
-        ArrayList<String> testy = new ArrayList<String>();
-        testy.add("OWLS");
-        testy.add("CATS");
-        test.storeCourseList(testy);
-        testy = null;
-        testy = test.returnCourseList();
-        for(String item: testy){
-            System.out.println(item);
+        ArrayList<ArrayList> testSum = new ArrayList<ArrayList>();
+        ArrayList<String> test1 = new ArrayList<String>();
+        ArrayList<String> test2 = new ArrayList<String>();
+        test1.add("OWLS");
+        test1.add("CATS");
+        test2.add("DOGS");
+        test2.add("NEANDERTHALS");
+        testSum.add(test1);
+        testSum.add(test2);
+        test.storeCourseList(testSum);
+        testSum = null;
+        testSum = test.returnCourseList();
+        for(ArrayList<String> item: testSum){
+            for (String item2 : item) {
+                System.out.println(item2);
+            }
         }
     }
 

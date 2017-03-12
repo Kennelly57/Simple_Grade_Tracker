@@ -3,6 +3,7 @@ package GradeTracker.Panes;
 import GradeTracker.GTModel;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Setups.AssignmentSetupWindow;
+import com.sun.istack.internal.NotNull;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,7 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
+
 
 import java.util.Arrays;
 import java.util.List;
