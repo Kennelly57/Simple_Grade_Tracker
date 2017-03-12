@@ -263,7 +263,7 @@ public class MainDisplay extends Application implements GTObserver {
         String courseID_3 = "CS.111";
 
         this.model.addCourse(courseID_1, "Test Course", gScale);
-        this.model.addCourse(courseID_2, "Ows Patterns & Colors", gScale);
+        this.model.addCourse(courseID_2, "Owls Patterns & Colors", gScale);
         this.model.addCourse(courseID_3, "Intro CS", gScale);
 
         SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");

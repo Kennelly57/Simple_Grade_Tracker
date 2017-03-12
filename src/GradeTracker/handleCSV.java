@@ -95,6 +95,13 @@ public class handleCSV {
         }
     }
 
+    public ArrayList csvReader() throws FileNotFoundException{
+        ArrayList courseList = new ArrayList();
+        File csv = new File("myCourses.csv");
+        FileReader fileReader = new FileReader(csv);
+        return courseList;
+    }
+
     //For testing purposes, generates a CSV file with no information.
     public static void main(String[] args){
         handleCSV test = new handleCSV();

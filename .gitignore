@@ -2,6 +2,7 @@
 
 W17_CS257_Grade_Tracker.iml
 myCourses.csv
+courseList.txt
 ..gitigore.un~
 *.iml
 out/
