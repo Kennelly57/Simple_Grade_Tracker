@@ -57,79 +57,6 @@ public class MainDisplay extends Application implements GTObserver {
         showCourses();
     }
 
-    private void formatCoursesGridPane(GridPane dataPane) {
-        int numberOfCourses = getNumberOfCourses();
-        dataPane.setId("dataPane");
-        int columnCounter = 0;
-        for (Node n : dataPane.getChildren()) {
-            if (n instanceof Control) {
-                Control control = (Control) n;
-                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                control.setId("gridNodes");
-                if (columnCounter < 3) {
-                    control.setId("categories");
-                }
-                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
-                    control.setId("labelButton");
-                }
-                columnCounter++;
-            }
-            if (n instanceof Pane) {
-                Pane pane = (Pane) n;
-                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                pane.setId("gridNodes");
-            }
-        }
-        ColumnConstraints oneThird = new ColumnConstraints();
-        oneThird.setPercentWidth(100 / 3.0);
-        oneThird.setHalignment(HPos.CENTER);
-        for (double i = 0.0; i < 3.0; i++) {
-            dataPane.getColumnConstraints().addAll(oneThird);
-        }
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / numberOfCourses);
-        oneHalf.setValignment(VPos.CENTER);
-        for (double i = 0.0; i <= numberOfCourses; i++) {
-            dataPane.getRowConstraints().addAll(oneHalf);
-        }
-    }
-
-    private void formatGridPane(GridPane dataPane, double columnNum) {
-        int numberOfCourses = getNumberOfCourses();
-        dataPane.setId("dataPane");
-        int columnCounter = 0;
-        for (Node n : dataPane.getChildren()) {
-            if (n instanceof Control) {
-                Control control = (Control) n;
-                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                control.setId("gridNodes");
-                if (columnCounter < 3) {
-                    control.setId("categories");
-                }
-                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
-                    control.setId("labelButton");
-                }
-                columnCounter++;
-            }
-            if (n instanceof Pane) {
-                Pane pane = (Pane) n;
-                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-                pane.setId("gridNodes");
-            }
-        }
-        ColumnConstraints oneThird = new ColumnConstraints();
-        oneThird.setPercentWidth(100 / columnNum);
-        oneThird.setHalignment(HPos.CENTER);
-        for (double i = 0.0; i < columnNum; i++) {
-            dataPane.getColumnConstraints().addAll(oneThird);
-        }
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / numberOfCourses);
-        oneHalf.setValignment(VPos.CENTER);
-        for (double i = 0.0; i <= numberOfCourses; i++) {
-            dataPane.getRowConstraints().addAll(oneHalf);
-        }
-    }
 
 //    public HBox createNavBtnPane(Button btnBack, String currentCourseID) {
 //        HBox btnHbox = new HBox();
@@ -186,7 +113,7 @@ public class MainDisplay extends Application implements GTObserver {
         Text setupTitle = new Text(title);
         setupTitle.setId("fancytext");
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
-        formatGridPane(dataPane, 3);
+        formatGridPane(dataPane, 3.0, 3.0);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
@@ -427,6 +354,41 @@ public class MainDisplay extends Application implements GTObserver {
 
             }
             System.out.println("Updated Courses");
+        }
+    }
+    private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows){
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n : dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 3) {
+                    control.setId("categories");
+                }
+                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
+                    control.setId("labelButton");
+                }
+                columnCounter++;
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+        ColumnConstraints columnConstraints = new ColumnConstraints();
+        columnConstraints.setPercentWidth(100 / numberOfColumns);
+        columnConstraints.setHalignment(HPos.CENTER);
+        for (double i = 0.0; i < numberOfColumns; i++) {
+            dataPane.getColumnConstraints().addAll(columnConstraints);
+        }
+        RowConstraints rowConstraints = new RowConstraints();
+        rowConstraints.setPercentHeight(100 / numberOfRows);
+        rowConstraints.setValignment(VPos.CENTER);
+        for (double i = 0.0; i <= numberOfRows; i++) {
+            dataPane.getRowConstraints().addAll(rowConstraints);
         }
     }
 }

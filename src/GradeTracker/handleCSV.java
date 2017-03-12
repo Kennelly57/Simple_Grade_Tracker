@@ -66,17 +66,19 @@ public class handleCSV {
         printWriter.close();
     }
 
+    //Data needs to be collected and stored before it can all be added to a new course
     public void dataCollector(String input){
         tempData.add(input);
     }
 
+    //Adds a course to the CSV file. Edits an existing file, or if one cannot be found, generates a new template.
     public void addCourse() throws FileNotFoundException{
         File csv = new File("myCourses.csv");
         FileWriter fileWriter = null;
         try {
             fileWriter = new FileWriter(csv, true);
         } catch (IOException e) {
-            e.printStackTrace();
+            generateCSVFile();
         }
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append('\n');
@@ -93,6 +95,7 @@ public class handleCSV {
         }
     }
 
+    //For testing purposes, generates a CSV file with no information.
     public static void main(String[] args){
         handleCSV test = new handleCSV();
         try {
