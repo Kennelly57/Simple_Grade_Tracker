@@ -15,8 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
@@ -171,7 +169,7 @@ public class MainDisplay extends Application implements GTObserver {
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        String titleString = String.format("Courses / %s",course.getName());
+        String titleString = String.format("Courses / %s", course.getName());
         Text setupTitle = new Text(titleString);
         setupTitle.setId("fancytext");
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
@@ -356,7 +354,8 @@ public class MainDisplay extends Application implements GTObserver {
             System.out.println("Updated Courses");
         }
     }
-    private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows){
+
+    private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n : dataPane.getChildren()) {

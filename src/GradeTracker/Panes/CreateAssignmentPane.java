@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +42,8 @@ public class CreateAssignmentPane {
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
 
         TextField categoryNameTF = new TextField();
-        TextField weightTF = new TextField();
+
+        Spinner weightSpinner = generateSpinner();
 
         ToggleGroup subItemsToggle = new ToggleGroup();
         RadioButton btnSubItemsYes = new RadioButton("Yes");
@@ -63,7 +65,7 @@ public class CreateAssignmentPane {
         dataGrid.add(categoryNameLabel, 0, 0);
         dataGrid.add(categoryNameTF, 1, 0);
         dataGrid.add(weightLabel, 0, 1);
-        dataGrid.add(weightTF, 1, 1);
+        dataGrid.add(weightSpinner, 1, 1);
         dataGrid.add(subItemsLabel, 0, 2);
         dataGrid.add(subItemsHBox, 1, 2);
         //---------------------------------------------------------------------------------------
@@ -73,20 +75,23 @@ public class CreateAssignmentPane {
         //--------------------------------------CREATING BUTTON----------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("Create");
-        btnFinish.setOnAction(event ->  {
+        btnFinish.setOnAction(event -> {
             System.out.println("CreatingAssignment");
             String catNameString = categoryNameTF.getText();
 
-            String weightString = weightTF.getText();
-            int weightInt = 0;
+            int weightInt = (Integer) weightSpinner.getValue();;
             boolean properWeight = true;
 
-            try{
-                weightInt = Integer.parseInt(weightString);
-            } catch ( Exception e){
-
-                properWeight = false;
-            }
+            // todo Don't think we need this try-catch anymore because the spinner does error checking!
+            // todo If the input isn't a number between 0 and 100, it uses the default 20.
+            // todo used this to fix some bugs:
+            // http://stackoverflow.com/questions/32340476/manually-typing-in-text-in-javafx-spinner-is-not-updating-the-value-unless-user
+//            try {
+//                weightInt = (Integer) weightSpinner.getValue();
+//            } catch (Exception e) {
+//
+//                properWeight = false;
+//            }
             if (properWeight && !catNameString.isEmpty()) {
                 if (subItemsToggle.getSelectedToggle() == btnSubItemsYes) {
                     System.out.println();
@@ -110,14 +115,34 @@ public class CreateAssignmentPane {
 
         root.setBottom(btnFinish);
         BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
+        
+    }
 
+    @NotNull
+    private Spinner generateSpinner() {
+        Spinner weightSpinner = new Spinner();
+        SpinnerValueFactory<Integer> valueFactory = //
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 20);
+        valueFactory.increment(1);
+        valueFactory.decrement(1);
 
+        weightSpinner.setValueFactory(valueFactory);
+        weightSpinner.setEditable(true);
+        // hook in a formatter with the same properties as the factory
+
+        // The following three lines from:
+        // http://stackoverflow.com/questions/32340476/manually-typing-in-text-in-javafx-spinner-is-not-updating-the-value-unless-user
+        TextFormatter formatter = new TextFormatter(valueFactory.getConverter(), valueFactory.getValue());
+        weightSpinner.getEditor().setTextFormatter(formatter);
+        // bidi-bind the values
+        valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
+        return weightSpinner;
     }
 
     private Button generateButton() {
         Button btnFinish = new Button();
         btnFinish.setText("Create");
-        btnFinish.setOnAction(event ->  {
+        btnFinish.setOnAction(event -> {
             System.out.println("Creating-Assignment");
 
             Stage stage = AssignmentSetupWindow.stage;
@@ -174,11 +199,11 @@ public class CreateAssignmentPane {
         return subItemsHbox;
     }
 
-    private VBox generateRelevantFieldsVBox(){
+    private VBox generateRelevantFieldsVBox() {
         VBox relevantFieldsVBox = new VBox();
         Text relFieldsLabel = new Text("Relevant Fields");
         relevantFieldsVBox.getChildren().add(relFieldsLabel);
-        VBox.setMargin(relFieldsLabel, new Insets(10,0,10,0));
+        VBox.setMargin(relFieldsLabel, new Insets(10, 0, 10, 0));
 
         CheckBox pointsPossibleCB = new CheckBox("Points Possible");
         CheckBox scorePointsCB = new CheckBox("Score (points)");
