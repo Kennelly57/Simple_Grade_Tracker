@@ -36,6 +36,8 @@
 
 #labelButton {
     -fx-background-color: aliceblue;
+    -fx-text-fill: blue;
+    -fx-border-color: cadetblue;
     -fx-font-family: Tahoma;
     -fx-alignment: center;
     -fx-font-size: 18pt;

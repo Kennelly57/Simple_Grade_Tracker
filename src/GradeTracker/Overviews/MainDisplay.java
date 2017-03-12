@@ -9,17 +9,19 @@ import GradeTracker.Panes.CategoriesOverviewPane;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import GradeTracker.Setups.CourseSetupWindow;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-
 
 import java.util.Map;
 
@@ -31,6 +33,7 @@ public class MainDisplay extends Application implements GTObserver {
     private GTModel model;
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
+    private DropShadow dropShadow;
 
     private int layer;
     private ModelCourse courseShowing;
@@ -42,6 +45,7 @@ public class MainDisplay extends Application implements GTObserver {
         model.registerObserver(this);
         this.updateCourses();
         makeDemoAssignmentList();
+        makeDropshadow();
 
         // get screen size
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -53,6 +57,11 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.setHeight(primaryScreenBounds.getHeight());
 
         showCourses();
+    }
+
+    private void makeDropshadow() {
+        dropShadow = new DropShadow();
+        dropShadow.setRadius(20.0);
     }
 
 
@@ -87,6 +96,7 @@ public class MainDisplay extends Application implements GTObserver {
             dialog.initOwner(univPrimaryStage);
             new CourseSetupWindow().start(dialog, this.model);
         });
+        addDropShadow(btnAdd);
 
         btnHbox.getChildren().add(btnAdd);
         btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
@@ -146,12 +156,15 @@ public class MainDisplay extends Application implements GTObserver {
             dialog.initOwner(univPrimaryStage);
             new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
         });
+        addDropShadow(btnAdd);
 
         HBox spacer = new HBox();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
         return btnHbox;
     }
+
+
 
     public void showCategories(ModelCourse course) {
         this.layer = 1;
@@ -180,6 +193,7 @@ public class MainDisplay extends Application implements GTObserver {
         btnBack.setOnAction((ActionEvent) -> {
             this.showCourses();
         });
+        addDropShadow(btnBack);
 
         HBox controlBtns = createAssBtnPane(btnBack, course.getID());
 
@@ -390,4 +404,20 @@ public class MainDisplay extends Application implements GTObserver {
             dataPane.getRowConstraints().addAll(rowConstraints);
         }
     }
+
+    private void addDropShadow(final Button btn) {
+        btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                btn.setEffect(dropShadow);
+            }
+        });
+        btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                btn.setEffect(null);
+            }
+        });
+    }
+
 }

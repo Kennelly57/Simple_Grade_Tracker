@@ -61,7 +61,6 @@ public class CoursesOverviewPane {
             final String idStr = course.getID();
             Label tempID = new Label(idStr);
 
-
             tempID.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent e) {
@@ -85,12 +84,11 @@ public class CoursesOverviewPane {
                 this.mainDisplay.showCategories(course);
             });
 
-            dataGrid.add(tempID, 0, i + 1);
-
             Label tempName = new Label(course.getName());
-            dataGrid.add(tempName, 1, i + 1);
-
             Label tempGrade = new Label(course.getGrade());
+
+            dataGrid.add(tempID, 0, i + 1);
+            dataGrid.add(tempName, 1, i + 1);
             dataGrid.add(tempGrade, 2, i + 1);
             i++;
         }

@@ -26,6 +26,8 @@ public class CreateAssignmentPane {
     private GTModel model;
     private String courseID;
 
+    // Creates a pane prompting the user for an assignment name and weight,
+    // and asks user to choose if the assignment has subitems.
     public CreateAssignmentPane(String setupType, GTModel theModel, String theCourseID) {
         this.model = theModel;
         this.courseID = theCourseID;
@@ -74,9 +76,10 @@ public class CreateAssignmentPane {
         root.setCenter(dataGrid);
 
         //--------------------------------------CREATING BUTTON----------------------------------
-        Button btnFinish = new Button();
-        btnFinish.setText("Create");
-        btnFinish.setOnAction(event -> {
+        Button btnCreate = new Button();
+        btnCreate.setText("Create");
+        btnCreate.setDefaultButton(true);
+        btnCreate.setOnAction(event -> {
             System.out.println("CreatingAssignment");
             String catNameString = categoryNameTF.getText();
 
@@ -114,11 +117,12 @@ public class CreateAssignmentPane {
         });
         //---------------------------------------------------------------------------------------
 
-        root.setBottom(btnFinish);
-        BorderPane.setAlignment(btnFinish, Pos.BOTTOM_RIGHT);
-        
+        root.setBottom(btnCreate);
+        BorderPane.setAlignment(btnCreate, Pos.BOTTOM_RIGHT);
+
     }
 
+    // Creates a spinner for the assignment weight
     @NotNull
     private Spinner generateSpinner() {
         Spinner weightSpinner = new Spinner();
@@ -129,27 +133,27 @@ public class CreateAssignmentPane {
 
         weightSpinner.setValueFactory(valueFactory);
         weightSpinner.setEditable(true);
-        // hook in a formatter with the same properties as the factory
 
+        //---------------Below ensures that typed input is recorded with user needing to press enter----------------
         // The following three lines from:
         // http://stackoverflow.com/questions/32340476/manually-typing-in-text-in-javafx-spinner-is-not-updating-the-value-unless-user
         TextFormatter formatter = new TextFormatter(valueFactory.getConverter(), valueFactory.getValue());
         weightSpinner.getEditor().setTextFormatter(formatter);
-        // bidi-bind the values
         valueFactory.valueProperty().bindBidirectional(formatter.valueProperty());
         return weightSpinner;
     }
 
     private Button generateButton() {
-        Button btnFinish = new Button();
-        btnFinish.setText("Create");
-        btnFinish.setOnAction(event -> {
+        Button btnCreate = new Button();
+        btnCreate.setText("Create");
+        btnCreate.setDefaultButton(true);
+        btnCreate.setOnAction(event -> {
             System.out.println("Creating-Assignment");
 
             Stage stage = AssignmentSetupWindow.stage;
             stage.hide();
         });
-        return btnFinish;
+        return btnCreate;
     }
 
     public BorderPane getRoot() {

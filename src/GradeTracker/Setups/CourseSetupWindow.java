@@ -86,6 +86,7 @@ public class CourseSetupWindow extends Application {
         //------------------------------CREATE_NEXT_BUTTON---------------------------------------
         Button btnNext = new Button();
         btnNext.setText("Next");
+        btnNext.setDefaultButton(true);
         btnNext.setOnAction(event -> {
 
             csvHandler.dataCollector(identificationTextField.getText());
@@ -130,6 +131,7 @@ public class CourseSetupWindow extends Application {
         //------------------------------CREATE_BUTTONS---------------------------------------
         Button btnFinish = new Button();
         btnFinish.setText("Finish");
+        btnFinish.setDefaultButton(true);
         btnFinish.setOnAction(event -> {
             System.out.println("PRESSED");
             LinkedList<String> gradeStringList = setupPane.getTextFields();
