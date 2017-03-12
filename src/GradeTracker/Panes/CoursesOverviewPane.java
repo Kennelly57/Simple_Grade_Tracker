@@ -14,7 +14,6 @@ import javafx.scene.paint.Color;
 import java.util.Map;
 
 public class CoursesOverviewPane {
-    // TODO Make this create and return a BorderPane, w/ Hbox btns and title AND grid
 
     private GridPane root;
     private MainDisplay mainDisplay;

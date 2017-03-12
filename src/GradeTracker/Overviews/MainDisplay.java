@@ -92,28 +92,63 @@ public class MainDisplay extends Application implements GTObserver {
         for (double i = 0.0; i <= numberOfCourses; i++) {
             dataPane.getRowConstraints().addAll(oneHalf);
         }
-//        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
-//        dataPane.getStylesheets().add(css);
     }
 
-    public HBox createNavBtnPane(Button btnBack, String currentCourseID) {
-        HBox btnHbox = new HBox();
-
-        Button btnAdd = new Button();
-        btnAdd.setText("+");
-        btnAdd.setId("labelButton");
-        btnAdd.setOnAction(event -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(univPrimaryStage);
-            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
-        });
-
-        HBox spacer = new HBox();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
-        return btnHbox;
+    private void formatGridPane(GridPane dataPane, double columnNum) {
+        int numberOfCourses = getNumberOfCourses();
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n : dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 3) {
+                    control.setId("categories");
+                }
+                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
+                    control.setId("labelButton");
+                }
+                columnCounter++;
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+        ColumnConstraints oneThird = new ColumnConstraints();
+        oneThird.setPercentWidth(100 / columnNum);
+        oneThird.setHalignment(HPos.CENTER);
+        for (double i = 0.0; i < columnNum; i++) {
+            dataPane.getColumnConstraints().addAll(oneThird);
+        }
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100 / numberOfCourses);
+        oneHalf.setValignment(VPos.CENTER);
+        for (double i = 0.0; i <= numberOfCourses; i++) {
+            dataPane.getRowConstraints().addAll(oneHalf);
+        }
     }
+
+//    public HBox createNavBtnPane(Button btnBack, String currentCourseID) {
+//        HBox btnHbox = new HBox();
+//
+//        Button btnAdd = new Button();
+//        btnAdd.setText("+");
+//        btnAdd.setId("labelButton");
+//        btnAdd.setOnAction(event -> {
+//            final Stage dialog = new Stage();
+//            dialog.initModality(Modality.APPLICATION_MODAL);
+//            dialog.initOwner(univPrimaryStage);
+//            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
+//        });
+//
+//        HBox spacer = new HBox();
+//        HBox.setHgrow(spacer, Priority.ALWAYS);
+//        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+//        return btnHbox;
+//    }
 
     public HBox createCoursesBtnPane() {
         HBox btnHbox = new HBox();
@@ -151,7 +186,7 @@ public class MainDisplay extends Application implements GTObserver {
         Text setupTitle = new Text(title);
         setupTitle.setId("fancytext");
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
-        formatCoursesGridPane(dataPane);
+        formatGridPane(dataPane, 3);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
@@ -202,8 +237,6 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println(latestCourses.get(course.getID()));
 
         course = this.latestCourses.get(course.getID()); //THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
-        // I don't think we need this? We're passing a course object?
-        // It makes sure that the course object is up-to-date
 
         Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
 
@@ -251,7 +284,6 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println("Diagnostic");
         System.out.flush();
     }
-
 
 //    public void showAssignments() {
 //        this.updateCourses();
@@ -387,8 +419,7 @@ public class MainDisplay extends Application implements GTObserver {
         if (!this.upToDate) {
             this.latestCourses = this.model.getLatestCourses();
             this.upToDate = true;
-            for (ModelCourse course : this.latestCourses.values()
-                    ) {
+            for (ModelCourse course : this.latestCourses.values()) {
 //                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
 //                     ) {
 //                    System.out.println(assignment.getName());

@@ -1,6 +1,6 @@
 .root {
     -fx-font-size: 18pt;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: Tahoma;
     -fx-base: rgb(116, 158, 224);
     -fx-background: rgb(208, 215, 226);
 }
@@ -36,7 +36,7 @@
 
 #labelButton {
     -fx-background-color: aliceblue;
-    -fx-font-family: "Times New Roman";
+    -fx-font-family: Tahoma;
     -fx-alignment: center;
     -fx-font-size: 18pt;
     -fx-innershadow: gaussian, 100,100,100,100;

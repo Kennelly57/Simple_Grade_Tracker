@@ -96,14 +96,6 @@ public class CategoriesOverviewPane {
             pointsScore.setPromptText(currPointsScore);
 
 
-//            pointsScore.setOnAction(e -> {
-//                if (ke.getCode().equals(KeyCode.ENTER)) {
-//                    double updateVal = Double.parseDouble(pointsScore.getText());
-//                    System.out.println(updateVal);
-//                    atomAss.setPointsScore(updateVal);
-//                }
-//            });
-
             pointsScore.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
@@ -193,7 +185,6 @@ public class CategoriesOverviewPane {
         BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
         String css = this.getClass().getResource("basicStyle.css").toExternalForm();
         dataPane.getStylesheets().add(css);
-
     }
 
     private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
