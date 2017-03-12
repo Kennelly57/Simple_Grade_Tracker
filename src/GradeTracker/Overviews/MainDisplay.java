@@ -96,6 +96,25 @@ public class MainDisplay extends Application implements GTObserver {
 //        dataPane.getStylesheets().add(css);
     }
 
+    public HBox createNavBtnPane(Button btnBack, String currentCourseID) {
+        HBox btnHbox = new HBox();
+
+        Button btnAdd = new Button();
+        btnAdd.setText("+");
+        btnAdd.setId("labelButton");
+        btnAdd.setOnAction(event -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
+        });
+
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+        return btnHbox;
+    }
+
     public HBox createCoursesBtnPane() {
         HBox btnHbox = new HBox();
 
