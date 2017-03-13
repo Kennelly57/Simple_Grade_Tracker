@@ -148,27 +148,27 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.show();
     }
 
-    public void showAssignments(SampleCompoundAssignment category) {
-        this.layer = 2;
-        this.categoryShowing = category;
-
-//        this.updateCourses();
-//        course = this.latestCourses.get(course.getID());
-
-//        Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
-
-
-        BorderPane root= new AssignmentsOverviewPane(course, this, this.model).getRoot();
-
-        // Create scene
-        int length = model.getLatestCourses().size();
-        int height = 100 * length;
-        Scene scene = new Scene(root, 1423, height);
-        scene.getStylesheets().add("resources/basicStyle.css");
-        univPrimaryStage.setTitle("Courses for Winter 2017");
-        univPrimaryStage.setScene(scene);
-        univPrimaryStage.show();
-    }
+//    public void showAssignments(SampleCompoundAssignment category) {
+//        this.layer = 2;
+//        this.categoryShowing = category;
+//
+////        this.updateCourses();
+////        course = this.latestCourses.get(course.getID());
+//
+////        Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
+//
+//
+//        BorderPane root= new AssignmentsOverviewPane(category, this, this.model).getRoot();
+//
+//        // Create scene
+//        int length = model.getLatestCourses().size();
+//        int height = 100 * length;
+//        Scene scene = new Scene(root, 1423, height);
+//        scene.getStylesheets().add("resources/basicStyle.css");
+//        univPrimaryStage.setTitle("Courses for Winter 2017");
+//        univPrimaryStage.setScene(scene);
+//        univPrimaryStage.show();
+//    }
 
     public void printDiagnostic() {
         System.out.println("Diagnostic");

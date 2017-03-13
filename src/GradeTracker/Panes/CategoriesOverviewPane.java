@@ -62,7 +62,6 @@ public class CategoriesOverviewPane {
         root.setAlignment(grid, Pos.CENTER);
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
 
-
     }
 
     public BorderPane getRoot() {
