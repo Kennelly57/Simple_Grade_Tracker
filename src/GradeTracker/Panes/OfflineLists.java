@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class OfflineLists {
 
-    public void storeCourseList(ArrayList<ArrayList<String>> data){
+    public void storeCourseList(ArrayList<ArrayList<String>> data) {
         try {
             FileOutputStream fileStream = new FileOutputStream("courseList.txt", true);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
@@ -23,14 +23,14 @@ public class OfflineLists {
         }
     }
 
-    public ArrayList<ArrayList<String>> returnCourseList(){
+    public ArrayList<ArrayList<String>> returnCourseList() {
         ArrayList<ArrayList<String>> sum = new ArrayList<ArrayList<String>>();
         boolean temp = true;
-        try{
+        try {
             FileInputStream fileStream = new FileInputStream("courseList.txt");
             ObjectInputStream inputStream = new ObjectInputStream(fileStream);
 
-            while(temp) {
+            while (temp) {
                 try {
                     sum.add((ArrayList<String>) inputStream.readObject());
                 } catch (IOException e) {
@@ -44,13 +44,13 @@ public class OfflineLists {
 
             inputStream.close();
             return sum;
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error reading file");
         }
         return null;
     }
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
         ArrayList<ArrayList<String>> subsection = new ArrayList<ArrayList<String>>();
         OfflineLists test = new OfflineLists();
         ArrayList<ArrayList<String>> testSum = new ArrayList<ArrayList<String>>();
@@ -63,18 +63,10 @@ public class OfflineLists {
         testSum.add(test1);
         testSum.add(test2);
         test.storeCourseList(testSum);
-        System.out.println(testSum);
         testSum = null;
         testSum = test.returnCourseList();
-        System.out.println(testSum);
         int outerLength = testSum.size();
-        int innerLength;
-        for(int i = 0; i < outerLength; i++){
-            innerLength = testSum.get(i).size();
-            for (int j = 0; j < innerLength; j++) {
-                    System.out.print(testSum.get(i).get(j));
-                }
-            }
-        }
+
     }
+}
 

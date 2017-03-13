@@ -148,7 +148,6 @@ public class CreateAssignmentPane {
         btnCreate.setText("Create");
         btnCreate.setDefaultButton(true);
         btnCreate.setOnAction(event -> {
-            System.out.println("Creating-Assignment");
 
             Stage stage = AssignmentSetupWindow.stage;
             stage.hide();
