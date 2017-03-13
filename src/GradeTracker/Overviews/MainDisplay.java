@@ -66,25 +66,6 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
 
-//    public HBox createNavBtnPane(Button btnBack, String currentCourseID) {
-//        HBox btnHbox = new HBox();
-//
-//        Button btnAdd = new Button();
-//        btnAdd.setText("+");
-//        btnAdd.setId("labelButton");
-//        btnAdd.setOnAction(event -> {
-//            final Stage dialog = new Stage();
-//            dialog.initModality(Modality.APPLICATION_MODAL);
-//            dialog.initOwner(univPrimaryStage);
-//            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
-//        });
-//
-//        HBox spacer = new HBox();
-//        HBox.setHgrow(spacer, Priority.ALWAYS);
-//        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
-//        return btnHbox;
-//    }
-
     public HBox createCoursesBtnPane() {
         HBox btnHbox = new HBox();
 
@@ -122,7 +103,8 @@ public class MainDisplay extends Application implements GTObserver {
         Text setupTitle = new Text(title);
         setupTitle.setId("fancytext");
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
-        formatGridPane(dataPane, 3.0, 3.0);
+        double numberOfRows = model.getLatestCourses().size();
+        formatGridPane(dataPane, 3.0, numberOfRows);
         HBox controlBtns = createCoursesBtnPane();
 
         // Place subpanes in "root" pane
@@ -224,48 +206,6 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println("Diagnostic");
         System.out.flush();
     }
-
-//    public void showAssignments() {
-//        this.updateCourses();
-//
-//        // Temp, demo term
-//        SampleTerm myTerm = new SampleTerm("WI2017");
-//        List<SampleCourse> myTermList = myTerm.getCourses();
-//        List<Assignment> myAssignments = makeDemoAssignmentList();
-//
-//        // Borderpane "root" will hold other panes
-//        BorderPane root = new BorderPane();
-//
-//        // Create instances of subpanes
-//        Text setupTitle = new Text("Assignments");
-//        GridPane dataPane = new CategoriesOverviewPane(myAssignments).getRoot();
-////        formatAssignmentGridPane(dataPane);
-//
-//        Button btnBack = new Button();
-//        btnBack.setText("<--");
-//        btnBack.setOnAction((ActionEvent) -> {
-//            this.showCategories();
-//        });
-//
-//
-//        HBox controlBtns = createAssBtnPane(btnBack);
-//
-//        // Place subpanes in "root" pane
-//        root.setTop(setupTitle);
-//        root.setAlignment(setupTitle, Pos.CENTER);
-//
-//        root.setCenter(dataPane);
-//        root.setAlignment(dataPane, Pos.CENTER);
-//
-//        root.setBottom(controlBtns);
-//        root.setAlignment(dataPane, Pos.CENTER);
-//
-//        // Create scene
-//        Scene scene = new Scene(root, 1020, 730);
-//        univPrimaryStage.setTitle("Courses for Winter 2017");
-//        univPrimaryStage.setScene(scene);
-//        univPrimaryStage.show();
-//    }
 
     private void makeDemoAssignmentList() {
 
@@ -370,7 +310,7 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
-    // Adds proper IDs to grid elements for CSS styling
+    // Add proper IDs to grid elements for CSS styling and sets grid size
     private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;

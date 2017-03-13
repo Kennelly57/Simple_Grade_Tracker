@@ -146,7 +146,9 @@ public class CategoriesOverviewPane {
             i++;
         }
 
-        formatAssignmentGridPane(dataGrid);
+        double numberOfColumns = 6.0;
+        double numberOfRows = model.getLatestCourses().size();
+        formatAssignmentGridPane(dataGrid, numberOfColumns, numberOfRows);
         return dataGrid;
     }
 
@@ -155,7 +157,7 @@ public class CategoriesOverviewPane {
     }
 
 
-    private void formatAssignmentGridPane(GridPane dataPane) {
+    private void formatAssignmentGridPane(GridPane dataPane, double numberOfColumns, double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;
         for (Node n : dataPane.getChildren()) {
@@ -174,23 +176,23 @@ public class CategoriesOverviewPane {
                 pane.setId("gridNodes");
             }
         }
-        addColumnConstraints(dataPane);
-        addRowConstraints(dataPane);
+        addColumnConstraints(dataPane, numberOfColumns);
+        addRowConstraints(dataPane, numberOfRows);
         BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
     }
 
-    private void addRowConstraints(GridPane dataPane) {
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / 2.0);
-        oneHalf.setValignment(VPos.CENTER);
-        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-    }
-
-    private void addColumnConstraints(GridPane dataPane) {
+    private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
         ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100 / 6.0);
+        oneSixth.setPercentWidth(100 / numberOfColumns);
         oneSixth.setHalignment(HPos.CENTER);
         dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+    }
+
+    private void addRowConstraints(GridPane dataPane, double numberOfRows) {
+        RowConstraints oneHalf = new RowConstraints();
+        oneHalf.setPercentHeight(100 / numberOfRows);
+        oneHalf.setValignment(VPos.CENTER);
+        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
     }
 
     private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
