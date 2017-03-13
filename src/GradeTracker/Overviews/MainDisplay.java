@@ -172,6 +172,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = new Button();
         btnAdd.setText("+");
         btnAdd.setId("labelButton");
+        btnAdd.requestFocus();
         btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -211,6 +212,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = new Button();
         btnAdd.setText("+");
         btnAdd.setId("labelButton");
+        btnAdd.requestFocus();
         btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);

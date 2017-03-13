@@ -38,6 +38,7 @@
     -fx-background-color: aliceblue;
     -fx-text-fill: blue;
     -fx-border-color: cadetblue;
+    -fx-border-width: 3;
     -fx-font-family: Tahoma;
     -fx-alignment: center;
     -fx-font-size: 18pt;
