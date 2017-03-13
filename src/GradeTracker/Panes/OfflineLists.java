@@ -32,7 +32,8 @@ public class OfflineLists {
 
             while (temp) {
                 try {
-                    sum.add((ArrayList<String>) inputStream.readObject());
+                    //sum.add((ArrayList<String>) inputStream.readObject());
+                    sum = (ArrayList<ArrayList<String>>) inputStream.readObject();
                 } catch (IOException e) {
                     temp = false;
                     break;
@@ -54,6 +55,7 @@ public class OfflineLists {
         ArrayList<ArrayList<String>> subsection = new ArrayList<ArrayList<String>>();
         OfflineLists test = new OfflineLists();
         ArrayList<ArrayList<String>> testSum = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> newTestSum = new ArrayList<ArrayList<String>>();
         ArrayList<String> test1 = new ArrayList<String>();
         ArrayList<String> test2 = new ArrayList<String>();
         test1.add("OWLS");
@@ -63,8 +65,8 @@ public class OfflineLists {
         testSum.add(test1);
         testSum.add(test2);
         test.storeCourseList(testSum);
-        testSum = null;
-        testSum = test.returnCourseList();
+        //testSum = null;
+        newTestSum = test.returnCourseList();
         int outerLength = testSum.size();
 
     }
