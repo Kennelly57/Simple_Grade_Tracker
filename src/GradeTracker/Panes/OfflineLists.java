@@ -1,8 +1,10 @@
-package GradeTracker.Panes;
+package GradeTracker;
+
+import GradeTracker.Samples.SampleAtomicAssignment;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by Jack on 3/12/2017.
@@ -16,6 +18,8 @@ public class OfflineLists {
             FileOutputStream fileStream = new FileOutputStream("courseList.txt", true);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
             outputStream.writeObject(data);
+
+
             outputStream.writeChar('\n');
             outputStream.close();
         } catch (IOException e) {
@@ -49,6 +53,38 @@ public class OfflineLists {
             System.out.println("Error reading file");
         }
         return null;
+    }
+
+    private String intArrayConverter(int[] gradeArray){
+        String gradeScale = "";
+        String temp = "";
+        for (int item : gradeArray){
+            temp = Integer.toString(item);
+            gradeScale = gradeScale + "," + temp;
+        }
+        return gradeScale;
+    }
+
+    public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
+        ArrayList<String> dataList = new ArrayList<>();
+        int cursor = 1;
+        for (ModelCourse course : coursesMap.values()){
+            dataList.add("<course" + Integer.toString(cursor) + ">");
+            dataList.add(course.getName());
+            dataList.add(course.getID());
+            dataList.add(intArrayConverter(course.getGradingScale()));
+            int atomicCatCursor = 1;
+            for (SampleAtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
+                dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                dataList.add(atomicCat.getName());
+                dataList.add(Double.toString(atomicCat.getPointsPossible()));
+                dataList.add(Double.toString(atomicCat.getPointsScore()));
+                dataList.add(Boolean.toString(atomicCat.completed()));
+                dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
+                dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+            }
+        }
+        return dataList;
     }
 
     public static void main(String args[]) {
