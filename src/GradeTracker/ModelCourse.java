@@ -134,7 +134,6 @@ public class ModelCourse implements Cloneable {
                 return this.grades[i];
             }
         }
-        System.out.println(currentPerecentage);
         if (this.compoundAsssignmentCategories.isEmpty() && this.atomicAsssignmentCategories.isEmpty()){
             return "NO GRADE";
         } else {

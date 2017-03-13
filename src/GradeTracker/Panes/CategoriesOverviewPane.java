@@ -8,6 +8,7 @@ import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.util.Map;
+import java.util.regex.Pattern;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
 import GradeTracker.Setups.AssignmentSetupWindow;
@@ -89,7 +90,6 @@ public class CategoriesOverviewPane {
 
     private GridPane generateGridPane() {
 
-        System.out.println("GENERATING GRID PANE");
 
         Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
         Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
@@ -137,9 +137,8 @@ public class CategoriesOverviewPane {
                 @Override
                 public void handle(KeyEvent ke) {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
-                        if (NumberUtils.isNumber(pointsEarned.getText())) {
+                        if (inputOkay(pointsEarned)) {
                             double updateVal = Double.parseDouble(pointsEarned.getText());
-                            System.out.println(updateVal);
                             theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
                             refreshPane();
                         }
@@ -189,6 +188,14 @@ public class CategoriesOverviewPane {
         double numberOfRows = model.getLatestCourses().size();
         formatAssignmentGridPane(dataGrid, numberOfColumns, numberOfRows);
         return dataGrid;
+    }
+
+    private boolean inputOkay(TextField pointsEarned) {
+        boolean matches = false;
+        if (pointsEarned.getText().matches("[0-9]*\\.[0-9]+|[0-9]+")){
+            matches = true;
+        }
+        return matches;
     }
 
     private void refreshPane() {

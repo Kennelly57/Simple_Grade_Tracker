@@ -133,19 +133,12 @@ public class CourseSetupWindow extends Application {
         btnFinish.setText("Finish");
         btnFinish.setDefaultButton(true);
         btnFinish.setOnAction(event -> {
-            System.out.println("PRESSED");
             LinkedList<String> gradeStringList = setupPane.getTextFields();
             int[] gradeIntArray = new int[12];
             boolean allInts = true;
             try{
-                System.out.println("TRYING");
                 for (int i = 0; i < 12; i++) {
-                    System.out.println(gradeStringList.get(i));
                     gradeIntArray[i] = Integer.parseInt(gradeStringList.get(i));
-                    System.out.println("T2");
-                    System.out.println(gradeIntArray[i]);
-                    System.out.println("Ending Loop");
-                    System.out.flush();
                     if (i > 0 && gradeIntArray[i] > gradeIntArray[i-1]){
                         allInts = false;
                     }
