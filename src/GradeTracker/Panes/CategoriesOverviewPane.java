@@ -31,7 +31,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.lang.math.NumberUtils;
 
 import static GradeTracker.Overviews.MainDisplay.univPrimaryStage;
 
@@ -140,6 +139,8 @@ public class CategoriesOverviewPane {
                         if (inputOkay(pointsEarned)) {
                             double updateVal = Double.parseDouble(pointsEarned.getText());
                             theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
+                            refreshPane();
+                        } else{
                             refreshPane();
                         }
                     }
