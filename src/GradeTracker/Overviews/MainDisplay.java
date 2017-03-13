@@ -3,6 +3,7 @@ package GradeTracker.Overviews;
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
+import GradeTracker.Samples.SampleCompoundAssignment;
 import GradeTracker.Panes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Panes.CategoriesOverviewPane;
@@ -34,10 +35,10 @@ public class MainDisplay extends Application implements GTObserver {
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
     private DropShadow dropShadow;
-    private String css;
 
     private int layer;
     private ModelCourse courseShowing;
+    private SampleCompoundAssignment categoryShowing;
 
     @Override
     public void start(Stage primaryStage) {
@@ -153,75 +154,31 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.show();
     }
 
+    public void showAssignments(SampleCompoundAssignment category) {
+        this.layer = 2;
+        this.categoryShowing = category;
+
+//        this.updateCourses();
+//        course = this.latestCourses.get(course.getID());
+
+//        Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
+
+
+        BorderPane root= new AssignmentsOverviewPane(course, this, this.model).getRoot();
+
+        // Create scene
+        int length = model.getLatestCourses().size();
+        int height = 100 * length;
+        Scene scene = new Scene(root, 1423, height);
+        scene.getStylesheets().add("resources/basicStyle.css");
+        univPrimaryStage.setTitle("Courses for Winter 2017");
+        univPrimaryStage.setScene(scene);
+        univPrimaryStage.show();
+    }
+
     public void printDiagnostic() {
         System.out.println("Diagnostic");
         System.out.flush();
-    }
-
-    private void makeDemoAssignmentList() {
-
-        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
-
-        String courseID_1 = "TEST 101";
-        String courseID_2 = "BIOL.362";
-        String courseID_3 = "CS.111";
-
-        this.model.addCourse(courseID_1, "Test Course", gScale);
-        this.model.addCourse(courseID_2, "Owls Patterns & Colors", gScale);
-        this.model.addCourse(courseID_3, "Intro CS", gScale);
-
-        SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
-
-        // demo stuff for test 101
-        this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 30);
-        this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
-        this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
-
-        this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 20);
-        this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
-        this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
-
-        this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 20);
-        this.model.setAssignmentPointsPossible(courseID_1, "Article Discussion", 50);
-        this.model.setAssignmentScore(courseID_1, "Article Discussion", 50);
-
-        this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 15);
-        this.model.setAssignmentPointsPossible(courseID_1, "Participation", 40);
-        this.model.setAssignmentScore(courseID_1, "Participation", 40);
-
-        this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 15);
-        this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
-        this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
-
-
-        // demo stuff for test biol
-        this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
-
-        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
-
-
-        // demo stuff for test cs
-        this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_3, "CS Stuff", 160);
-        this.model.setAssignmentScore(courseID_3, "CS Stuff", 125);
-
-        this.model.addAtomicAssignmentCategory(courseID_3, "More CS Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_3, "More CS Stuff", 160);
-        this.model.setAssignmentScore(courseID_3, "More CS Stuff", 125);
-
-
-        this.updateCourses();
-
-//        System.out.println("ASSIGNMENTS ENTERED AND UPDATED");
-//        System.out.println(latestCourses.get(courseID_1).getName());
-//
-//        for (Assignment assignmentCat: latestCourses.get(courseID_1).getAtomicAssignmentCategories().values()) {
-//            System.out.println(assignmentCat.getName());
-//        }
     }
 
     public int getNumberOfCourses() {
@@ -251,10 +208,10 @@ public class MainDisplay extends Application implements GTObserver {
             this.latestCourses = this.model.getLatestCourses();
             this.upToDate = true;
             for (ModelCourse course : this.latestCourses.values()) {
-//                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
-//                     ) {
-//                    System.out.println(assignment.getName());
-//                }
+                for (SampleAtomicAssignment assignment: course.getAtomicAssignmentCategories().values()
+                     ) {
+                    System.out.println(assignment.getName());
+                }
 
             }
             System.out.println("Updated Courses");
@@ -320,6 +277,65 @@ public class MainDisplay extends Application implements GTObserver {
                 btn.setEffect(null);
             }
         });
+    }
+
+    private void makeDemoAssignmentList() {
+
+        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
+
+        String courseID_1 = "TEST 101";
+        String courseID_2 = "BIOL.362";
+        String courseID_3 = "CS.111";
+
+        this.model.addCourse(courseID_1, "Test Course", gScale);
+        this.model.addCourse(courseID_2, "Owls Patterns & Colors", gScale);
+        this.model.addCourse(courseID_3, "Intro CS", gScale);
+
+        SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
+
+        // demo stuff for test 101
+        this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 30);
+        this.model.setAssignmentPointsPossible(courseID_1, "Midterm Exams", 300);
+        this.model.setAssignmentScore(courseID_1, "Midterm Exams", 210);
+
+        this.model.addAtomicAssignmentCategory(courseID_1, "Problem Sets", 20);
+        this.model.setAssignmentPointsPossible(courseID_1, "Problem Sets", 160);
+        this.model.setAssignmentScore(courseID_1, "Problem Sets", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_1, "Article Discussion", 20);
+        this.model.setAssignmentPointsPossible(courseID_1, "Article Discussion", 50);
+        this.model.setAssignmentScore(courseID_1, "Article Discussion", 50);
+
+        this.model.addAtomicAssignmentCategory(courseID_1, "Participation", 15);
+        this.model.setAssignmentPointsPossible(courseID_1, "Participation", 40);
+        this.model.setAssignmentScore(courseID_1, "Participation", 40);
+
+        this.model.addAtomicAssignmentCategory(courseID_1, "Final Exam", 15);
+        this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
+        this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
+
+
+        // demo stuff for test biol
+        this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
+
+
+        // demo stuff for test cs
+        this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_3, "CS Stuff", 160);
+        this.model.setAssignmentScore(courseID_3, "CS Stuff", 125);
+
+        this.model.addAtomicAssignmentCategory(courseID_3, "More CS Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_3, "More CS Stuff", 160);
+        this.model.setAssignmentScore(courseID_3, "More CS Stuff", 125);
+
+
+        this.updateCourses();
     }
 
 }
