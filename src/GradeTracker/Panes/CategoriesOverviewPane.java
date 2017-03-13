@@ -124,8 +124,26 @@ public class CategoriesOverviewPane {
             Label tempName = new Label(atomAss.getName());
             dataGrid.add(tempName, 0, i + 1);
 
-            Label tempPointsPos = new Label(Double.toString(atomAss.getPointsPossible()));
-            dataGrid.add(tempPointsPos, 1, i + 1);
+            TextField pointsPos = new TextField();
+            String currPointsPos = Double.toString(atomAss.getPointsPossible());
+            pointsPos.setPromptText(currPointsPos);
+
+            pointsPos.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent ke) {
+                    if (ke.getCode().equals(KeyCode.ENTER)) {
+                        if (inputOkay(pointsPos)) {
+                            double updateVal = Double.parseDouble(pointsPos.getText());
+                            theModel.setAssignmentPointsPossible(course.getID(), atomAss.getName(), updateVal);
+                            refreshPane();
+                        } else{
+                            refreshPane();
+                        }
+                    }
+                }
+            });
+
+            dataGrid.add(pointsPos, 1, i + 1);
 
             TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
@@ -149,7 +167,7 @@ public class CategoriesOverviewPane {
 
             dataGrid.add(pointsEarned, 2, i + 1);
 
-            Label tempPercentScore = new Label(Double.toString(atomAss.getPercentageScore()));
+            Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
 
             Label tempWeight = new Label(Double.toString(weightMap.get(atomAss.getName())));
