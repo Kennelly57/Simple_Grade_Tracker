@@ -179,8 +179,9 @@ public class MainDisplay extends Application implements GTObserver {
         HBox controlBtns = createAssBtnPane(btnBack, course.getID());
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 
-        double numberOfRows = model.getLatestCourses().size();
-        formatGridPane(dataPane, 3.0, numberOfRows);
+        double numberOfColumns = 6.0;
+        double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
+        formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
         root.setTop(setupTitle);
