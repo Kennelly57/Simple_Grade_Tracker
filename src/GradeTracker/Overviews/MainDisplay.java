@@ -260,10 +260,10 @@ public class MainDisplay extends Application implements GTObserver {
                 Control control = (Control) n;
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
-                if (columnCounter < 3) {
+                if (columnCounter < numberOfColumns) {
                     control.setId("categories");
                 }
-                if ((columnCounter >= 3) && (columnCounter % 3 == 0)) {
+                if ((columnCounter >= numberOfColumns) && (columnCounter % numberOfColumns == 0)) {
                     control.setId("labelButton");
                 }
                 columnCounter++;
