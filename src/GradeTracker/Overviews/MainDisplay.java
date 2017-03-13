@@ -95,7 +95,7 @@ public class MainDisplay extends Application implements GTObserver {
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
 
         // Create scene
-        Scene scene = new Scene(root, 1020, 730);
+        Scene scene = new Scene(root);
         scene.getStylesheets().add("resources/basicStyle.css");
         univPrimaryStage.setTitle("Courses");
         univPrimaryStage.setScene(scene);
@@ -107,8 +107,7 @@ public class MainDisplay extends Application implements GTObserver {
         this.courseShowing = course;
 
         this.updateCourses();
-        //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
-        course = this.latestCourses.get(course.getID());
+        course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -119,30 +118,16 @@ public class MainDisplay extends Application implements GTObserver {
         HBox controlBtns = createAssBtnPane(btnBack, course.getID());
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 
+        // Format GridPane
         double numberOfColumns = 6.0;
         double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        root.setTop(setupTitle);
-        root.setAlignment(setupTitle, Pos.CENTER);
+        addPanesToRoot(root, setupTitle, dataPane, controlBtns);
 
-        root.setCenter(dataPane);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setBottom(controlBtns);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
-
-        // Create scene
-        int length = model.getLatestCourses().size();
-        int height = 100 * length;
-        Scene scene = new Scene(root, 1423, height);
-        scene.getStylesheets().add("resources/basicStyle.css");
-        univPrimaryStage.setTitle("Courses for Winter 2017");
-        univPrimaryStage.setScene(scene);
-        univPrimaryStage.show();
+        // Set stage to scene
+        createScene(root);
     }
 
 
@@ -155,6 +140,26 @@ public class MainDisplay extends Application implements GTObserver {
     // to format and generate content
     // ------------------------------------------------------------------------
 
+    private void addPanesToRoot(BorderPane root, Text setupTitle, GridPane dataPane, HBox controlBtns) {
+        root.setTop(setupTitle);
+        root.setAlignment(setupTitle, Pos.CENTER);
+
+        root.setCenter(dataPane);
+        root.setAlignment(dataPane, Pos.CENTER);
+
+        root.setBottom(controlBtns);
+        root.setAlignment(dataPane, Pos.CENTER);
+
+        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+    }
+
+    private void createScene(BorderPane root) {
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("resources/basicStyle.css");
+        univPrimaryStage.setTitle("Courses for Winter 2017");
+        univPrimaryStage.setScene(scene);
+        univPrimaryStage.show();
+    }
 
     private void makeDropshadow() {
         dropShadow = new DropShadow();
