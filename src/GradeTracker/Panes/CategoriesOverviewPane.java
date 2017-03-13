@@ -174,17 +174,23 @@ public class CategoriesOverviewPane {
                 pane.setId("gridNodes");
             }
         }
-        ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100 / 6.0);
-        oneSixth.setHalignment(HPos.CENTER);
-        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+        addColumnConstraints(dataPane);
+        addRowConstraints(dataPane);
+        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+    }
+
+    private void addRowConstraints(GridPane dataPane) {
         RowConstraints oneHalf = new RowConstraints();
         oneHalf.setPercentHeight(100 / 2.0);
         oneHalf.setValignment(VPos.CENTER);
         dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
-        String css = this.getClass().getResource("basicStyle.css").toExternalForm();
-        dataPane.getStylesheets().add(css);
+    }
+
+    private void addColumnConstraints(GridPane dataPane) {
+        ColumnConstraints oneSixth = new ColumnConstraints();
+        oneSixth.setPercentWidth(100 / 6.0);
+        oneSixth.setHalignment(HPos.CENTER);
+        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
     }
 
     private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){

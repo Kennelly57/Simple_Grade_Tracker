@@ -34,6 +34,7 @@ public class MainDisplay extends Application implements GTObserver {
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
     private DropShadow dropShadow;
+    private String css;
 
     private int layer;
     private ModelCourse courseShowing;
@@ -369,6 +370,7 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
+    // Adds proper IDs to grid elements for CSS styling
     private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;
@@ -391,12 +393,21 @@ public class MainDisplay extends Application implements GTObserver {
                 pane.setId("gridNodes");
             }
         }
+
+        addColumnConstraints(dataPane, numberOfColumns);
+        addRowConstraints(dataPane, numberOfRows);
+    }
+
+    private void addColumnConstraints(GridPane dataPane, Double numberOfColumns) {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(100 / numberOfColumns);
         columnConstraints.setHalignment(HPos.CENTER);
         for (double i = 0.0; i < numberOfColumns; i++) {
             dataPane.getColumnConstraints().addAll(columnConstraints);
         }
+    }
+
+    private void addRowConstraints(GridPane dataPane, Double numberOfRows) {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(100 / numberOfRows);
         rowConstraints.setValignment(VPos.CENTER);

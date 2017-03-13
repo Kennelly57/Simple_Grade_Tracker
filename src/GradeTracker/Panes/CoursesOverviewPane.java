@@ -61,26 +61,11 @@ public class CoursesOverviewPane {
             final String idStr = course.getID();
             Label tempID = new Label(idStr);
 
-            tempID.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent e) {
-                    tempID.setEffect(shadow);
-                }
-            });
-
-            tempID.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent e) {
-                    tempID.setEffect(null);
-                }
-            });
+            addDropshadow(tempID);
 
 
             tempID.setOnMouseClicked((MouseEvent) -> {
                 // Send to assignment overview scene
-//                System.out.println("PRINTED");
-//                System.out.flush();
-//                this.mainDisplay.printDiagnostic();
                 this.mainDisplay.showCategories(course);
             });
 
@@ -95,6 +80,22 @@ public class CoursesOverviewPane {
 
         return dataGrid;
 
+    }
+
+    private void addDropshadow(final Label label) {
+        label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent e) {
+                label.setEffect(shadow);
+            }
+        });
+
+        label.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent e) {
+                label.setEffect(null);
+            }
+        });
     }
 
 }
