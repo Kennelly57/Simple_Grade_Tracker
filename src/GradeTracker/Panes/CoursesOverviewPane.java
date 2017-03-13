@@ -19,7 +19,6 @@ public class CoursesOverviewPane {
     private MainDisplay mainDisplay;
     private DropShadow shadow;
 
-
     public CoursesOverviewPane(Map<String, ModelCourse> courseMap, MainDisplay newMainDisplay) {
         makeDropShadow();
         root = generateOverviewPane(courseMap);
