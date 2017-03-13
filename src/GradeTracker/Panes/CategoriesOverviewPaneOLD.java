@@ -6,16 +6,10 @@ import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
-
-import java.util.Map;
-import java.util.regex.Pattern;
-
-//import com.sun.tools.internal.ws.processor.model.Model;
 import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
@@ -32,34 +26,66 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 import static GradeTracker.Overviews.MainDisplay.univPrimaryStage;
 
-public class CategoriesOverviewPane {
+//import com.sun.tools.internal.ws.processor.model.Model;
 
-    private GridPane root;
-    private DropShadow shadow;
+public class CategoriesOverviewPaneOLD {
+
+    private BorderPane root;
+    private GridPane grid;
     private MainDisplay mainDisplay;
     private ModelCourse course;
     private GTModel model;
 
-    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel gtModel) {
+    public CategoriesOverviewPaneOLD(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel gtModel) {
         this.model = gtModel;
         this.course = myCourse;
-        makeDropShadow();
-        root = generateGridPane();
+        grid = generateGridPane();
         this.mainDisplay = newMainDisplay;
+
+        root = new BorderPane();
+        Text setupTitle = generateSetupTitle();
+        Button btnBack = generateBtnBack();
+
+        HBox controlBtns = createAssBtnPane(btnBack, course.getID());
+
+        root.setTop(setupTitle);
+        root.setCenter(grid);
+        root.setBottom(controlBtns);
+
+        root.setAlignment(setupTitle, Pos.CENTER);
+        root.setAlignment(grid, Pos.CENTER);
+        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+
     }
 
-    public GridPane getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 
-    private void makeDropShadow() {
-        shadow = new DropShadow();
-        shadow.setRadius(20.0);
+    private Text generateSetupTitle() {
+        String title = String.format("Courses / %s", course.getName());
+        Text setupTitle = new Text(title);
+        setupTitle.setId("fancytext");
+        return setupTitle;
+    }
+
+    private Button generateBtnBack() {
+        Button btnBack = new Button();
+        btnBack.setText("←");
+        btnBack.setId("labelButton");
+        btnBack.setOnAction((ActionEvent) -> {
+            mainDisplay.showCourses();
+        });
+        addDropShadow(btnBack);
+        return btnBack;
     }
 
     private GridPane generateGridPane() {
+
 
         Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
         Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
@@ -174,9 +200,9 @@ public class CategoriesOverviewPane {
             i++;
         }
 
-//        double numberOfColumns = 6.0;
-//        double numberOfRows = model.getLatestCourses().size();
-//        formatAssignmentGridPane(dataGrid, numberOfColumns, numberOfRows);
+        double numberOfColumns = 6.0;
+        double numberOfRows = model.getLatestCourses().size();
+        formatAssignmentGridPane(dataGrid, numberOfColumns, numberOfRows);
         return dataGrid;
     }
 
@@ -193,29 +219,29 @@ public class CategoriesOverviewPane {
     }
 
 
-//    private void formatAssignmentGridPane(GridPane dataPane, double numberOfColumns, double numberOfRows) {
-//        dataPane.setId("dataPane");
-//        int columnCounter = 0;
-//        for (Node n : dataPane.getChildren()) {
-//            if (n instanceof Control) {
-//                Control control = (Control) n;
-//                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-//                control.setId("gridNodes");
-//                if (columnCounter < 6) {
-//                    control.setId("categories");
-//                    columnCounter++;
-//                }
-//            }
-//            if (n instanceof Pane) {
-//                Pane pane = (Pane) n;
-//                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-//                pane.setId("gridNodes");
-//            }
-//        }
-//        addColumnConstraints(dataPane, numberOfColumns);
-//        addRowConstraints(dataPane, numberOfRows);
-//        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
-//    }
+    private void formatAssignmentGridPane(GridPane dataPane, double numberOfColumns, double numberOfRows) {
+        dataPane.setId("dataPane");
+        int columnCounter = 0;
+        for (Node n : dataPane.getChildren()) {
+            if (n instanceof Control) {
+                Control control = (Control) n;
+                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                control.setId("gridNodes");
+                if (columnCounter < 6) {
+                    control.setId("categories");
+                    columnCounter++;
+                }
+            }
+            if (n instanceof Pane) {
+                Pane pane = (Pane) n;
+                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+                pane.setId("gridNodes");
+            }
+        }
+        addColumnConstraints(dataPane, numberOfColumns);
+        addRowConstraints(dataPane, numberOfRows);
+        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
+    }
 
     private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
         ColumnConstraints oneSixth = new ColumnConstraints();
@@ -260,4 +286,25 @@ public class CategoriesOverviewPane {
             }
         });
     }
+
+    private HBox createAssBtnPane(Button btnBack, String currentCourseID) {
+        HBox btnHbox = new HBox();
+
+        Button btnAdd = new Button();
+        btnAdd.setText("+");
+        btnAdd.setId("labelButton");
+        btnAdd.setOnAction(event -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
+        });
+        addDropShadow(btnAdd);
+
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+        return btnHbox;
+    }
+
 }
