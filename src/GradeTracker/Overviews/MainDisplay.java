@@ -67,55 +67,44 @@ public class MainDisplay extends Application implements GTObserver {
     // ------------------------------------------------------------------------
 
     public void showCourses() {
-        this.updateCourses();
         this.layer = 0;
+        this.updateCourses();
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        String title = "Courses for Winter 2017";
-        Text setupTitle = new Text(title);
-        setupTitle.setId("fancytext");
+        Text screenTitle = generateSetupTitle(layer);
+        Button btnAdd = generateBtnAdd(layer);
+        HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
+
+        // Format GridPane
+        double numberOfColumns = 3.0;
         double numberOfRows = model.getLatestCourses().size();
-        formatGridPane(dataPane, 3.0, numberOfRows);
-        HBox controlBtns = createCoursesBtnPane();
+        formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        root.setTop(setupTitle);
-        root.setAlignment(setupTitle, Pos.CENTER);
+        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
 
-        root.setCenter(dataPane);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setBottom(controlBtns);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
-
-        // Create scene
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("resources/basicStyle.css");
-        univPrimaryStage.setTitle("Courses");
-        univPrimaryStage.setScene(scene);
-        univPrimaryStage.show();
+        // Set stage to scene
+        createScene(root);
     }
 
     public void showCategories(ModelCourse course) {
         this.layer = 1;
-        this.courseShowing = course;
-
         this.updateCourses();
         course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        this.courseShowing = course;
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        Text setupTitle = generateSetupTitle(course);
-        Button btnBack = generateBtnBack();
-        HBox controlBtns = createAssBtnPane(btnBack, course.getID());
+        Text screenTitle = generateSetupTitle(layer, course.getName());
+        Button btnAdd = generateBtnAdd(layer, course.getID());
+        Button btnBack = generateBtnBack(layer);
+        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 
         // Format GridPane
@@ -124,15 +113,16 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, setupTitle, dataPane, controlBtns);
+        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
 
         // Set stage to scene
         createScene(root);
     }
 
 
-    public void showAssignments(SampleCompoundAssignment category) {
-        ;
+    public void showAssignments(ModelCourse course, SampleCompoundAssignment category) {
+        this.layer= 2;
+        this.updateCourses();
     }
 
     // ------------------------------------------------------------------------
@@ -140,9 +130,79 @@ public class MainDisplay extends Application implements GTObserver {
     // to format and generate content
     // ------------------------------------------------------------------------
 
-    private void addPanesToRoot(BorderPane root, Text setupTitle, GridPane dataPane, HBox controlBtns) {
-        root.setTop(setupTitle);
-        root.setAlignment(setupTitle, Pos.CENTER);
+    private Text generateSetupTitle(int layer, String...info) {
+        String title = "";
+
+        // Generate appropriate title text depending on view
+        // ie "Courses / Owl Biology" or "Courses / Owl Biology / Tests"
+        if(layer == 0) {
+            title = "Courses";
+        }
+        else if (layer == 1) {
+            title = String.format("Courses / %s", info[0]);
+        }
+        else if (layer == 2) {
+            title = String.format("Courses / %s / %s", info[0], info[1]);
+        }
+
+        Text setupTitle = new Text(title);
+        setupTitle.setId("fancytext");
+        return setupTitle;
+    }
+
+    private Button generateBtnAdd(int layer, String...onPressInfo) {
+        Button btnAdd = new Button();
+        btnAdd.setText("+");
+        btnAdd.setId("labelButton");
+        btnAdd.setOnAction(event -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            if (layer==0) {
+                new CourseSetupWindow().start(dialog, this.model);
+            }
+            else if (layer==1){
+                new AssignmentSetupWindow().start(dialog, this.model, onPressInfo[0]); // passing courseID
+            }
+        });
+        addDropShadow(btnAdd);
+        return btnAdd;
+    }
+
+    private Button generateBtnBack(int layer) {
+        Button btnBack = new Button();
+        btnBack.setText("←");
+        btnBack.setId("labelButton");
+        btnBack.setOnAction((ActionEvent) -> {
+            if (layer==1) {
+                showCourses();
+            }
+//            if (layer==2) {
+//                showCategories(course);
+//            }
+        });
+        addDropShadow(btnBack);
+        return btnBack;
+    }
+
+    private HBox generateControlBtnPane_NoBackBtn(Button btnAdd) {
+        HBox btnHbox = new HBox();
+        btnHbox.getChildren().add(btnAdd);
+        btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
+        return btnHbox;
+    }
+
+    private HBox generateControlBtnPane_WithBackBtn(Button btnAdd, Button btnBack) {
+        HBox btnHbox = new HBox();
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+        return btnHbox;
+    }
+
+    private void addPanesToRoot(BorderPane root, Text screenTitle, GridPane dataPane, HBox controlBtns) {
+        root.setTop(screenTitle);
+        root.setAlignment(screenTitle, Pos.CENTER);
 
         root.setCenter(dataPane);
         root.setAlignment(dataPane, Pos.CENTER);
@@ -164,65 +224,6 @@ public class MainDisplay extends Application implements GTObserver {
     private void makeDropshadow() {
         dropShadow = new DropShadow();
         dropShadow.setRadius(20.0);
-    }
-
-    public HBox createCoursesBtnPane() {
-        HBox btnHbox = new HBox();
-
-        Button btnAdd = new Button();
-        btnAdd.setText("+");
-        btnAdd.setId("labelButton");
-        btnAdd.setOnAction(event -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(univPrimaryStage);
-            new CourseSetupWindow().start(dialog, this.model);
-        });
-        addDropShadow(btnAdd);
-
-        btnHbox.getChildren().add(btnAdd);
-        btnHbox.setAlignment(Pos.BOTTOM_RIGHT);
-
-        return btnHbox;
-    }
-
-
-    private Text generateSetupTitle(ModelCourse course) {
-        String title = String.format("Courses / %s", course.getName());
-        Text setupTitle = new Text(title);
-        setupTitle.setId("fancytext");
-        return setupTitle;
-    }
-
-    private Button generateBtnBack() {
-        Button btnBack = new Button();
-        btnBack.setText("←");
-        btnBack.setId("labelButton");
-        btnBack.setOnAction((ActionEvent) -> {
-            showCourses();
-        });
-        addDropShadow(btnBack);
-        return btnBack;
-    }
-
-    private HBox createAssBtnPane(Button btnBack, String currentCourseID) {
-        HBox btnHbox = new HBox();
-
-        Button btnAdd = new Button();
-        btnAdd.setText("+");
-        btnAdd.setId("labelButton");
-        btnAdd.setOnAction(event -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(univPrimaryStage);
-            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
-        });
-        addDropShadow(btnAdd);
-
-        HBox spacer = new HBox();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
-        return btnHbox;
     }
 
 
