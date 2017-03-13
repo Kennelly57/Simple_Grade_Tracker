@@ -1,18 +1,16 @@
 package GradeTracker.Panes;
 
 
-import GradeTracker.Assignment;
-
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Overviews.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
-import GradeTracker.ModelCourse;
+
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
-import GradeTracker.Samples.SampleCourse;
+import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -20,43 +18,82 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.apache.commons.lang.math.NumberUtils;
 
-import java.util.List;
+import static GradeTracker.Overviews.MainDisplay.univPrimaryStage;
 
 public class CategoriesOverviewPane {
 
-    private GridPane root;
+    private BorderPane root;
+    private GridPane grid;
     private MainDisplay mainDisplay;
     private ModelCourse course;
     private GTModel model;
 
-    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel theModel) {
-        this.model = theModel;
-
-        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = myCourse.getAtomicAssignmentCategories();
-        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = myCourse.getCompoundAssignmentCategories();
-        Map<String, Integer> weightMap = myCourse.getCategoryWeights();
-
-        root = generateGridPane(atomicAsssignmentCategories, compoundAsssignmentCategories, weightMap);
-        this.mainDisplay = newMainDisplay;
+    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel gtModel) {
+        this.model = gtModel;
         this.course = myCourse;
+        grid = generateGridPane();
+        this.mainDisplay = newMainDisplay;
+
+        root = new BorderPane();
+        Text setupTitle = generateSetupTitle();
+        Button btnBack = generateBtnBack();
+
+        HBox controlBtns = createAssBtnPane(btnBack, course.getID());
+
+        root.setTop(setupTitle);
+        root.setCenter(grid);
+        root.setBottom(controlBtns);
+
+        root.setAlignment(setupTitle, Pos.CENTER);
+        root.setAlignment(grid, Pos.CENTER);
+        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+
+
     }
 
-    public GridPane getRoot() {
+    public BorderPane getRoot() {
         return root;
     }
 
-    private GridPane generateGridPane(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories,
-                                      Map<String, SampleCompoundAssignment> compoundAsssignmentCategories,
-                                      Map<String, Integer> weightMap) {
+    private Text generateSetupTitle() {
+        String title = String.format("Courses / %s", course.getName());
+        Text setupTitle = new Text(title);
+        setupTitle.setId("fancytext");
+        return setupTitle;
+    }
+
+    private Button generateBtnBack() {
+        Button btnBack = new Button();
+        btnBack.setText("←");
+        btnBack.setId("labelButton");
+        btnBack.setOnAction((ActionEvent) -> {
+            mainDisplay.showCourses();
+        });
+        addDropShadow(btnBack);
+        return btnBack;
+    }
+
+    private GridPane generateGridPane() {
+
         System.out.println("GENERATING GRID PANE");
+
+        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
+        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
+        Map<String, Integer> weightMap = this.course.getCategoryWeights();
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -66,7 +103,7 @@ public class CategoriesOverviewPane {
 
         Label nameHeader = new Label("Category");
         Label pointsPosHeader = new Label("Points Possible");
-        Label scorePtsHeader = new Label("Score (pts)");
+        Label scorePtsHeader = new Label("Points Earned");
         Label scorePercentHeader = new Label("Score (%)");
         Label weightHeader = new Label("Weight");
         Label weightedHeader = new Label("Weighted Score");
@@ -91,24 +128,26 @@ public class CategoriesOverviewPane {
             Label tempPointsPos = new Label(Double.toString(atomAss.getPointsPossible()));
             dataGrid.add(tempPointsPos, 1, i + 1);
 
-            TextField pointsScore = new TextField();
+            TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
-            pointsScore.setPromptText(currPointsScore);
+            pointsEarned.setPromptText(currPointsScore);
 
 
-            pointsScore.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
-                        double updateVal = Double.parseDouble(pointsScore.getText());
-                        System.out.println(updateVal);
-                        theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
-                        refreshPane();
+                        if (NumberUtils.isNumber(pointsEarned.getText())) {
+                            double updateVal = Double.parseDouble(pointsEarned.getText());
+                            System.out.println(updateVal);
+                            theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
+                            refreshPane();
+                        }
                     }
                 }
             });
 
-            dataGrid.add(pointsScore, 2, i + 1);
+            dataGrid.add(pointsEarned, 2, i + 1);
 
             Label tempPercentScore = new Label(Double.toString(atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
@@ -207,6 +246,42 @@ public class CategoriesOverviewPane {
         }
 
         return counter;
+    }
+
+    private void addDropShadow(final Button btn) {
+        btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                DropShadow dropShadow = new DropShadow();
+                btn.setEffect(dropShadow);
+            }
+        });
+        btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                btn.setEffect(null);
+            }
+        });
+    }
+
+    private HBox createAssBtnPane(Button btnBack, String currentCourseID) {
+        HBox btnHbox = new HBox();
+
+        Button btnAdd = new Button();
+        btnAdd.setText("+");
+        btnAdd.setId("labelButton");
+        btnAdd.setOnAction(event -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
+        });
+        addDropShadow(btnAdd);
+
+        HBox spacer = new HBox();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+        return btnHbox;
     }
 
 }

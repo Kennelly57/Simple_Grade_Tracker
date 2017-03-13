@@ -127,28 +127,6 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.show();
     }
 
-    public HBox createAssBtnPane(Button btnBack, String currentCourseID) {
-        HBox btnHbox = new HBox();
-
-        Button btnAdd = new Button();
-        btnAdd.setText("+");
-        btnAdd.setId("labelButton");
-        btnAdd.setOnAction(event -> {
-            final Stage dialog = new Stage();
-            dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.initOwner(univPrimaryStage);
-            new AssignmentSetupWindow().start(dialog, this.model, currentCourseID);
-        });
-        addDropShadow(btnAdd);
-
-        HBox spacer = new HBox();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
-        return btnHbox;
-    }
-
-
-
     public void showCategories(ModelCourse course) {
         this.layer = 1;
         this.courseShowing = course;
@@ -157,40 +135,13 @@ public class MainDisplay extends Application implements GTObserver {
         System.out.println(course);
         System.out.println(latestCourses.get(course.getID()));
 
-        course = this.latestCourses.get(course.getID()); //THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        course = this.latestCourses.get(course.getID());
 
         Map<String, SampleAtomicAssignment> tMap = this.latestCourses.get(course.getID()).getAtomicAssignmentCategories();
 
-        // Borderpane "root" will hold other panes
-        BorderPane root = new BorderPane();
 
-        // Create instances of subpanes
-        String titleString = String.format("Courses / %s", course.getName());
-        Text setupTitle = new Text(titleString);
-        setupTitle.setId("fancytext");
-        GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
-
-        Button btnBack = new Button();
-        btnBack.setText("←");
-        btnBack.setId("labelButton");
-        btnBack.setOnAction((ActionEvent) -> {
-            this.showCourses();
-        });
-        addDropShadow(btnBack);
-
-        HBox controlBtns = createAssBtnPane(btnBack, course.getID());
-
-        // Place subpanes in "root" pane
-        root.setTop(setupTitle);
-        root.setAlignment(setupTitle, Pos.CENTER);
-
-        root.setCenter(dataPane);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setBottom(controlBtns);
-        root.setAlignment(dataPane, Pos.CENTER);
-
-        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+        BorderPane root= new CategoriesOverviewPane(course, this, this.model).getRoot();
 
         // Create scene
         int length = model.getLatestCourses().size();
