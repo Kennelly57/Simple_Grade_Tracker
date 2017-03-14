@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class OfflineLists {
 
-    public void storeCourseList(ArrayList<String> data) {
+    public static void storeCourseList(ArrayList<String> data) {
         try {
             FileOutputStream fileStream = new FileOutputStream("courseList.txt", false);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
@@ -27,7 +27,7 @@ public class OfflineLists {
         }
     }
 
-    public ArrayList<String> returnCourseList() {
+    public static ArrayList<String> returnCourseList() {
         ArrayList<String> sum = new ArrayList<String>();
         boolean temp = true;
         try {
@@ -49,7 +49,7 @@ public class OfflineLists {
         return null;
     }
 
-    private String intArrayConverter(int[] gradeArray){
+    public static String intArrayConverter(int[] gradeArray){
         String gradeScale = ",";
         String temp = "";
         for (int item : gradeArray){
@@ -61,7 +61,7 @@ public class OfflineLists {
 
     /* Generates an array of all the information used to run the program.
     *  Will be stored as an object in a text file. */
-    public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
+    public static ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
         for (ModelCourse course : coursesMap.values()){
             //dataList.add("<course" + Integer.toString(cursor) + ">");

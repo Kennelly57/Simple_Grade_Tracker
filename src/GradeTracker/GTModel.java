@@ -2,6 +2,8 @@ package GradeTracker;
 
 import java.util.*;
 
+import static GradeTracker.OfflineLists.returnCourseList;
+
 /**
  * Created by Kilian on 3/7/2017.
  * <p>
@@ -228,8 +230,7 @@ public class GTModel {
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
     private void dataSetter(){
-        OfflineLists fetch = new OfflineLists();
-        ArrayList<String> data = fetch.returnCourseList();
+        ArrayList<String> data = returnCourseList();
         String subCategoryName = null;
         String courseName = null;
         String gradeScale = null;
