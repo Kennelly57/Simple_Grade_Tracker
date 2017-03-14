@@ -139,7 +139,7 @@ public class MainDisplay extends Application implements GTObserver {
         GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
 
         // Format GridPane
-        double numberOfColumns = 6.0;
+        double numberOfColumns = 4.0;
         double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
@@ -388,9 +388,13 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
         this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
 
-        this.model.addCompoundAssignmentCategory(courseID_2, "More Owl Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
+        this.model.addCompoundAssignmentCategory(courseID_2, "More Compound Stuff", 22);
+        this.model.setAssignmentPointsPossible(courseID_2, "More Compound Stuff", 160);
+        this.model.setAssignmentScore(courseID_2, "More Compound Stuff", 125);
+
+        this.model.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", "test");
+        this.model.setAssignmentPointsPossible(courseID_2, "test", 160);
+        this.model.setAssignmentScore(courseID_2, "test", 125);
 
         // demo stuff for test cs
         this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);

@@ -55,9 +55,6 @@ public class AssignmentsOverviewPane {
     private GridPane generateGridPane() {
 
         Map<String, SampleAtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
-        Map<String, Integer> weightMap = this.course.getCategoryWeights();
-//        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
-//        Map<String, Integer> weightMap = this.course.getCategoryWeights();
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -69,15 +66,11 @@ public class AssignmentsOverviewPane {
         Label pointsPosHeader = new Label("Points Possible");
         Label scorePtsHeader = new Label("Points Earned");
         Label scorePercentHeader = new Label("Score (%)");
-        Label weightHeader = new Label("Weight");
-        Label weightedHeader = new Label("Weighted Score");
 
         dataGrid.add(nameHeader, 0, 0);
         dataGrid.add(pointsPosHeader, 1, 0);
         dataGrid.add(scorePtsHeader, 2, 0);
         dataGrid.add(scorePercentHeader, 3, 0);
-        dataGrid.add(weightHeader, 4, 0);
-        dataGrid.add(weightedHeader, 5, 0);
 
         // Generate Table of Course Values
 
@@ -134,13 +127,6 @@ public class AssignmentsOverviewPane {
 
             Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
             dataGrid.add(tempPercentScore, 3, i + 1);
-
-            Label tempWeight = new Label(Double.toString(weightMap.get(atomAss.getName())));
-            dataGrid.add(tempWeight, 4, i + 1);
-
-            double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
-            Label tempWeightedScore = new Label(Double.toString(weightedScore));
-            dataGrid.add(tempWeightedScore, 5, i + 1);
 
             i++;
         }
