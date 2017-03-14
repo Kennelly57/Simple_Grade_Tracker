@@ -17,7 +17,7 @@ public interface Assignment extends Cloneable {
 
     boolean completed();
 
-    boolean contains(String assignmentName);
+    boolean containsAtomic(String assignmentName);
 
     boolean setScore(String assignmentName, double Score);
 

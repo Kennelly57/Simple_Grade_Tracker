@@ -1,7 +1,5 @@
 package GradeTracker;
 
-import GradeTracker.Samples.SampleAtomicAssignment;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -100,15 +98,26 @@ public class GTModel {
     }
 
     public boolean addAtomicAssignmentToCompoundCategory(String courseID, String categoryName, String assignmentName){
-        if (this.courseMap.containsKey(courseID) && courseMap.get(courseID).contains(categoryName)){
-            return courseMap.get(courseID).addAtomicAssignmentToCompoundCategory(categoryName, assignmentName);
+        if (this.courseMap.containsKey(courseID) && courseMap.get(courseID).containsCompound(categoryName)){
+            boolean sucessBool = courseMap.get(courseID).addAtomicAssignmentToCompoundCategory(categoryName, assignmentName);
+            this.updateCourse(courseID);
+            return sucessBool;
+        }
+        return false;
+    }
+
+    public boolean addCompoundAssignmentToCompoundCategory(String courseID, String categoryName, String assignmentName){
+        if (this.courseMap.containsKey(courseID) && courseMap.get(courseID).containsCompound(categoryName)){
+            //return courseMap.get(courseID).addCompoundAssignmentToCompoundCategory(categoryName, );
         }
         return false;
     }
 
     public boolean removeAssignmentFromCompoundCategory(String courseID, String categoryName, String assignmentName){
         if (this.courseMap.containsKey(courseID)){
-            return courseMap.get(courseID).removeAssignmentFromCompoundCategory(categoryName, assignmentName);
+            boolean sucessBool = courseMap.get(courseID).removeAssignmentFromCompoundCategory(categoryName, assignmentName);
+            this.updateCourse(courseID);
+            return sucessBool;
         }
         return false;
     }
@@ -125,7 +134,7 @@ public class GTModel {
 
     public boolean setAssignmentPointsPossible(String courseID, String assignmentName, double pointsPossible) {
         if (this.courseMap.containsKey(courseID)) {
-            boolean successBoolean = this.courseMap.get(courseID).setAssignmentPointsPossible(assignmentName, pointsPossible);
+            boolean successBoolean = this.courseMap.get(courseID).setAtomicAssignmentPointsPossible(assignmentName, pointsPossible);
             this.updateCourse(courseID);
             return successBoolean;
         } else {
