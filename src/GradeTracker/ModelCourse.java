@@ -2,6 +2,7 @@ package GradeTracker;
 
 import GradeTracker.Samples.AtomicAssignment;
 import GradeTracker.Samples.CompoundAssignment;
+import com.sun.javafx.sg.prism.NGShape;
 
 import java.util.*;
 
@@ -293,6 +294,47 @@ public class ModelCourse implements Cloneable {
             }
         }
         return false;
+    }
+
+
+    private int[] gradeScaleStringParser(String gradeScale){
+        int[] gScale = new int[12];
+        int stringLength = gradeScale.length();
+        int currentIndex = 0;
+        for (int cursor = 0; cursor < stringLength; cursor++){
+            if (gradeScale.charAt(cursor) == ',') {
+                String tempString = gradeScale.substring(cursor, cursor+3);
+                int tempInt = Integer.parseInt(tempString);
+                gScale[currentIndex] = tempInt;
+                currentIndex++;
+            }
+        }
+        return gScale;
+    }
+
+    public void dataSetter(){
+        OfflineLists fetch = new OfflineLists();
+        ArrayList<String> data = fetch.returnCourseList();
+        int pointer = 0;
+        int courseCursor = 0;
+        int atomicCatCursor = 0;
+        int compCatCursor = 0;
+        int subCatCursor = 0;
+        for (String item : data) {
+            if (item.equals("<course" + Integer.toString(courseCursor) + ">")){
+                String gradeScale = data.get(pointer + 3);
+                ModelCourse currentCourse = new ModelCourse(data.get(pointer + 1), data.get(pointer + 2), gradeScaleStringParser(gradeScale));
+                pointer += 3;
+                courseCursor++;
+            } else if (item.equals("<atomicCategory" + Integer.toString(atomicCatCursor) + ">")){
+                String fluff = "";
+            } else if (item.equals("<compoundCategory" + Integer.toString(compCatCursor) + ">")){
+                String fluff = "";
+            } else if (item.equals("<subCategory" + Integer.toString(subCatCursor) + ">")) {
+                String fluff = "";
+            }
+        }
+
     }
 
 }

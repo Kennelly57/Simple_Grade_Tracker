@@ -16,7 +16,7 @@ public class OfflineLists {
 
     public void storeCourseList(ArrayList<String> data) {
         try {
-            FileOutputStream fileStream = new FileOutputStream("courseList.txt", true);
+            FileOutputStream fileStream = new FileOutputStream("courseList.txt");
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
             outputStream.writeObject(data);
             outputStream.close();
@@ -48,7 +48,7 @@ public class OfflineLists {
     }
 
     private String intArrayConverter(int[] gradeArray){
-        String gradeScale = "";
+        String gradeScale = ",";
         String temp = "";
         for (int item : gradeArray){
             temp = Integer.toString(item);
@@ -61,13 +61,13 @@ public class OfflineLists {
     *  Will be stored as an object in a text file. */
     public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
-        int cursor = 1;
+        int cursor = 0;
         for (ModelCourse course : coursesMap.values()){
             dataList.add("<course" + Integer.toString(cursor) + ">");
             dataList.add(course.getName());
             dataList.add(course.getID());
             dataList.add(intArrayConverter(course.getGradingScale()));
-            int atomicCatCursor = 1;
+            int atomicCatCursor = 0;
             for (AtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
                 dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
                 dataList.add(atomicCat.getName());
@@ -78,7 +78,7 @@ public class OfflineLists {
                 dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
                 atomicCatCursor++;
             }
-            int compCatCursor = 1;
+            int compCatCursor = 0;
             for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
                 dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
                 dataList.add(compCat.getName());
@@ -86,7 +86,7 @@ public class OfflineLists {
                 dataList.add(Double.toString(compCat.getPointsScore()));
                 dataList.add(Boolean.toString(compCat.completed()));
                 dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
-                int subCatCursor = 1;
+                int subCatCursor = 0;
                 for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
                     dataList.add("<subCategory" + Integer.toString(subCatCursor) + ">");
                     dataList.add(subCat.getName());
@@ -105,7 +105,6 @@ public class OfflineLists {
             dataList.add("</course" + Integer.toString(cursor) + ">");
             cursor++;
         }
-        System.out.println(dataList);
         return dataList;
     }
 
