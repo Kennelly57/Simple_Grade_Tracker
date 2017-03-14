@@ -106,6 +106,13 @@ public class GTModel {
         return false;
     }
 
+    public boolean removeAssignmentFromCompoundCategory(String courseID, String categoryName, String assignmentName){
+        if (this.courseMap.containsKey(courseID)){
+            return courseMap.get(courseID).removeAssignmentFromCompoundCategory(categoryName, assignmentName);
+        }
+        return false;
+    }
+
     public boolean setAssignmentScore(String courseID, String assignmentName, double score) {
         if (this.courseMap.containsKey(courseID)) {
             boolean successBoolean = this.courseMap.get(courseID).setAssignmentScore(assignmentName, score);
