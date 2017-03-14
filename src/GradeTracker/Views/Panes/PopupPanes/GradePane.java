@@ -1,4 +1,4 @@
-package GradeTracker.Views.HelperPanes.PopupPanes;
+package GradeTracker.Views.Panes.PopupPanes;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

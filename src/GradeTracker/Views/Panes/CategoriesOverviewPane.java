@@ -1,4 +1,4 @@
-package GradeTracker.Views.HelperPanes.OverviewPanes;
+package GradeTracker.Views.Panes;
 
 
 import GradeTracker.GTModel;
@@ -6,9 +6,14 @@ import GradeTracker.ModelCourse;
 import GradeTracker.Views.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
+
+import java.util.Map;
+
+//import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,27 +22,19 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
 
-import java.util.Map;
-
-//import com.sun.tools.internal.ws.processor.model.Model;
-
-public class AssignmentsOverviewPane {
+public class CategoriesOverviewPane {
 
     private GridPane root;
     private DropShadow shadow;
     private MainDisplay mainDisplay;
     private ModelCourse course;
-    private SampleCompoundAssignment category;
     private GTModel model;
 
-    public AssignmentsOverviewPane(ModelCourse myCourse, SampleCompoundAssignment myCategory, MainDisplay newMainDisplay, GTModel gtModel) {
+    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel gtModel) {
         this.model = gtModel;
         this.course = myCourse;
-        this.category = myCategory;
         makeDropShadow();
         root = generateGridPane();
         this.mainDisplay = newMainDisplay;
@@ -54,10 +51,9 @@ public class AssignmentsOverviewPane {
 
     private GridPane generateGridPane() {
 
-        Map<String, SampleAtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
+        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
+        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
         Map<String, Integer> weightMap = this.course.getCategoryWeights();
-//        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
-//        Map<String, Integer> weightMap = this.course.getCategoryWeights();
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -65,7 +61,7 @@ public class AssignmentsOverviewPane {
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
         dataGrid.setGridLinesVisible(true);
 
-        Label nameHeader = new Label("Assignment");
+        Label nameHeader = new Label("Category");
         Label pointsPosHeader = new Label("Points Possible");
         Label scorePtsHeader = new Label("Points Earned");
         Label scorePercentHeader = new Label("Score (%)");
@@ -84,7 +80,7 @@ public class AssignmentsOverviewPane {
         int i = 0;
         ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
-        for (SampleAtomicAssignment atomAss: subAssignmentMap.values()) {
+        for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
 
             Label tempName = new Label(atomAss.getName());
             dataGrid.add(tempName, 0, i + 1);
@@ -114,6 +110,7 @@ public class AssignmentsOverviewPane {
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
 
+
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
@@ -138,6 +135,29 @@ public class AssignmentsOverviewPane {
             dataGrid.add(tempWeight, 4, i + 1);
 
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
+            Label tempWeightedScore = new Label(Double.toString(weightedScore));
+            dataGrid.add(tempWeightedScore, 5, i + 1);
+
+            i++;
+        }
+
+        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
+            Label tempName = new Label(compAss.getName());
+            dataGrid.add(tempName, 0, i + 1);
+
+            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
+            dataGrid.add(tempPointsPos, 1, i + 1);
+
+            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
+            dataGrid.add(tempPointsScore, 2, i + 1);
+
+            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
+            dataGrid.add(tempPercentScore, 3, i + 1);
+
+            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
+            dataGrid.add(tempWeight, 4, i + 1);
+
+            double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
             dataGrid.add(tempWeightedScore, 5, i + 1);
 

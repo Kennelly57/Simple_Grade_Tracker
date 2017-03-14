@@ -1,4 +1,4 @@
-package GradeTracker.Views.HelperPanes.PopupPanes;
+package GradeTracker.Views.Panes.PopupPanes;
 
 import GradeTracker.GTModel;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;

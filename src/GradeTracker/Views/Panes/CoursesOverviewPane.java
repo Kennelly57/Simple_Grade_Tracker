@@ -1,4 +1,4 @@
-package GradeTracker.Views.HelperPanes.OverviewPanes;
+package GradeTracker.Views.Panes;
 
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.MainDisplay;

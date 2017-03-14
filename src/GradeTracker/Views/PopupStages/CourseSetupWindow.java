@@ -1,7 +1,7 @@
 package GradeTracker.Views.PopupStages;
 
 import GradeTracker.GTModel;
-import GradeTracker.Views.HelperPanes.PopupPanes.GradePane;
+import GradeTracker.Views.Panes.PopupPanes.GradePane;
 import GradeTracker.handleCSV;
 import javafx.application.Application;
 import javafx.event.ActionEvent;

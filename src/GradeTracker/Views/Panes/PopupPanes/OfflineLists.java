@@ -1,4 +1,4 @@
-package GradeTracker.Views.HelperPanes.PopupPanes;
+package GradeTracker.Views.Panes.PopupPanes;
 
 import GradeTracker.ModelCourse;
 import GradeTracker.Samples.SampleAtomicAssignment;
