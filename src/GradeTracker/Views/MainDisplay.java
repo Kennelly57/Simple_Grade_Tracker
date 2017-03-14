@@ -12,6 +12,7 @@ import GradeTracker.Views.Panes.CategoriesOverviewPane;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -27,6 +28,7 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -89,6 +91,8 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer);
         HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this, this.model).getRoot();
+        HBox saveButton = generateSaveButton(screenTitle);
+        saveButton.setId("Save");
 
         // Format GridPane
         double numberOfColumns = 4.0;
@@ -96,7 +100,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
+        addPanesToRoot(root, dataPane, controlBtns, saveButton);
 
         // Set stage to scene
         createScene(root);
@@ -115,6 +119,9 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
+        HBox saveButton = generateSaveButton(screenTitle);
+        saveButton.setId("Title");
+        saveButton.getChildren().get(0).setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -127,7 +134,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
+        addPanesToRoot(root, dataPane, controlBtns, saveButton);
 
         // Set stage to scene
         createScene(root);
@@ -148,6 +155,9 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
+        HBox saveButton = generateSaveButton(screenTitle);
+        saveButton.setId("Title");
+        saveButton.getChildren().get(0).setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -160,7 +170,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
+        addPanesToRoot(root, dataPane, controlBtns, saveButton);
 
         // Set stage to scene
         createScene(root);
@@ -305,9 +315,9 @@ public class MainDisplay extends Application implements GTObserver {
     /**
      * Adds title, grid full of content, and control buttons to the root BorderPane for a scene
      */
-    private void addPanesToRoot(BorderPane root, Text screenTitle, GridPane dataPane, HBox controlBtns) {
-        root.setTop(screenTitle);
-        root.setAlignment(screenTitle, Pos.CENTER);
+    private void addPanesToRoot(BorderPane root, GridPane dataPane, HBox controlBtns, HBox saveButtonAndTitle) {
+        root.setTop(saveButtonAndTitle);
+        root.setAlignment(saveButtonAndTitle, Pos.CENTER);
 
         root.setCenter(dataPane);
         root.setAlignment(dataPane, Pos.CENTER);
@@ -463,6 +473,20 @@ public class MainDisplay extends Application implements GTObserver {
                 btn.setEffect(null);
             }
         });
+    }
+
+    private HBox generateSaveButton(Text screenTitle){
+        HBox saveButtonAndScreenTitle = new HBox();
+        Button save = new Button();
+        save.setId("Save");
+        save.setText("Save");
+        save.setOnAction(ActionEvent -> {
+            ArrayList<String> saveData = OfflineLists.dataGenerator(this.model.getLatestCourses());
+            OfflineLists.storeCourseList(saveData);
+        });
+        saveButtonAndScreenTitle.getChildren().addAll(save, screenTitle);
+
+        return saveButtonAndScreenTitle;
     }
 
     private void makeDemoAssignmentList() {
