@@ -27,7 +27,7 @@ public class OfflineLists {
         }
     }
 
-    public static ArrayList<String> returnCourseList() {
+    public static ArrayList<String> returnCourseList() throws FileNotFoundException{
         ArrayList<String> sum = new ArrayList<String>();
         boolean temp = true;
         try {
@@ -161,7 +161,7 @@ public class OfflineLists {
         ArrayList<String> data = test.dataGenerator(upload.getLatestCourses());
         System.out.println(data);
         test.storeCourseList(data);
-        System.out.println(test.returnCourseList());
+        //System.out.println(test.returnCourseList());
         System.out.flush();
 
     }

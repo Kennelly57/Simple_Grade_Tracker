@@ -28,6 +28,8 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -54,13 +56,16 @@ public class MainDisplay extends Application implements GTObserver {
         model = new GTModel();
         model.registerObserver(this);
         this.updateCourses();
-        makeDemoAssignmentList();
         makeDropshadow();
 
-        OfflineLists.storeCourseList(OfflineLists.dataGenerator(model.getLatestCourses()));
         model = new GTModel();
         model.registerObserver(this);
-        model.dataSetter();
+        try {
+            model.dataSetter();
+        } catch (FileNotFoundException e){
+            System.out.println("No file found, generating a new one.");
+            System.out.flush();
+        }
 
 
         // get screen size & set Stage boundaries to visible bounds of the main screen
@@ -120,8 +125,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
         HBox saveButton = generateSaveButton(screenTitle);
-        saveButton.setId("Title");
-        saveButton.getChildren().get(0).setId("Save");
+        saveButton.setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -156,8 +160,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
         HBox saveButton = generateSaveButton(screenTitle);
-        saveButton.setId("Title");
-        saveButton.getChildren().get(0).setId("Save");
+        saveButton.setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
