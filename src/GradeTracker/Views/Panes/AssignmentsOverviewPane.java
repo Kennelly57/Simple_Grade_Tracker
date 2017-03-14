@@ -72,17 +72,20 @@ public class AssignmentsOverviewPane {
         dataGrid.add(scorePtsHeader, 2, 0);
         dataGrid.add(scorePercentHeader, 3, 0);
 
-        // Generate Table of Course Values
+        // --------------------------------------------------
+        // Fill in table of sub-assignments, making appropriate fields editable / clickable
+        // --------------------------------------------------
 
-        int i = 0;
+        int i = 0; // keeps track of row we're adding to
         ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
+
         for (SampleAtomicAssignment atomAss: subAssignmentMap.values()) {
 
+            // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
 
-            dataGrid.add(tempName, 0, i + 1);
-
+            // Fill POINTS POSSIBLE Column; pressing "enter" sends new value to model
             TextField pointsPos = new TextField();
             String currPointsPos = Double.toString(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
@@ -94,20 +97,15 @@ public class AssignmentsOverviewPane {
                         if (inputOkay(pointsPos)) {
                             double updateVal = Double.parseDouble(pointsPos.getText());
                             theModel.setAssignmentPointsPossible(course.getID(), atomAss.getName(), updateVal);
-                            refreshPane();
-                        } else{
-                            refreshPane();
                         }
                     }
                 }
             });
 
-            dataGrid.add(pointsPos, 1, i + 1);
-
+            // Fill POINTS EARNED Column; pressing "enter" sends new value to model
             TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
-
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
@@ -123,9 +121,13 @@ public class AssignmentsOverviewPane {
                 }
             });
 
-            dataGrid.add(pointsEarned, 2, i + 1);
-
+            // Fill PERCENT SCORE Column
             Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
+
+            // Add columns to Grid
+            dataGrid.add(tempName, 0, i + 1);
+            dataGrid.add(pointsPos, 1, i + 1);
+            dataGrid.add(pointsEarned, 2, i + 1);
             dataGrid.add(tempPercentScore, 3, i + 1);
 
             i++;

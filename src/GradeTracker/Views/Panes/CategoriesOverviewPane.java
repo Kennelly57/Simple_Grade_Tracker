@@ -77,10 +77,10 @@ public class CategoriesOverviewPane {
 
 
         // --------------------------------------------------
-        // Fill in table values using dictionaries
+        // Fill in table values using dictionaries, making appropriate fields editable / clickable
         // --------------------------------------------------
 
-        int i = 0;
+        int i = 0; // keeps track of row we're adding to
         ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
 
@@ -89,10 +89,9 @@ public class CategoriesOverviewPane {
         // --------------------------------------------------
         for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
 
-            // Fill NAME Column
+            // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
             Label tempName = new Label(compAss.getName());
             tempName.setOnMouseClicked((MouseEvent) -> {
-                // Call showAssignments; go to subitem overview scene
                 this.mainDisplay.showAssignments(course, compAss);
             });
 
@@ -112,7 +111,7 @@ public class CategoriesOverviewPane {
             double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
 
-            // Add elements to Grid
+            // Add columns to Grid
             dataGrid.add(tempName, 0, i + 1);
             dataGrid.add(tempPointsPos, 1, i + 1);
             dataGrid.add(tempPointsScore, 2, i + 1);
@@ -131,7 +130,7 @@ public class CategoriesOverviewPane {
             // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
 
-            // Fill POINTS POSSIBLE Column
+            // Fill POINTS POSSIBLE Column; pressing "enter" sends new value to model
             TextField pointsPos = new TextField();
             String currPointsPos = Double.toString(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
@@ -143,18 +142,16 @@ public class CategoriesOverviewPane {
                         if (inputOkay(pointsPos)) {
                             double updateVal = Double.parseDouble(pointsPos.getText());
                             theModel.setAssignmentPointsPossible(course.getID(), atomAss.getName(), updateVal);
-                            refreshPane();
-                        } else{
-                            refreshPane();
                         }
                     }
                 }
             });
 
-            // Fill POINTS EARNED Column
+            // Fill POINTS EARNED Column; pressing "enter" sends new value to model
             TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
+
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
@@ -162,9 +159,6 @@ public class CategoriesOverviewPane {
                         if (inputOkay(pointsEarned)) {
                             double updateVal = Double.parseDouble(pointsEarned.getText());
                             theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
-                            refreshPane();
-                        } else{
-                            refreshPane();
                         }
                     }
                 }
@@ -180,7 +174,7 @@ public class CategoriesOverviewPane {
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
 
-            // Add elements to Grid
+            // Add columns to Grid
             dataGrid.add(tempName, 0, i + 1);
             dataGrid.add(pointsPos, 1, i + 1);
             dataGrid.add(pointsEarned, 2, i + 1);
@@ -200,10 +194,6 @@ public class CategoriesOverviewPane {
             matches = true;
         }
         return matches;
-    }
-
-    private void refreshPane() {
-        this.mainDisplay.showCategories(course);
     }
 
     private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {

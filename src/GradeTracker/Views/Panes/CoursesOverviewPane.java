@@ -52,23 +52,30 @@ public class CoursesOverviewPane {
         dataGrid.add(courseNameLabel, 1, 0);
         dataGrid.add(courseGradeLabel, 2, 0);
 
-        int i = 0;
-        // Generate Table of Course Values
+        // --------------------------------------------------
+        // Fill in table values, making appropriate fields editable / clickable
+        // --------------------------------------------------
+
+        int i = 0; // keeps track of row we're adding to
         for (ModelCourse course: courseMap.values()) {
+
+            // Fill ID Column; clicking label calls showCategories(), passing relevant course
             final String idStr = course.getID();
             Label tempID = new Label(idStr);
-
             addDropshadow(tempID);
-
 
             tempID.setOnMouseClicked((MouseEvent) -> {
                 // Send to assignment overview scene
                 this.mainDisplay.showCategories(course);
             });
 
+            // Fill NAME Column
             Label tempName = new Label(course.getName());
+
+            // Fill GRADE column
             Label tempGrade = new Label(course.getGrade());
 
+            // Add columns to Grid
             dataGrid.add(tempID, 0, i + 1);
             dataGrid.add(tempName, 1, i + 1);
             dataGrid.add(tempGrade, 2, i + 1);
