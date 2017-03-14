@@ -93,7 +93,6 @@ public class CourseSetupWindow extends Application {
         inputGrid.add(crsNameLabel, 0, 3);
         inputGrid.add(crsNameTextField, 1, 3);
 
-
         //GridPane inputGrid = new NameAndId().getGridPane();
         crsIDandNamePane.setCenter(inputGrid);
         //---------------------------------------------------------------------------------------
