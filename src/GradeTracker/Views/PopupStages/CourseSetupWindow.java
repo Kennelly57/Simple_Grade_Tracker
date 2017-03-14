@@ -1,6 +1,7 @@
 package GradeTracker.Views.PopupStages;
 
 import GradeTracker.GTModel;
+import GradeTracker.ModelCourse;
 import GradeTracker.Views.Panes.PopupPanes.GradePane;
 import GradeTracker.handleCSV;
 import javafx.application.Application;
@@ -24,14 +25,24 @@ public class CourseSetupWindow extends Application {
     private Scene gradeDistributionScene;
     public Stage univPrimaryStage;
 
+    private boolean editingExistingCourse;
     private String courseID;
     private String courseName;
     private GTModel model;
+    private ModelCourse course;
 
     private handleCSV csvHandler = new handleCSV();
 
-    public void start(final Stage primaryStage, GTModel theModel) {
+    public void start(final Stage primaryStage, GTModel theModel, ModelCourse...courses) {
         this.model = theModel;
+
+        if (courses.length >= 1) {
+            editingExistingCourse = true;
+            this.course = courses[0];
+        } else {
+            editingExistingCourse = false;
+        }
+
         univPrimaryStage = primaryStage;
         primaryStage.setTitle("Course Setup");
         crsIDandNameScene = generateCrsIDandName();
@@ -39,7 +50,6 @@ public class CourseSetupWindow extends Application {
         primaryStage.setScene(crsIDandNameScene);
         primaryStage.show();
     }
-
 
     @Override
     public void start(final Stage primaryStage) {
@@ -73,11 +83,15 @@ public class CourseSetupWindow extends Application {
         TextField identificationTextField = new TextField();
         TextField crsNameTextField = new TextField();
 
+        if (editingExistingCourse) {
+            identificationTextField.setText(this.course.getID());
+            crsNameTextField.setText(this.course.getName());
+        }
+
         inputGrid.add(identificationLabel, 0, 2);
         inputGrid.add(identificationTextField, 1, 2);
         inputGrid.add(crsNameLabel, 0, 3);
         inputGrid.add(crsNameTextField, 1, 3);
-
 
         //GridPane inputGrid = new NameAndId().getGridPane();
         crsIDandNamePane.setCenter(inputGrid);
@@ -117,7 +131,16 @@ public class CourseSetupWindow extends Application {
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         gradeDistributionScene = new Scene(setupGradesPane, 400, 650);
-        GradePane setupPane = new GradePane();
+
+
+        GradePane setupPane;
+
+        if (editingExistingCourse) {
+            setupPane = new GradePane(this.course);
+        } else {
+            setupPane = new GradePane();
+        }
+
         VBox gradePane = setupPane.getRoot();
 
 //        gradePane.setPadding(new Insets(15,0, 5, 0));
@@ -157,9 +180,19 @@ public class CourseSetupWindow extends Application {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()){
-                this.model.addCourse(courseID, courseName, gradeIntArray);
+
+            // UPDATE MODEL
+
+            if(editingExistingCourse) {
+                if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
+                    ;
+                }
+            } else {
+                if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
+                    this.model.addCourse(courseID, courseName, gradeIntArray);
+                }
             }
+
 
             univPrimaryStage.hide();
 
