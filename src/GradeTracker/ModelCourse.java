@@ -268,6 +268,40 @@ public class ModelCourse implements Cloneable {
         }
     }
 
+    public boolean markAtomicAssignmentComplete(String atomicAssignmentName){
+        if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
+            AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
+            assignment.markAsCompleted();
+            return true;
+        } else {
+            for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+                if (assignmentCategory.containsAtomic(atomicAssignmentName)) {
+                    Assignment assignment = assignmentCategory.getAssignment(atomicAssignmentName);
+                    assignment.markAsCompleted();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean markAtomicAssignmentIncomplete(String atomicAssignmentName){
+        if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
+            AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
+            assignment.markAsIncomplete();
+            return true;
+        } else {
+            for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+                if (assignmentCategory.containsAtomic(atomicAssignmentName)) {
+                    Assignment assignment = assignmentCategory.getAssignment(atomicAssignmentName);
+                    assignment.markAsIncomplete();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public boolean contains(String assignmentName){
         return (this.containsCompound(assignmentName)||this.containsAtomic(assignmentName));
     }

@@ -128,13 +128,34 @@ public class OfflineLists {
         return i;
     }
 
-    private int addAtomiCat(GTModel model, List<String> dataList, String couseName, int cursor){
+    private int addAtomiCat(GTModel model, List<String> dataList, String courseID, int cursor){
         int i = cursor;
         if( i >= 0 && i<dataList.size() &&
                 dataList.get(i).equalsIgnoreCase("<atomicCategory>") &&
                 dataList.get(i+6).equalsIgnoreCase("</atomicCategory>")){
             String atomiCatName = dataList.get(i+1);
-            //String
+            String pointsPosString = dataList.get(i+2);
+            String pointsScoreString = dataList.get(i+3);
+            String completedString = dataList.get(i+4);
+            String weightString = dataList.get(i+5);
+            try {
+                int pointsPossible = Integer.parseInt(pointsPosString);
+                double pointsScore = Double.parseDouble(pointsScoreString);
+                boolean completed = Boolean.parseBoolean(completedString);
+                int weight = Integer.parseInt(weightString);
+
+                model.addAtomicAssignmentCategory(courseID, atomiCatName, weight);
+                model.setAssignmentPointsPossible(courseID, atomiCatName, pointsPossible);
+                model.setAssignmentScore(courseID, atomiCatName, pointsScore);
+                if (completed){
+                    model.markAtomicAssignmentComplete(courseID, atomiCatName);
+                } else {
+                    model.markAtomicAssignmentIncomplete(courseID, atomiCatName);
+                }
+
+            } catch (Exception e){
+                return -1;
+            }
         } else{
             i = -1;
         }

@@ -89,6 +89,25 @@ public class GTModel {
         return false;
     }
 
+    public boolean markAtomicAssignmentIncomplete(String courseID, String atomicName) {
+        if (this.courseMap.containsKey(courseID)) {
+            boolean successBool = this.courseMap.get(courseID).markAtomicAssignmentIncomplete(atomicName);
+            this.updateCourse(courseID);
+            return successBool;
+        }
+        return false;
+    }
+
+    public boolean markAtomicAssignmentComplete(String courseID, String atomicName) {
+        if (this.courseMap.containsKey(courseID)) {
+            boolean successBool = this.courseMap.get(courseID).markAtomicAssignmentComplete(atomicName);
+            this.updateCourse(courseID);
+            return successBool;
+        }
+        return false;
+    }
+
+
     public boolean removeAssignmentCategory(String courseID, String assignmentCategoryName) {
         if (this.courseMap.containsKey(courseID)) {
             boolean successBool = this.courseMap.get(courseID).removeAssignmentCategory(assignmentCategoryName);
