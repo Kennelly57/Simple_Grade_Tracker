@@ -143,6 +143,10 @@ public class CategoriesOverviewPane {
 
         for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
             Label tempName = new Label(compAss.getName());
+            tempName.setOnMouseClicked((MouseEvent) -> {
+                // Send to assignment overview scene
+                this.mainDisplay.showAssignments(course, compAss);
+            });
             dataGrid.add(tempName, 0, i + 1);
 
             Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));

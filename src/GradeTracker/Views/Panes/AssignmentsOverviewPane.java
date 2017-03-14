@@ -87,6 +87,7 @@ public class AssignmentsOverviewPane {
         for (SampleAtomicAssignment atomAss: subAssignmentMap.values()) {
 
             Label tempName = new Label(atomAss.getName());
+
             dataGrid.add(tempName, 0, i + 1);
 
             TextField pointsPos = new TextField();

@@ -132,9 +132,9 @@ public class MainDisplay extends Application implements GTObserver {
         BorderPane root = new BorderPane();
 
         // Create instances of subpanes
-        Text screenTitle = generateSetupTitle(layer, course.getName());
+        Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID());
-        Button btnBack = generateBtnBack(layer);
+        Button btnBack = generateBtnBack(layer, course);
         HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
         GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
 
@@ -195,7 +195,7 @@ public class MainDisplay extends Application implements GTObserver {
         return btnAdd;
     }
 
-    private Button generateBtnBack(int layer) {
+    private Button generateBtnBack(int layer, ModelCourse...course) {
         Button btnBack = new Button();
         btnBack.setText("←");
         btnBack.setId("labelButton");
@@ -203,9 +203,9 @@ public class MainDisplay extends Application implements GTObserver {
             if (layer==1) {
                 showCourses();
             }
-//            if (layer==2) {
-//                showCategories(course);
-//            }
+            if (layer==2) {
+                showCategories(course[0]);
+            }
         });
         addDropShadow(btnBack);
         return btnBack;
@@ -388,10 +388,9 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
         this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
 
-        this.model.addAtomicAssignmentCategory(courseID_2, "More Owl Stuff", 22);
+        this.model.addCompoundAssignmentCategory(courseID_2, "More Owl Stuff", 22);
         this.model.setAssignmentPointsPossible(courseID_2, "More Owl Stuff", 160);
         this.model.setAssignmentScore(courseID_2, "More Owl Stuff", 125);
-
 
         // demo stuff for test cs
         this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);
