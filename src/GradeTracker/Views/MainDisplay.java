@@ -133,7 +133,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Create instances of subpanes
         Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
-        Button btnAdd = generateBtnAdd(layer, course.getID());
+        Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
         HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
         GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
@@ -175,7 +175,16 @@ public class MainDisplay extends Application implements GTObserver {
         return setupTitle;
     }
 
-    private Button generateBtnAdd(int layer, String...onPressInfo) {
+    /**
+     * generateBtnAdd
+     * generates "+" that will open appropriate popup
+     * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
+     *
+     * At level 0, need no arguments, just open CourseSetupWindow
+     * At level 1, need courseId to generate appropriate AssignmentSetupWindow
+     * At level 2, need courseId & category name to generate appropriate AssignmentSetupWindow
+     */
+    private Button generateBtnAdd(int layer, String...info) {
         Button btnAdd = new Button();
         btnAdd.setText("+");
         btnAdd.setId("labelButton");
@@ -188,16 +197,25 @@ public class MainDisplay extends Application implements GTObserver {
                 new CourseSetupWindow().start(dialog, this.model);
             }
             else if (layer==1){
-                new AssignmentSetupWindow().start(dialog, this.model, onPressInfo[0]); // passing courseID
+                new AssignmentSetupWindow().start(dialog, this.model, info[0], false); // passing courseID
             }
             else if (layer==2){
-                new AssignmentSetupWindow().start(dialog, this.model, onPressInfo[0]); // passing courseID
+                new AssignmentSetupWindow().start(dialog, this.model, info[0], true, info[1]); // passing courseID & category name
             }
         });
         addDropShadow(btnAdd);
         return btnAdd;
     }
 
+    /**
+     * generateBtnBack
+     * generates "←" that will reload appropriate screen
+     * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
+     *
+     * At level 0, don't make a back button
+     * At level 1, don't need parameters, just reload showCourses()
+     * At level 2, need a course object so we can reload showCategories(), passing the correct Course object
+     */
     private Button generateBtnBack(int layer, ModelCourse...course) {
         Button btnBack = new Button();
         btnBack.setText("←");
@@ -214,6 +232,11 @@ public class MainDisplay extends Application implements GTObserver {
         return btnBack;
     }
 
+    /**
+     * generateControlBtnPane_NoBackBtn
+     * Called by showCourses()
+     * @return hBox with "+" button
+     */
     private HBox generateControlBtnPane_NoBackBtn(Button btnAdd) {
         HBox btnHbox = new HBox();
         btnHbox.getChildren().add(btnAdd);
@@ -221,6 +244,11 @@ public class MainDisplay extends Application implements GTObserver {
         return btnHbox;
     }
 
+    /**
+     * generateControlBtnPane_WithBackBtn
+     * Called by showCategories() and showAssignments()
+     * @return hBox with "+" button & "←" button
+     */
     private HBox generateControlBtnPane_WithBackBtn(Button btnAdd, Button btnBack) {
         HBox btnHbox = new HBox();
         HBox spacer = new HBox();
@@ -385,7 +413,6 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentPointsPossible(courseID_1, "Final Exam", 40);
         this.model.setAssignmentScore(courseID_1, "Final Exam", 40);
 
-
         // demo stuff for test biol
         this.model.addAtomicAssignmentCategory(courseID_2, "Owl Stuff", 22);
         this.model.setAssignmentPointsPossible(courseID_2, "Owl Stuff", 160);
@@ -396,8 +423,8 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentScore(courseID_2, "More Compound Stuff", 125);
 
         this.model.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", "test");
-        this.model.setAssignmentPointsPossible(courseID_2, "test", 160);
-        this.model.setAssignmentScore(courseID_2, "test", 125);
+        this.model.setAssignmentPointsPossible(courseID_2, "test 1", 160);
+        this.model.setAssignmentScore(courseID_2, "test 1", 125);
 
         // demo stuff for test cs
         this.model.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);

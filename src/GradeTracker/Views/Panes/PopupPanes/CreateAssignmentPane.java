@@ -156,34 +156,35 @@ public class CreateAssignmentPane {
         return root;
     }
 
-    private GridPane generateGridPane() {
-
-        GridPane dataGrid = new GridPane();
-        dataGrid.setHgap(10);
-        dataGrid.setVgap(10);
-        dataGrid.setPadding(new Insets(15, 0, 0, 0));
-
-        TextField categoryNameTF = new TextField();
-        TextField weightTF = new TextField();
-
-        HBox subItemHBox = generateSubItemHBox();
-
-        Label categoryNameLabel = new Label("Category Name:");
-        Label weightLabel = new Label("Weight:");
-        Label subItemsLabel = new Label("Subitems:");
-
-        //VBox relevantFieldsVBox = generateRelevantFieldsVBox();
-
-        dataGrid.add(categoryNameLabel, 0, 0);
-        dataGrid.add(categoryNameTF, 1, 0);
-        dataGrid.add(weightLabel, 0, 1);
-        dataGrid.add(weightTF, 1, 1);
-        dataGrid.add(subItemsLabel, 0, 2);
-        dataGrid.add(subItemHBox, 1, 2);
-        //dataGrid.add(relevantFieldsVBox, 0, 3);
-
-        return dataGrid;
-    }
+    // NOT CURRENTLY USING THIS, THOUGH MAYBE WE SHOULD?
+//    private GridPane generateGridPane() {
+//
+//        GridPane dataGrid = new GridPane();
+//        dataGrid.setHgap(10);
+//        dataGrid.setVgap(10);
+//        dataGrid.setPadding(new Insets(15, 0, 0, 0));
+//
+//        TextField categoryNameTF = new TextField();
+//        TextField weightTF = new TextField();
+//
+//        HBox subItemHBox = generateSubItemHBox();
+//
+//        Label categoryNameLabel = new Label("Category Name:");
+//        Label weightLabel = new Label("Weight:");
+//        Label subItemsLabel = new Label("Subitems:");
+//
+//        //VBox relevantFieldsVBox = generateRelevantFieldsVBox();
+//
+//        dataGrid.add(categoryNameLabel, 0, 0);
+//        dataGrid.add(categoryNameTF, 1, 0);
+//        dataGrid.add(weightLabel, 0, 1);
+//        dataGrid.add(weightTF, 1, 1);
+//        dataGrid.add(subItemsLabel, 0, 2);
+//        dataGrid.add(subItemHBox, 1, 2);
+//        //dataGrid.add(relevantFieldsVBox, 0, 3);
+//
+//        return dataGrid;
+//    }
 
     private HBox generateSubItemHBox() {
         ToggleGroup subItemsToggle = new ToggleGroup();
