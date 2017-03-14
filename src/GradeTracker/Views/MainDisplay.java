@@ -25,6 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -38,6 +39,7 @@ public class MainDisplay extends Application implements GTObserver {
     private Map<String, ModelCourse> latestCourses;
     private boolean upToDate;
     private DropShadow dropShadow;
+    private Button btnAdd;
 
     private int layer;
     private ModelCourse courseShowing;
@@ -174,14 +176,26 @@ public class MainDisplay extends Application implements GTObserver {
         if (layer == 0) {
             title = "Courses";
         } else if (layer == 1) {
-            title = String.format("Courses / %s", info[0]);
+            String courseTrimmed = shortenString(info[0], 25);
+            title = String.format("Courses / %s", courseTrimmed);
         } else if (layer == 2) {
-            title = String.format("Courses / %s / %s", info[0], info[1]);
+            String courseTrimmed = shortenString(info[0], 15);
+            String categoryTrimmed = shortenString(info[1], 15);
+            title = String.format("Courses / %s / %s", courseTrimmed, categoryTrimmed);
         }
 
         Text setupTitle = new Text(title);
         setupTitle.setId("fancytext");
         return setupTitle;
+    }
+
+    @NotNull
+    private String shortenString(String string, int trimLength) {
+        String stringTrimmed = string.substring(0, Math.min(string.length(), trimLength));
+        if (!string.equals(stringTrimmed)){
+            stringTrimmed += "...";
+        }
+        return stringTrimmed;
     }
 
     /**
@@ -194,10 +208,9 @@ public class MainDisplay extends Application implements GTObserver {
      * At level 2, need courseId & category name to generate appropriate AssignmentSetupWindow
      */
     private Button generateBtnAdd(int layer, String... info) {
-        Button btnAdd = new Button();
+        btnAdd = new Button();
         btnAdd.setText("+");
         btnAdd.setId("labelButton");
-        btnAdd.requestFocus();
         btnAdd.setOnAction(event -> {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
@@ -287,6 +300,7 @@ public class MainDisplay extends Application implements GTObserver {
      */
     private void createScene(BorderPane root) {
         Scene scene = new Scene(root);
+        btnAdd.requestFocus();
         scene.getStylesheets().add("resources/basicStyle.css");
         univPrimaryStage.setTitle("Courses for Winter 2017");
         univPrimaryStage.setScene(scene);
