@@ -188,6 +188,7 @@ public class CategoriesOverviewPane {
         return dataGrid;
     }
 
+    // Makes sure user only inputs a double
     private boolean inputOkay(TextField pointsEarned) {
         boolean matches = false;
         if (pointsEarned.getText().matches("[0-9]*\\.[0-9]+|[0-9]+")){

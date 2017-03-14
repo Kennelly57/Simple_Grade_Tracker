@@ -17,6 +17,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
@@ -123,7 +124,7 @@ public class MainDisplay extends Application implements GTObserver {
 
 
     public void showAssignments(ModelCourse course, SampleCompoundAssignment category) {
-        this.layer= 2;
+        this.layer = 2;
         this.updateCourses();
         course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
         category = course.getCompoundAssignmentCategories().get(category.getName());
@@ -162,21 +163,19 @@ public class MainDisplay extends Application implements GTObserver {
      * generateSetupAdd
      * Makes correct title, returns Text object with CSS id applied
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
-     *
+     * <p>
      * At level 0, need no arguments, title just equals "Courses"
      * At level 1, need course name, ie Courses/ Owl Biology
      * At level 2, need course name & category name, ie "Courses / Owl Biology / Tests"
      */
-    private Text generateSetupTitle(int layer, String...info) {
+    private Text generateSetupTitle(int layer, String... info) {
         String title = "";
 
-        if(layer == 0) {
+        if (layer == 0) {
             title = "Courses";
-        }
-        else if (layer == 1) {
+        } else if (layer == 1) {
             title = String.format("Courses / %s", info[0]);
-        }
-        else if (layer == 2) {
+        } else if (layer == 2) {
             title = String.format("Courses / %s / %s", info[0], info[1]);
         }
 
@@ -189,12 +188,12 @@ public class MainDisplay extends Application implements GTObserver {
      * generateBtnAdd
      * generates "+" that will open appropriate popup
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
-     *
+     * <p>
      * At level 0, need no arguments, just open CourseSetupWindow
      * At level 1, need courseId to generate appropriate AssignmentSetupWindow
      * At level 2, need courseId & category name to generate appropriate AssignmentSetupWindow
      */
-    private Button generateBtnAdd(int layer, String...info) {
+    private Button generateBtnAdd(int layer, String... info) {
         Button btnAdd = new Button();
         btnAdd.setText("+");
         btnAdd.setId("labelButton");
@@ -203,13 +202,11 @@ public class MainDisplay extends Application implements GTObserver {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(univPrimaryStage);
-            if (layer==0) {
+            if (layer == 0) {
                 new CourseSetupWindow().start(dialog, this.model);
-            }
-            else if (layer==1){
+            } else if (layer == 1) {
                 new AssignmentSetupWindow().start(dialog, this.model, info[0], false); // passing courseID
-            }
-            else if (layer==2){
+            } else if (layer == 2) {
                 new AssignmentSetupWindow().start(dialog, this.model, info[0], true, info[1]); // passing courseID & category name
             }
         });
@@ -221,20 +218,20 @@ public class MainDisplay extends Application implements GTObserver {
      * generateBtnBack
      * generates "←" that will reload appropriate screen
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
-     *
+     * <p>
      * At level 0, don't make a back button
      * At level 1, don't need parameters, just reload showCourses()
      * At level 2, need a course object so we can reload showCategories(), passing the correct Course object
      */
-    private Button generateBtnBack(int layer, ModelCourse...course) {
+    private Button generateBtnBack(int layer, ModelCourse... course) {
         Button btnBack = new Button();
         btnBack.setText("←");
         btnBack.setId("labelButton");
         btnBack.setOnAction((ActionEvent) -> {
-            if (layer==1) {
+            if (layer == 1) {
                 showCourses();
             }
-            if (layer==2) {
+            if (layer == 2) {
                 showCategories(course[0]);
             }
         });
@@ -245,6 +242,7 @@ public class MainDisplay extends Application implements GTObserver {
     /**
      * generateControlBtnPane_NoBackBtn
      * Called by showCourses()
+     *
      * @return hBox with "+" button
      */
     private HBox generateControlBtnPane_NoBackBtn(Button btnAdd) {
@@ -257,6 +255,7 @@ public class MainDisplay extends Application implements GTObserver {
     /**
      * generateControlBtnPane_WithBackBtn
      * Called by showCategories() and showAssignments()
+     *
      * @return hBox with "+" button & "←" button
      */
     private HBox generateControlBtnPane_WithBackBtn(Button btnAdd, Button btnBack) {
@@ -345,8 +344,23 @@ public class MainDisplay extends Application implements GTObserver {
                 if (columnCounter < numberOfColumns) {
                     control.setId("categories");
                 }
+
+                // Only want to highlight left leftmost cells of grid, excluding the first row
                 if ((columnCounter >= numberOfColumns) && (columnCounter % numberOfColumns == 0)) {
-                    control.setId("labelButton");
+
+                    String key = ((Label) n).getText();
+                    boolean isCourse = model.getLatestCourses().containsKey(key);
+                    boolean isCompoundAssignment = false;
+
+                    // Make sure courseShowing is instantiated
+                    if (courseShowing != null){
+                        isCompoundAssignment = courseShowing.getCompoundAssignmentCategories().containsKey(key);
+                    }
+
+                    // Check to see if cell should be clickable
+                    if (isCourse || isCompoundAssignment) {
+                        control.setId("labelButton");
+                    }
                 }
                 columnCounter++;
             }
