@@ -161,7 +161,7 @@ public class ModelCourse implements Cloneable {
     }
 
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight, int[] gScale) {
-        if (!this.containsCompound(assignmentCategoryName)) {
+        if (!this.contains(assignmentCategoryName)) {
             totalWeight = totalWeight + weight;
             compoundAsssignmentCategories.put(assignmentCategoryName, new SampleCompoundAssignment(assignmentCategoryName, gScale));
             assignmentCategoryWeights.put(assignmentCategoryName, weight);
