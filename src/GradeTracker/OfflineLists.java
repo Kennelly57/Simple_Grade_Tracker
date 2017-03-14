@@ -16,7 +16,7 @@ public class OfflineLists {
 
     public void storeCourseList(ArrayList<String> data) {
         try {
-            FileOutputStream fileStream = new FileOutputStream("courseList.txt", true);
+            FileOutputStream fileStream = new FileOutputStream("courseList.txt", false); // This will now overwrite the existing file.
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
             outputStream.writeObject(data);
             outputStream.close();
@@ -153,9 +153,10 @@ public class OfflineLists {
 
         upload.addCompoundAssignmentCategory(courseID_2, "More Compound Stuff", 22);
 
-        upload.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", "test 1");
-        upload.setAssignmentPointsPossible(courseID_2, "test 1", 160);
-        upload.setAssignmentScore(courseID_2, "test 1", 125);
+        String atomInComCatName = "Pellet Analysis";
+        upload.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", atomInComCatName);
+        upload.setAssignmentPointsPossible(courseID_2, atomInComCatName, 160);
+        upload.setAssignmentScore(courseID_2, atomInComCatName, 125);
 
         // demo stuff for test cs
         upload.addAtomicAssignmentCategory(courseID_3, "CS Stuff", 22);
