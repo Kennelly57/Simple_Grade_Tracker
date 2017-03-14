@@ -82,10 +82,10 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer);
         Button btnAdd = generateBtnAdd(layer);
         HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
-        GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this).getRoot();
+        GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this, this.model).getRoot();
 
         // Format GridPane
-        double numberOfColumns = 3.0;
+        double numberOfColumns = 4.0;
         double numberOfRows = model.getLatestCourses().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 

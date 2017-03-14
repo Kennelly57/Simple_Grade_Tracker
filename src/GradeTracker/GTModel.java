@@ -41,6 +41,7 @@ public class GTModel {
         if (courseMap.containsKey(courseID)) {
             courseMap.remove(courseID);
             this.updateCourse(courseID);
+            System.out.print("removed!");
             return true;
         }
         return false;
