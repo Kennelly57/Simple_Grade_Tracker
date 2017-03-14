@@ -37,6 +37,16 @@ public class GTModel {
         return false;
     }
 
+    public void updateCourse(ModelCourse oldCourse, String newCourseID, String newCourseName, int[] new_gScale) {
+
+        ModelCourse newCourse = courseMap.remove(oldCourse.getID());
+        newCourse.id = newCourseID;
+        newCourse.name = newCourseName;
+        newCourse.gradingScale = new_gScale;
+
+        courseMap.put(newCourseID, newCourse);
+    }
+
     public boolean removeCourse(String courseID) {
         if (courseMap.containsKey(courseID)) {
             courseMap.remove(courseID);
