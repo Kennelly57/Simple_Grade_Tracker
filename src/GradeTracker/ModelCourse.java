@@ -11,12 +11,9 @@ import java.util.*;
  */
 public class ModelCourse implements Cloneable {
 
-    // NOTE: these are public because they should be editable by the model, but only in very particular ways, so as not
-    // to mess up the way the courses are stored in the model. Writing setters might suggest you can edit these vars
-    // in ways that you shouldnt.
-    public String id;
-    public String name;
-    public int[] gradingScale;
+    private String id;
+    private String name;
+    private int[] gradingScale;
 
     private String[] grades;
     private Map<String, AtomicAssignment> atomicAsssignmentCategories;
@@ -68,6 +65,8 @@ public class ModelCourse implements Cloneable {
         return this.id;
     }
 
+    public void setId(String newID) { this.id = newID; }
+
     public boolean weightIsOneHundred(){
         return this.totalWeight == 100;
     }
@@ -83,6 +82,8 @@ public class ModelCourse implements Cloneable {
     public String getName() {
         return this.name;
     }
+
+    public void setName(String newName) { this.name = newName; }
 
     public int[] getGradingScale() {
         return gradingScale;

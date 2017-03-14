@@ -184,8 +184,10 @@ public class CourseSetupWindow extends Application {
             // UPDATE MODEL
 
             if(editingExistingCourse) {
+                System.out.println("Updating course1...");
                 if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
-                    this.model.updateCourse(course, courseID, courseName, gradeIntArray);
+                    this.model.changeInfoForCourse(course.getID(), courseID, courseName, gradeIntArray);
+                    System.out.println("Updating course...");
                 }
             } else {
                 if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {

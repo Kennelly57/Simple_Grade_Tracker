@@ -100,18 +100,18 @@ public class GradePane {
 
         // If we're editing an existing course, set values to existing values instead
         if (editingExistingCourse) {
-            tfAPlus.setText(Double.toString(gradingScale[0]));
-            tfA.setText(Double.toString(gradingScale[1]));
-            tfAMinus.setText(Double.toString(gradingScale[2]));
-            tfBPlus.setText(Double.toString(gradingScale[3]));
-            tfB.setText(Double.toString(gradingScale[4]));
-            tfBMinus.setText(Double.toString(gradingScale[5]));
-            tfCPlus.setText(Double.toString(gradingScale[6]));
-            tfC.setText(Double.toString(gradingScale[7]));
-            tfCMinus.setText(Double.toString(gradingScale[8]));
-            tfDPlus.setText(Double.toString(gradingScale[9]));
-            tfD.setText(Double.toString(gradingScale[10]));
-            tfDMinus.setText(Double.toString(gradingScale[11]));
+            tfAPlus.setText(Integer.toString(gradingScale[0]));
+            tfA.setText(Integer.toString(gradingScale[1]));
+            tfAMinus.setText(Integer.toString(gradingScale[2]));
+            tfBPlus.setText(Integer.toString(gradingScale[3]));
+            tfB.setText(Integer.toString(gradingScale[4]));
+            tfBMinus.setText(Integer.toString(gradingScale[5]));
+            tfCPlus.setText(Integer.toString(gradingScale[6]));
+            tfC.setText(Integer.toString(gradingScale[7]));
+            tfCMinus.setText(Integer.toString(gradingScale[8]));
+            tfDPlus.setText(Integer.toString(gradingScale[9]));
+            tfD.setText(Integer.toString(gradingScale[10]));
+            tfDMinus.setText(Integer.toString(gradingScale[11]));
         }
 
         List<TextField> textFieldList = Arrays.asList(

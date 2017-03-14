@@ -1,5 +1,7 @@
 package GradeTracker;
 
+import com.sun.tools.internal.ws.processor.model.Model;
+
 import java.util.*;
 
 import static GradeTracker.OfflineLists.returnCourseList;
@@ -36,21 +38,24 @@ public class GTModel {
         return false;
     }
 
-    public void updateCourse(ModelCourse oldCourse, String newCourseID, String newCourseName, int[] new_gScale) {
+    public void changeInfoForCourse(String oldCourseID, String newCourseID, String newCourseName, int[] new_gScale) {
+        System.out.println(oldCourseID + " " + newCourseID + " " + newCourseName);
 
-        ModelCourse newCourse = courseMap.remove(oldCourse.getID());
-        newCourse.id = newCourseID;
-        newCourse.name = newCourseName;
-        newCourse.gradingScale = new_gScale;
+        ModelCourse newCourse = courseMap.get(oldCourseID);
+        this.removeCourse(oldCourseID);
+        newCourse.setId(newCourseID);
+        newCourse.setName(newCourseName);
+        newCourse.setGradingScale(new_gScale);
 
         courseMap.put(newCourseID, newCourse);
+        this.updateCourse(newCourseID);
+//        System.out.println("put");
     }
 
     public boolean removeCourse(String courseID) {
         if (courseMap.containsKey(courseID)) {
             courseMap.remove(courseID);
             this.updateCourse(courseID);
-            System.out.println("removed!");
             return true;
         }
         return false;
