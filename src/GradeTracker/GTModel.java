@@ -80,6 +80,12 @@ public class GTModel {
         }
     }
 
+    public void changeCourseId(String oldID, String newId) {
+        if (this.courseMap.containsKey(oldID)) {
+
+        }
+    }
+
     public boolean setAssignmentCategoryWeight(String courseID, String assignmentCategoryName, int weight) {
         if (this.courseMap.containsKey(courseID)) {
             boolean successBool = this.courseMap.get(courseID).setAssignmentCategoryWeight(assignmentCategoryName, weight);

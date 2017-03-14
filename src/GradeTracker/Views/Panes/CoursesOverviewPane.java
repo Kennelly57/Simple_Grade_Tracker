@@ -3,6 +3,8 @@ package GradeTracker.Views.Panes;
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.MainDisplay;
+import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
+import GradeTracker.Views.PopupStages.CourseEditWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -11,6 +13,8 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 import java.util.Map;
 
@@ -117,17 +121,18 @@ public class CoursesOverviewPane {
      * generateEditBtn
      */
     private Button generateEditBtn(ModelCourse course) {
-        Button btnBack = new Button();
-        btnBack.setText("✐");
-        btnBack.setId("labelButton");
-        btnBack.setOnAction((ActionEvent) -> {
-            ;
+        Button btnEdit = new Button();
+        btnEdit.setText("✐");
+        btnEdit.setId("labelButton");
+        btnEdit.setOnAction((ActionEvent) -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(mainDisplay.univPrimaryStage);
+            new CourseEditWindow().start(dialog, this.model, course);
         });
-        addDropShadow(btnBack);
-        return btnBack;
+        addDropShadow(btnEdit);
+        return btnEdit;
     }
-
-
     /**
      * generateEditAndDelBtnPane
      * @return hBox with "edit" button & "delete" button
