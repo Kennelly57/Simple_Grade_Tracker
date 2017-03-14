@@ -17,7 +17,7 @@ public class OfflineLists {
 
     public void storeCourseList(ArrayList<String> data) {
         try {
-            FileOutputStream fileStream = new FileOutputStream("courseList.txt", false); // This will now overwrite the existing file.
+            FileOutputStream fileStream = new FileOutputStream("courseList.txt", false);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
             outputStream.writeObject(data);
             outputStream.close();
