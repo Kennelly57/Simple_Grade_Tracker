@@ -126,7 +126,9 @@ public class MainDisplay extends Application implements GTObserver {
         this.layer= 2;
         this.updateCourses();
         course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        category = course.getCompoundAssignmentCategories().get(category.getName());
         this.courseShowing = course;
+        this.categoryShowing = category;
 
         // Borderpane "root" will hold other panes
         BorderPane root = new BorderPane();
@@ -140,7 +142,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Format GridPane
         double numberOfColumns = 4.0;
-        double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
+        double numberOfRows = category.getAtomicSubAssignmentMap().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
@@ -317,6 +319,8 @@ public class MainDisplay extends Application implements GTObserver {
             this.showCourses();
         } else if (this.layer == 1) {
             this.showCategories(this.courseShowing);
+        } else if (this.layer == 2) {
+            this.showAssignments(this.courseShowing, this.categoryShowing);
         }
     }
 
@@ -440,10 +444,8 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.setAssignmentScore(courseID_2, "Owl Stuff", 125);
 
         this.model.addCompoundAssignmentCategory(courseID_2, "More Compound Stuff", 22);
-        this.model.setAssignmentPointsPossible(courseID_2, "More Compound Stuff", 160);
-        this.model.setAssignmentScore(courseID_2, "More Compound Stuff", 125);
 
-        this.model.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", "test");
+        this.model.addAtomicAssignmentToCompoundCategory(courseID_2, "More Compound Stuff", "test 1");
         this.model.setAssignmentPointsPossible(courseID_2, "test 1", 160);
         this.model.setAssignmentScore(courseID_2, "test 1", 125);
 
