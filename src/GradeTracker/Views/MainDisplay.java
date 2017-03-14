@@ -66,6 +66,7 @@ public class MainDisplay extends Application implements GTObserver {
             System.out.println("No file found, generating a new one.");
             System.out.flush();
         }
+        //makeDemoAssignmentList();
 
 
         // get screen size & set Stage boundaries to visible bounds of the main screen

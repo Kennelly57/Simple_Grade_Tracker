@@ -242,6 +242,12 @@ public class GTModel {
     * to set up everything properly. */
     public void dataSetter() throws FileNotFoundException {
         ArrayList<String> data = returnCourseList();
+        if (data == null){
+            throw new FileNotFoundException();
+        }
+
+        System.out.print("READING FROM: ");
+        System.out.println(data);
         String subCategoryName = null;
         String courseName = null;
         String gradeScale = null;
