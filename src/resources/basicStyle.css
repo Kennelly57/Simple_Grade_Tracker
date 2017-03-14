@@ -52,3 +52,11 @@
     -fx-font-weight: bold;
 
 }
+
+
+#Save {
+    -fx-alignment: top-left;
+    -fx-background-radius: 10%;
+    -fx-padding: 5%;
+    -fx-spacing: 550pt;
+}

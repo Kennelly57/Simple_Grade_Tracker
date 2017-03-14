@@ -239,7 +239,7 @@ public class GTModel {
             if (data.get(pointer).equals("<course>")){
                 courseName = data.get(pointer + 1);
                 gradeScale = data.get(pointer + 3);
-                this.addCourse(courseName, data.get(pointer + 2), gradeScaleStringParser(gradeScale));
+                this.addCourse(data.get(pointer + 2), courseName, gradeScaleStringParser(gradeScale));
             } else if (data.get(pointer).equals("<atomicCategory>")) {
                 subCategoryName = data.get(pointer + 1);
                 this.addAtomicAssignmentCategory(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 2)));
@@ -266,4 +266,5 @@ public class GTModel {
             }
         }
     }
+
 }
