@@ -346,21 +346,12 @@ public class MainDisplay extends Application implements GTObserver {
                 }
 
                 // Only want to highlight left leftmost cells of grid, excluding the first row
-                if ((columnCounter >= numberOfColumns) && (columnCounter % numberOfColumns == 0)) {
+                boolean isNotFirstRow = columnCounter >= numberOfColumns;
+                boolean isLeftmostCol = columnCounter % numberOfColumns == 0;
+                if (isNotFirstRow && isLeftmostCol) {
 
-                    String key = ((Label) n).getText();
-                    boolean isCourse = model.getLatestCourses().containsKey(key);
-                    boolean isCompoundAssignment = false;
+                    styleLeftMostCol((Label) n, control);
 
-                    // Make sure courseShowing is instantiated
-                    if (courseShowing != null){
-                        isCompoundAssignment = courseShowing.getCompoundAssignmentCategories().containsKey(key);
-                    }
-
-                    // Check to see if cell should be clickable
-                    if (isCourse || isCompoundAssignment) {
-                        control.setId("labelButton");
-                    }
                 }
                 columnCounter++;
             }
@@ -373,6 +364,24 @@ public class MainDisplay extends Application implements GTObserver {
 
         addColumnConstraints(dataPane, numberOfColumns);
         addRowConstraints(dataPane, numberOfRows);
+    }
+
+    // Helper function for styling elements of grids that act as buttons.
+    private void styleLeftMostCol(Label label, Control control) {
+        String key = label.getText();
+        boolean isCourse = model.getLatestCourses().containsKey(key);
+        boolean isCompoundAssignment = false;
+
+        // Check if view is on the assignmentCategories layer.
+        // If it is, then courseShowing is instantiated.
+        if (layer == 1) {
+            isCompoundAssignment = courseShowing.getCompoundAssignmentCategories().containsKey(key);
+        }
+
+        // Check to see if cell refers to a course or compound assignment, i.e. if it should look clickable.
+        if (isCourse || isCompoundAssignment) {
+            control.setId("labelButton");
+        }
     }
 
     /**
