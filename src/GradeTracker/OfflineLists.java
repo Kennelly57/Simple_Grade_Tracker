@@ -5,6 +5,7 @@ import GradeTracker.Samples.CompoundAssignment;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -64,24 +65,28 @@ public class OfflineLists {
         ArrayList<String> dataList = new ArrayList<>();
         int cursor = 0;
         for (ModelCourse course : coursesMap.values()){
-            dataList.add("<course" + Integer.toString(cursor) + ">");
+            //dataList.add("<course" + Integer.toString(cursor) + ">");
+            dataList.add("<course>");
             dataList.add(course.getName());
             dataList.add(course.getID());
             dataList.add(intArrayConverter(course.getGradingScale()));
             int atomicCatCursor = 0;
             for (AtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
-                dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                //dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                dataList.add("<atomicCategory>");
                 dataList.add(atomicCat.getName());
                 dataList.add(Double.toString(atomicCat.getPointsPossible()));
                 dataList.add(Double.toString(atomicCat.getPointsScore()));
                 dataList.add(Boolean.toString(atomicCat.completed()));
                 dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
-                dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                //dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                dataList.add("</atomicCategory>");
                 atomicCatCursor++;
             }
             int compCatCursor = 0;
             for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
-                dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
+                //dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
+                dataList.add("<compoundCategory>");
                 dataList.add(compCat.getName());
                 dataList.add(this.intArrayConverter(compCat.getGradingScale()));
                 dataList.add(Boolean.toString(compCat.completed()));
@@ -89,25 +94,63 @@ public class OfflineLists {
                 int subCatCursor = 0;
                 for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
                     dataList.add("<subCategory" + Integer.toString(subCatCursor) + ">");
+                    dataList.add("<subCategory>");
                     dataList.add(subCat.getName());
                     dataList.add(Double.toString(subCat.getPointsPossible()));
                     dataList.add(Double.toString(subCat.getPointsScore()));
                     dataList.add(Boolean.toString(subCat.completed()));
-                    dataList.add(Integer.toString(course.getCategoryWeights().get(subCat.getName())));
-                    dataList.add("</subCategory" + Integer.toString(subCatCursor) + ">");
+                    //dataList.add("</subCategory" + Integer.toString(subCatCursor) + ">");
+                    dataList.add("</subCategory>");
                     subCatCursor++;
                 }
 
-                dataList.add("</compoundCategory" + Integer.toString(compCatCursor) + ">");
+                //dataList.add("</compoundCategory" + Integer.toString(compCatCursor) + ">");
+                dataList.add("</compoundCategory>");
                 compCatCursor ++;
             }
 
-            dataList.add("</course" + Integer.toString(cursor) + ">");
+            //dataList.add("</course" + Integer.toString(cursor) + ">");
+            dataList.add("</course>");
             cursor++;
         }
         System.out.println(dataList);
         System.out.flush();
         return dataList;
+    }
+
+    public void buildModel(GTModel model, List<String> dataList){
+
+    }
+
+    private int addCourse(GTModel model, List<String> dataList, int cursor){
+        int i = cursor;
+
+        return i;
+    }
+
+    private int addAtomiCat(GTModel model, List<String> dataList, String couseName, int cursor){
+        int i = cursor;
+        if( i >= 0 && i<dataList.size() &&
+                dataList.get(i).equalsIgnoreCase("<atomicCategory>") &&
+                dataList.get(i+6).equalsIgnoreCase("</atomicCategory>")){
+            String atomiCatName = dataList.get(i+1);
+            //String
+        } else{
+            i = -1;
+        }
+        return i;
+    }
+
+    private int addComCat(GTModel model, List<String> dataList, String couseName, int cursor){
+        int i = cursor;
+
+        return i;
+    }
+
+    private int addSubCat(GTModel model, List<String> dataList, String couseName, String comCatName, int cursor){
+        int i = cursor;
+
+        return i;
     }
 
     public static void main(String args[]) {

@@ -113,8 +113,8 @@ public class CoursesOverviewPane {
         btnDel.setId("labelButton");
         btnDel.setOnAction(event -> {
             String courseID = course.getID();
-            model.removeCourse(courseID);
-            mainDisplay.showCourses();
+            this.model.removeCourse(courseID);
+            this.mainDisplay.showCourses();
         });
         addDropShadow(btnDel);
         return btnDel;

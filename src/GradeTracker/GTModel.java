@@ -41,7 +41,7 @@ public class GTModel {
         if (courseMap.containsKey(courseID)) {
             courseMap.remove(courseID);
             this.updateCourse(courseID);
-            System.out.print("removed!");
+            System.out.println("removed!");
             return true;
         }
         return false;
@@ -178,6 +178,9 @@ public class GTModel {
             latestCourses.put(courseID, courseClone);
 
             this.notifyObserversOfChange();
+            return true;
+        } else if (latestCourses.containsKey(courseID)){
+            latestCourses.remove(courseID);
             return true;
         }
         return false;
