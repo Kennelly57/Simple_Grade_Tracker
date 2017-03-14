@@ -1,7 +1,6 @@
 package GradeTracker;
 
-import com.sun.tools.internal.ws.processor.model.Model;
-
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import static GradeTracker.OfflineLists.returnCourseList;
@@ -244,17 +243,23 @@ public class GTModel {
     /* Reads the data file and sets the model appropriately.
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
-    public void dataSetter(){
+    public void dataSetter() throws FileNotFoundException {
         ArrayList<String> data = returnCourseList();
+        if (data == null){
+            throw new FileNotFoundException();
+        }
+
+        System.out.print("READING FROM: ");
+        System.out.println(data);
         String subCategoryName = null;
         String courseName = null;
         String gradeScale = null;
         String lowestCategoryName = null;
         for (int pointer =0; pointer <= data.size() - 5; pointer++) {
             if (data.get(pointer).equals("<course>")){
-                courseName = data.get(pointer + 1);
+                courseName = data.get(pointer + 2);
                 gradeScale = data.get(pointer + 3);
-                this.addCourse(data.get(pointer + 2), courseName, gradeScaleStringParser(gradeScale));
+                this.addCourse(courseName, data.get(pointer + 1), gradeScaleStringParser(gradeScale));
             } else if (data.get(pointer).equals("<atomicCategory>")) {
                 subCategoryName = data.get(pointer + 1);
                 this.addAtomicAssignmentCategory(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 2)));
