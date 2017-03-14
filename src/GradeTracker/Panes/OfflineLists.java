@@ -1,9 +1,11 @@
 package GradeTracker;
 
 import GradeTracker.Samples.SampleAtomicAssignment;
+import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -65,6 +67,13 @@ public class OfflineLists {
         return gradeScale;
     }
 
+    private ArrayList<String> writeCompCat(ArrayList<String> dataList, SampleCompoundAssignment compCat, int cursor){
+        //Map<String, Assignment> assignments = compCat.getSubAssignmentMap();
+
+
+        return dataList;
+    }
+
     public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
         int cursor = 1;
@@ -83,6 +92,13 @@ public class OfflineLists {
                 dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
                 dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
             }
+            int compCatCursor = 1;
+            for (SampleCompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
+                dataList = writeCompCat(dataList, compCat, compCatCursor);
+                compCatCursor ++;
+            }
+
+            dataList.add("</course" + Integer.toString(cursor) + ">");
         }
         return dataList;
     }

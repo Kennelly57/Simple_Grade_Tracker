@@ -321,7 +321,7 @@ public class MainDisplay extends Application implements GTObserver {
 
     private void makeDemoAssignmentList() {
 
-        int[] gScale = {96, 93, 90, 86, 83, 80, 76, 66, 63, 60};
+        int[] gScale = {96, 93, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60};
 
         String courseID_1 = "TEST 101";
         String courseID_2 = "BIOL.362";

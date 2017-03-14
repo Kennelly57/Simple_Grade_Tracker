@@ -14,13 +14,15 @@ public class SampleCompoundAssignment implements Assignment {
     private int[] gradingScale;
 
     //Question: How do we deal with points based vs percentage based weighting
-    private Map<String, Assignment> subAssignmentMap;
+    private Map<String, SampleAtomicAssignment> atomicSubAssignmentMap;
+    private Map<String, SampleCompoundAssignment> compoundSubAssignmentMap;
 
     public SampleCompoundAssignment(String name, int[] newGradingScale){
-        completed = false;
+        this.completed = false;
         this.name = name;
         this.gradingScale = newGradingScale;//CAN WE TEST TO VERIFY THIS IS CORRECTLY FORMATED
-        subAssignmentMap = new HashMap<String, Assignment>();
+        this.compoundSubAssignmentMap = new HashMap<String, SampleCompoundAssignment>();
+        this.atomicSubAssignmentMap = new HashMap<String, SampleAtomicAssignment>();
     }
 
     @Override
@@ -29,8 +31,11 @@ public class SampleCompoundAssignment implements Assignment {
         if (this.completed()){
             clone.markAsCompleted();
         } else {clone.markAsIncomplete();}
-        for (Assignment assignment : subAssignmentMap.values()) {
-            clone.addAssignment(assignment.clone());
+        for (SampleAtomicAssignment assignment : atomicSubAssignmentMap.values()) {
+            clone.addAtomicAssignment(this.getName(), assignment.clone());
+        }
+        for (SampleCompoundAssignment assignment : compoundSubAssignmentMap.values()) {
+            clone.addCompoundAssignment(this.getName(), assignment.clone());
         }
 
 
@@ -38,7 +43,12 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean contains(String assignmentName){
-        for (Assignment subAssignment: subAssignmentMap.values()) {
+        for (SampleAtomicAssignment subAssignment: atomicSubAssignmentMap.values()) {
+            if(subAssignment.contains(assignmentName)){
+                return true;
+            }
+        }
+        for (SampleCompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
             if(subAssignment.contains(assignmentName)){
                 return true;
             }
@@ -53,6 +63,15 @@ public class SampleCompoundAssignment implements Assignment {
     public String getName() {
         return this.name;
     }
+
+    public Map<String, SampleCompoundAssignment> getCompoundSubAssignmentMap(){
+        return this.compoundSubAssignmentMap;
+    }
+
+    public Map<String, SampleAtomicAssignment> getAtomicSubAssignmentMap(){
+        return this.atomicSubAssignmentMap;
+    }
+
 
     public String getGrade(){ // We could make this log(n), but I don't feel like it at the moment.
         double percentageScore = this.getPercentageScore();
@@ -70,7 +89,12 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsPossible(){
         double pointsPossibleSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
+        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+            if(subAssignment.completed()){
+                pointsPossibleSum += subAssignment.getPointsPossible();
+            }
+        }
+        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsPossibleSum += subAssignment.getPointsPossible();
             }
@@ -81,7 +105,12 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsScore(){
         double pointsAchievedSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
+        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+            if(subAssignment.completed()){
+                pointsAchievedSum += subAssignment.getPointsScore();
+            }
+        }
+        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsAchievedSum += subAssignment.getPointsScore();
             }
@@ -93,7 +122,13 @@ public class SampleCompoundAssignment implements Assignment {
     public double getPercentageScore() {
         double pointsPossibleSum = 0;
         double pointsAchievedSum = 0;
-        for (Assignment subAssignment : subAssignmentMap.values()) {
+        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+            if (subAssignment.completed()) {
+                pointsPossibleSum += subAssignment.getPointsPossible();
+                pointsAchievedSum += subAssignment.getPointsScore();
+            }
+        }
+        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if (subAssignment.completed()) {
                 pointsPossibleSum += subAssignment.getPointsPossible();
                 pointsAchievedSum += subAssignment.getPointsScore();
@@ -106,14 +141,44 @@ public class SampleCompoundAssignment implements Assignment {
         }
     }
 
-    public void addAssignment(Assignment newAssignment){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF DUPLICATE NAMES!
-        subAssignmentMap.put(newAssignment.getName(), newAssignment);
+    public boolean addAtomicAssignment(String compoundToAddTo, SampleAtomicAssignment atomicAssignment){
+        if (!this.contains(atomicAssignment.getName())) {
+            if (this.getName().equalsIgnoreCase(compoundToAddTo)){
+                this.atomicSubAssignmentMap.put(atomicAssignment.getName(), atomicAssignment);
+                return true;
+            } else {
+                for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()){
+                    if (compoundAssignment.addAtomicAssignment(compoundToAddTo, atomicAssignment)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean addCompoundAssignment(String compoundToAddTo, SampleCompoundAssignment compoundAssignment){
+        if (!this.contains(compoundAssignment.getName())) {
+            if (this.getName().equalsIgnoreCase(compoundToAddTo)){
+                this.compoundSubAssignmentMap.put(compoundAssignment.getName(), compoundAssignment);
+                return true;
+            } else {
+                for (SampleCompoundAssignment compoundSubAssignment: this.compoundSubAssignmentMap.values()){
+                    if (compoundSubAssignment.addCompoundAssignment(compoundToAddTo, compoundAssignment)){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 
     public Assignment getAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
-        if (this.contains(targetName)){
-            for (Assignment subAssignment : subAssignmentMap.values()) {
+        if (this.atomicSubAssignmentMap.containsKey(targetName)) {
+            return this.atomicSubAssignmentMap.get(targetName);
+        } else {
+            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.getName().equalsIgnoreCase(targetName)){
                     return subAssignment;
                 } else if (subAssignment.contains(targetName)){
@@ -125,11 +190,13 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean setScore(String assignmentName, double score) {
-        if (this.contains(assignmentName)){
-            for (Assignment subAssignment : subAssignmentMap.values()) {
+        if (this.atomicSubAssignmentMap.containsKey(assignmentName)) {
+            this.atomicSubAssignmentMap.get(assignmentName).setPointsScore(score);
+            return true;
+        } else {
+            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.contains(assignmentName)){
-                    subAssignment.setScore(assignmentName, score);
-                    return true;
+                    return subAssignment.setScore(assignmentName, score);
                 }
             }
         }
@@ -137,11 +204,13 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean setPointsPossible(String assignmentName, double score) {
-        if (this.contains(assignmentName)){
-            for (Assignment subAssignment : subAssignmentMap.values()) {
+        if (this.atomicSubAssignmentMap.containsKey(assignmentName)) {
+            this.atomicSubAssignmentMap.get(assignmentName).setPointsPossible(score);
+            return true;
+        } else {
+            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.contains(assignmentName)){
-                    subAssignment.setPointsPossible(assignmentName, score);
-                    return true;
+                    return subAssignment.setPointsPossible(assignmentName, score);
                 }
             }
         }
@@ -149,19 +218,34 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public void removeAssignment(String targetName){ //THIS NEEDS TO THROW AN ERROR IN THE CASE OF A WRONG NAME!
-        subAssignmentMap.remove(targetName);
+        if (this.atomicSubAssignmentMap.containsKey(targetName)){
+            this.atomicSubAssignmentMap.remove(targetName);
+        } else {
+            for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()) {
+                if (compoundAssignment.contains(targetName)){
+                    removeAssignment(targetName);
+                }
+            }
+        }
     }
 
     public boolean completed(){
         this.completed = false;
-        for (Assignment assignment: subAssignmentMap.values()) {
+        for (SampleAtomicAssignment assignment: atomicSubAssignmentMap.values()) {
             if (assignment.completed()){
                 this.completed = true;
-                break;
+                return true;
             }
         }
-        return this.completed;
+        for (SampleCompoundAssignment assignment: compoundSubAssignmentMap.values()) {
+            if (assignment.completed()){
+                this.completed = true;
+                return true;
+            }
+        }
+        return false;
     }
+
 
     public void markAsCompleted(){
         this.completed = true;

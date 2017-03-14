@@ -108,7 +108,6 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         return this.percentageScore;
     }
 
-
     public boolean completed(){
         return this.completed;
     }
