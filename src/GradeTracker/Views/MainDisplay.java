@@ -155,11 +155,19 @@ public class MainDisplay extends Application implements GTObserver {
     // to format and generate content
     // ------------------------------------------------------------------------
 
+
+    /**
+     * generateSetupAdd
+     * Makes correct title, returns Text object with CSS id applied
+     * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
+     *
+     * At level 0, need no arguments, title just equals "Courses"
+     * At level 1, need course name, ie Courses/ Owl Biology
+     * At level 2, need course name & category name, ie "Courses / Owl Biology / Tests"
+     */
     private Text generateSetupTitle(int layer, String...info) {
         String title = "";
 
-        // Generate appropriate title text depending on view
-        // ie "Courses / Owl Biology" or "Courses / Owl Biology / Tests"
         if(layer == 0) {
             title = "Courses";
         }
@@ -257,6 +265,9 @@ public class MainDisplay extends Application implements GTObserver {
         return btnHbox;
     }
 
+    /**
+     * Adds title, grid full of content, and control buttons to the root BorderPane for a scene
+     */
     private void addPanesToRoot(BorderPane root, Text screenTitle, GridPane dataPane, HBox controlBtns) {
         root.setTop(screenTitle);
         root.setAlignment(screenTitle, Pos.CENTER);
@@ -270,6 +281,9 @@ public class MainDisplay extends Application implements GTObserver {
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
     }
 
+    /**
+     * Generates a scene using "root" BorderPane and configures CSS
+     */
     private void createScene(BorderPane root) {
         Scene scene = new Scene(root);
         scene.getStylesheets().add("resources/basicStyle.css");
@@ -283,20 +297,19 @@ public class MainDisplay extends Application implements GTObserver {
         dropShadow.setRadius(20.0);
     }
 
+//    public void printDiagnostic() {
+//        System.out.println("Diagnostic");
+//        System.out.flush();
+//    }
 
-    public void printDiagnostic() {
-        System.out.println("Diagnostic");
-        System.out.flush();
-    }
-
-    public int getNumberOfCourses() {
-        this.updateCourses();
-        int counter = 0;
-        for (ModelCourse course : latestCourses.values()) {
-            counter++;
-        }
-        return counter;
-    }
+//    public int getNumberOfCourses() {
+//        this.updateCourses();
+//        int counter = 0;
+//        for (ModelCourse course : latestCourses.values()) {
+//            counter++;
+//        }
+//        return counter;
+//    }
 
     public void notifyOfChange() {
         this.upToDate = false;
@@ -314,7 +327,9 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
-    // Add proper IDs to grid elements for CSS styling and sets grid size
+    /**
+     * Called after generating a GridPane to ensure proper styling is applied
+     */
     private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;
@@ -342,6 +357,9 @@ public class MainDisplay extends Application implements GTObserver {
         addRowConstraints(dataPane, numberOfRows);
     }
 
+    /**
+     * Helper fcn for formatGridPane
+     */
     private void addColumnConstraints(GridPane dataPane, Double numberOfColumns) {
         ColumnConstraints columnConstraints = new ColumnConstraints();
         columnConstraints.setPercentWidth(100 / numberOfColumns);
@@ -351,6 +369,9 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
+    /**
+     * Helper fcn for formatGridPane
+     */
     private void addRowConstraints(GridPane dataPane, Double numberOfRows) {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(100 / numberOfRows);
@@ -360,6 +381,9 @@ public class MainDisplay extends Application implements GTObserver {
         }
     }
 
+    /**
+     * Used to generate drop shadow effect for clickable buttons
+     */
     private void addDropShadow(final Button btn) {
         btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
             @Override
@@ -374,9 +398,6 @@ public class MainDisplay extends Application implements GTObserver {
             }
         });
     }
-
-
-
 
     private void makeDemoAssignmentList() {
 

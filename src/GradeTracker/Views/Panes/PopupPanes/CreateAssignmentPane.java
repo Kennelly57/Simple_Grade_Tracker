@@ -157,6 +157,7 @@ public class CreateAssignmentPane {
     }
 
     // NOT CURRENTLY USING THIS, THOUGH MAYBE WE SHOULD?
+
 //    private GridPane generateGridPane() {
 //
 //        GridPane dataGrid = new GridPane();
@@ -186,41 +187,41 @@ public class CreateAssignmentPane {
 //        return dataGrid;
 //    }
 
-    private HBox generateSubItemHBox() {
-        ToggleGroup subItemsToggle = new ToggleGroup();
-        RadioButton btnSubItemsYes = new RadioButton("Yes");
-        RadioButton btnSubItemsNo = new RadioButton("No");
-        btnSubItemsYes.setToggleGroup(subItemsToggle);
-        btnSubItemsNo.setToggleGroup(subItemsToggle);
-
-        HBox subItemsHbox = new HBox();
-        HBox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
-        subItemsHbox.getChildren().add(btnSubItemsYes);
-        subItemsHbox.getChildren().add(btnSubItemsNo);
-
-        return subItemsHbox;
-    }
-
-    private VBox generateRelevantFieldsVBox() {
-        VBox relevantFieldsVBox = new VBox();
-        Text relFieldsLabel = new Text("Relevant Fields");
-        relevantFieldsVBox.getChildren().add(relFieldsLabel);
-        VBox.setMargin(relFieldsLabel, new Insets(10, 0, 10, 0));
-
-        CheckBox pointsPossibleCB = new CheckBox("Points Possible");
-        CheckBox scorePointsCB = new CheckBox("Score (points)");
-        CheckBox scorePercentCB = new CheckBox("Score (percent)");
-        CheckBox weightCB = new CheckBox("Weight");
-        CheckBox weightedScoreCB = new CheckBox("Weighted Score");
-
-        List<CheckBox> cbList = Arrays.asList(
-                pointsPossibleCB, scorePointsCB, scorePercentCB,
-                weightCB, weightedScoreCB);
-        for (CheckBox box : cbList) {
-            relevantFieldsVBox.getChildren().add(box);
-        }
-
-        return relevantFieldsVBox;
-    }
+//    private HBox generateSubItemHBox() {
+//        ToggleGroup subItemsToggle = new ToggleGroup();
+//        RadioButton btnSubItemsYes = new RadioButton("Yes");
+//        RadioButton btnSubItemsNo = new RadioButton("No");
+//        btnSubItemsYes.setToggleGroup(subItemsToggle);
+//        btnSubItemsNo.setToggleGroup(subItemsToggle);
+//
+//        HBox subItemsHbox = new HBox();
+//        HBox.setMargin(btnSubItemsYes, new Insets(0, 10, 0, 0));
+//        subItemsHbox.getChildren().add(btnSubItemsYes);
+//        subItemsHbox.getChildren().add(btnSubItemsNo);
+//
+//        return subItemsHbox;
+//    }
+//
+//    private VBox generateRelevantFieldsVBox() {
+//        VBox relevantFieldsVBox = new VBox();
+//        Text relFieldsLabel = new Text("Relevant Fields");
+//        relevantFieldsVBox.getChildren().add(relFieldsLabel);
+//        VBox.setMargin(relFieldsLabel, new Insets(10, 0, 10, 0));
+//
+//        CheckBox pointsPossibleCB = new CheckBox("Points Possible");
+//        CheckBox scorePointsCB = new CheckBox("Score (points)");
+//        CheckBox scorePercentCB = new CheckBox("Score (percent)");
+//        CheckBox weightCB = new CheckBox("Weight");
+//        CheckBox weightedScoreCB = new CheckBox("Weighted Score");
+//
+//        List<CheckBox> cbList = Arrays.asList(
+//                pointsPossibleCB, scorePointsCB, scorePercentCB,
+//                weightCB, weightedScoreCB);
+//        for (CheckBox box : cbList) {
+//            relevantFieldsVBox.getChildren().add(box);
+//        }
+//
+//        return relevantFieldsVBox;
+//    }
 
 }
