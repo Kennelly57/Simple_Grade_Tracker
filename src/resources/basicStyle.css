@@ -44,3 +44,11 @@
     -fx-font-size: 18pt;
     -fx-innershadow: gaussian, 100,100,100,100;
 }
+
+#gradeMsg {
+    -fx-background-color: aliceblue;
+    -fx-alignment: center;
+    -fx-font-size: 20pt;
+    -fx-font-weight: bold;
+
+}
