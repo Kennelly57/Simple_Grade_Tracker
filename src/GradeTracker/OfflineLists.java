@@ -63,37 +63,29 @@ public class OfflineLists {
     *  Will be stored as an object in a text file. */
     public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
-        int cursor = 0;
         for (ModelCourse course : coursesMap.values()){
             //dataList.add("<course" + Integer.toString(cursor) + ">");
             dataList.add("<course>");
             dataList.add(course.getName());
             dataList.add(course.getID());
             dataList.add(intArrayConverter(course.getGradingScale()));
-            int atomicCatCursor = 0;
             for (AtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
                 //dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
                 dataList.add("<atomicCategory>");
                 dataList.add(atomicCat.getName());
+                dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
                 dataList.add(Double.toString(atomicCat.getPointsPossible()));
                 dataList.add(Double.toString(atomicCat.getPointsScore()));
                 dataList.add(Boolean.toString(atomicCat.completed()));
-                dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
                 //dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
                 dataList.add("</atomicCategory>");
-                atomicCatCursor++;
             }
-            int compCatCursor = 0;
             for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
                 //dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
                 dataList.add("<compoundCategory>");
                 dataList.add(compCat.getName());
-                dataList.add(this.intArrayConverter(compCat.getGradingScale()));
-                dataList.add(Boolean.toString(compCat.completed()));
                 dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
-                int subCatCursor = 0;
                 for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
-                    dataList.add("<subCategory" + Integer.toString(subCatCursor) + ">");
                     dataList.add("<subCategory>");
                     dataList.add(subCat.getName());
                     dataList.add(Double.toString(subCat.getPointsPossible()));
@@ -101,17 +93,14 @@ public class OfflineLists {
                     dataList.add(Boolean.toString(subCat.completed()));
                     //dataList.add("</subCategory" + Integer.toString(subCatCursor) + ">");
                     dataList.add("</subCategory>");
-                    subCatCursor++;
                 }
 
                 //dataList.add("</compoundCategory" + Integer.toString(compCatCursor) + ">");
                 dataList.add("</compoundCategory>");
-                compCatCursor ++;
             }
 
             //dataList.add("</course" + Integer.toString(cursor) + ">");
             dataList.add("</course>");
-            cursor++;
         }
         System.out.println(dataList);
         System.out.flush();

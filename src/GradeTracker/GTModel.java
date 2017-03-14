@@ -1,9 +1,6 @@
 package GradeTracker;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Kilian on 3/7/2017.
@@ -212,4 +209,60 @@ public class GTModel {
     }
 
 
+    private int[] gradeScaleStringParser(String gradeScale){
+        int[] gScale = new int[12];
+        int stringLength = gradeScale.length();
+        int currentIndex = 0;
+        for (int cursor = 0; cursor < stringLength; cursor++){
+            if (gradeScale.charAt(cursor) == ',') {
+                String tempString = gradeScale.substring(cursor, cursor+3);
+                int tempInt = Integer.parseInt(tempString);
+                gScale[currentIndex] = tempInt;
+                currentIndex++;
+            }
+        }
+        return gScale;
+    }
+
+    /* Reads the data file and sets the model appropriately.
+    * Relies on good data being saved (handled in offlineLists.java)
+    * to set up everything properly. */
+    private void dataSetter(){
+        OfflineLists fetch = new OfflineLists();
+        ArrayList<String> data = fetch.returnCourseList();
+        String subCategoryName = null;
+        String courseName = null;
+        String gradeScale = null;
+        String lowestCategoryName = null;
+        for (int pointer =0; pointer <= data.size() - 5; pointer++) {
+            if (data.get(pointer).equals("<course>")){
+                courseName = data.get(pointer + 1);
+                gradeScale = data.get(pointer + 3);
+                this.addCourse(courseName, data.get(pointer + 2), gradeScaleStringParser(gradeScale));
+            } else if (data.get(pointer).equals("<atomicCategory>")) {
+                subCategoryName = data.get(pointer + 1);
+                this.addAtomicAssignmentCategory(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 2)));
+                this.setAssignmentPointsPossible(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 3)));
+                this.setAssignmentScore(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 4)));
+                if (Boolean.parseBoolean(data.get(pointer + 5))){
+                    this.markAtomicAssignmentComplete(courseName, subCategoryName);
+                } else if (!Boolean.parseBoolean(data.get(pointer + 5))){
+                    this.markAtomicAssignmentIncomplete(courseName, subCategoryName);
+                }
+            } else if (data.get(pointer).equals("<compoundCategory>")){
+                subCategoryName = data.get(pointer + 1);
+                this.addCompoundAssignmentCategory(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 2)));
+            } else if (data.get(pointer).equals("<subCategory>")) {
+                lowestCategoryName = data.get(pointer + 1);
+                this.addAtomicAssignmentToCompoundCategory(courseName, subCategoryName, lowestCategoryName);
+                this.setAssignmentPointsPossible(courseName, lowestCategoryName, Integer.parseInt(data.get(pointer + 2)));
+                this.setAssignmentScore(courseName, lowestCategoryName, Integer.parseInt(data.get(pointer + 3)));
+                if (Boolean.parseBoolean(data.get(pointer + 4))){
+                    this.markAtomicAssignmentComplete(courseName, subCategoryName);
+                } else if (!Boolean.parseBoolean(data.get(pointer + 4))){
+                    this.markAtomicAssignmentIncomplete(courseName, subCategoryName);
+                }
+            }
+        }
+    }
 }
