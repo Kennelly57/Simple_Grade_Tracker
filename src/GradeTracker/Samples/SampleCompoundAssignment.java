@@ -42,16 +42,51 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean contains(String assignmentName){
+        return (this.containsCompound(assignmentName)||this.containsAtomic(assignmentName));
+    }
+
+    public boolean containsCompound(String assignmentName) {
+        if (this.getName().equalsIgnoreCase(assignmentName)){
+            return true;
+        }
+        for (SampleCompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
+            if(subAssignment.containsCompound(assignmentName)){
+                return true;
+            }
+        }
+        return false;
+    }
+    public boolean containsAtomic(String assignmentName){
+
+        if (assignmentName.equalsIgnoreCase("test")){
+            System.out.println("Finding Test");
+        }
+
         for (SampleAtomicAssignment subAssignment: atomicSubAssignmentMap.values()) {
-            if(subAssignment.contains(assignmentName)){
+            if(subAssignment.getName().equalsIgnoreCase(assignmentName)){
+
+                if (assignmentName.equalsIgnoreCase("test")){
+                    System.out.println("Finding in Atomic True");
+                }
+
                 return true;
             }
         }
         for (SampleCompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
-            if(subAssignment.contains(assignmentName)){
+            if(subAssignment.containsAtomic(assignmentName)){
+
+                if (assignmentName.equalsIgnoreCase("test")){
+                    System.out.println("Finding Test In Compound");
+                }
+
                 return true;
             }
         }
+
+        if (assignmentName.equalsIgnoreCase("test")){
+            System.out.println("Finding Test False");
+        }
+
         return false;
     }
 
@@ -141,9 +176,17 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean addAtomicAssignment(String compoundToAddTo, SampleAtomicAssignment atomicAssignment){
-        if (!this.contains(atomicAssignment.getName())) {
+        if (!this.containsAtomic(atomicAssignment.getName())) {
             if (this.getName().equalsIgnoreCase(compoundToAddTo)){
                 this.atomicSubAssignmentMap.put(atomicAssignment.getName(), atomicAssignment);
+                int i = 0;
+                for (SampleAtomicAssignment a:this.atomicSubAssignmentMap.values()) {
+                    System.out.print("ASSIGNMENT ");
+                    System.out.print(atomicAssignment.getName());
+                    System.out.print(" IS IN " + Integer.toString(i) + " ");
+                    System.out.println(this.getName());
+                }
+
                 return true;
             } else {
                 for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()){
@@ -157,7 +200,7 @@ public class SampleCompoundAssignment implements Assignment {
     }
 
     public boolean addCompoundAssignment(String compoundToAddTo, SampleCompoundAssignment compoundAssignment){
-        if (!this.contains(compoundAssignment.getName())) {
+        if (!this.containsAtomic(compoundAssignment.getName())) {
             if (this.getName().equalsIgnoreCase(compoundToAddTo)){
                 this.compoundSubAssignmentMap.put(compoundAssignment.getName(), compoundAssignment);
                 return true;
@@ -180,7 +223,7 @@ public class SampleCompoundAssignment implements Assignment {
             for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.getName().equalsIgnoreCase(targetName)){
                     return subAssignment;
-                } else if (subAssignment.contains(targetName)){
+                } else if (subAssignment.containsAtomic(targetName)){
                     return subAssignment.getAssignment(targetName);
                 }
             }
@@ -194,7 +237,7 @@ public class SampleCompoundAssignment implements Assignment {
             return true;
         } else {
             for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
-                if (subAssignment.contains(assignmentName)){
+                if (subAssignment.containsAtomic(assignmentName)){
                     return subAssignment.setScore(assignmentName, score);
                 }
             }
@@ -208,7 +251,7 @@ public class SampleCompoundAssignment implements Assignment {
             return true;
         } else {
             for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
-                if (subAssignment.contains(assignmentName)){
+                if (subAssignment.containsAtomic(assignmentName)){
                     return subAssignment.setPointsPossible(assignmentName, score);
                 }
             }
@@ -221,7 +264,7 @@ public class SampleCompoundAssignment implements Assignment {
             this.atomicSubAssignmentMap.remove(targetName);
         } else {
             for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()) {
-                if (compoundAssignment.contains(targetName)){
+                if (compoundAssignment.containsAtomic(targetName)){
                     removeAssignment(targetName);
                 }
             }

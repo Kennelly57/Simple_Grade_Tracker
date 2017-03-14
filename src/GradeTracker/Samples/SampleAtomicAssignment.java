@@ -30,7 +30,7 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
         return clone;
     }
 
-    public boolean contains(String assignmentName){
+    public boolean containsAtomic(String assignmentName){
         return assignmentName.equalsIgnoreCase(this.name);
     }
 

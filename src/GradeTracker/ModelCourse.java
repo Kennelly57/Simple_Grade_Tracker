@@ -5,8 +5,6 @@ import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.util.*;
 
-import static java.lang.System.out;
-
 /**
  * Created by michelsd on 3/4/17.
  */
@@ -149,7 +147,7 @@ public class ModelCourse implements Cloneable {
     }
 
     protected boolean addAtomicAssignmentCategory(SampleAtomicAssignment atomicAssignment, Integer weight) {
-        if (!this.contains(atomicAssignment.getName())) {
+        if (!this.containsAtomic(atomicAssignment.getName())) {
             totalWeight = totalWeight + weight;
             atomicAsssignmentCategories.put(atomicAssignment.getName(), atomicAssignment);
             assignmentCategoryWeights.put(atomicAssignment.getName(), weight);
@@ -163,7 +161,7 @@ public class ModelCourse implements Cloneable {
     }
 
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight, int[] gScale) {
-        if (!this.contains(assignmentCategoryName)) {
+        if (!this.containsCompound(assignmentCategoryName)) {
             totalWeight = totalWeight + weight;
             compoundAsssignmentCategories.put(assignmentCategoryName, new SampleCompoundAssignment(assignmentCategoryName, gScale));
             assignmentCategoryWeights.put(assignmentCategoryName, weight);
@@ -189,7 +187,7 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
-    public boolean removeAssignmentCategory(String assignmentCategoryName) {
+    public boolean removeAssignmentCategory(String assignmentCategoryName) { //THIS IS BAD THIS IS BAD THIS IS BAD
         if (this.contains(assignmentCategoryName)) {
             int weight = assignmentCategoryWeights.get(assignmentCategoryName);
             assignmentCategoryWeights.remove(assignmentCategoryName);
@@ -207,7 +205,7 @@ public class ModelCourse implements Cloneable {
 
     public boolean addAtomicAssignmentToCompoundCategory(String categoryName, SampleAtomicAssignment atomicAssignment){
         for (SampleCompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
-            if (compCat.contains(categoryName) &&
+            if (compCat.containsCompound(categoryName) &&
                     !compoundAsssignmentCategories.get(categoryName).contains(atomicAssignment.getName())) {
                 compoundAsssignmentCategories.get(categoryName).addAtomicAssignment(categoryName, atomicAssignment);
                 return true;
@@ -218,7 +216,7 @@ public class ModelCourse implements Cloneable {
 
     public boolean addCompoundAssignmentToCompoundCategory(String categoryName, SampleCompoundAssignment compoundAssignment){
         for (SampleCompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
-            if (compCat.contains(categoryName) &&
+            if (compCat.containsCompound(categoryName) &&
                     !compoundAsssignmentCategories.get(categoryName).contains(compoundAssignment.getName())) {
                 compoundAsssignmentCategories.get(categoryName).addCompoundAssignment(categoryName, compoundAssignment);
                 return true;
@@ -243,7 +241,7 @@ public class ModelCourse implements Cloneable {
             return assignment.setScore(assignmentName, score);
         } else {
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
-                if (assignmentCategory.contains(assignmentName)){
+                if (assignmentCategory.containsAtomic(assignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(assignmentName);
                     return assignment.setScore(assignmentName, score);
                 }
@@ -252,16 +250,16 @@ public class ModelCourse implements Cloneable {
         }
     }
 
-    public boolean setAssignmentPointsPossible(String assignmentName, double pointsPossible){
-        if (atomicAsssignmentCategories.containsKey(assignmentName)) {
-            SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
+    public boolean setAtomicAssignmentPointsPossible(String atomicAssignmentName, double pointsPossible){
+        if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
+            SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
             assignment.setPointsPossible(pointsPossible);
             return true;
         } else {
             for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
-                if (assignmentCategory.contains(assignmentName)){
-                    Assignment assignment = assignmentCategory.getAssignment(assignmentName);
-                    assignment.setPointsPossible(assignmentName, pointsPossible);
+                if (assignmentCategory.containsAtomic(atomicAssignmentName)){
+                    Assignment assignment = assignmentCategory.getAssignment(atomicAssignmentName);
+                    assignment.setPointsPossible(atomicAssignmentName, pointsPossible);
                     return true;
                 }
             }
@@ -270,16 +268,31 @@ public class ModelCourse implements Cloneable {
     }
 
     public boolean contains(String assignmentName){
-        for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
-            if (assignmentCategory.contains(assignmentName)){
+        return (this.containsCompound(assignmentName)||this.containsAtomic(assignmentName));
+    }
+
+    public boolean containsAtomic(String assignmentName){
+        for (SampleCompoundAssignment compoundCat : compoundAsssignmentCategories.values()) {
+            if (compoundCat.containsAtomic(assignmentName)){
                 return true;
             }
         }
-        for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
-            if (atomicAssignment.getName().equalsIgnoreCase(assignmentName)){
+        String atomiCatName;
+        for (SampleAtomicAssignment atomiCat : atomicAsssignmentCategories.values()) {
+            atomiCatName = atomiCat.getName();
+            if (atomiCatName.equalsIgnoreCase(assignmentName)){
                 return true;
             }
         }
         return false;
     }
+    public boolean containsCompound(String assignmentName){
+        for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+            if (assignmentCategory.containsCompound(assignmentName)){
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
