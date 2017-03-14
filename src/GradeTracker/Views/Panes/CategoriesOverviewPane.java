@@ -81,7 +81,6 @@ public class CategoriesOverviewPane {
         // --------------------------------------------------
 
         int i = 0; // keeps track of row we're adding to
-        ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
 
         // --------------------------------------------------
@@ -196,47 +195,50 @@ public class CategoriesOverviewPane {
         return matches;
     }
 
-    private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
-        ColumnConstraints oneSixth = new ColumnConstraints();
-        oneSixth.setPercentWidth(100 / numberOfColumns);
-        oneSixth.setHalignment(HPos.CENTER);
-        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
-    }
+    // LOOKS LIKE WE CAN DELETE ALL THIS, EH?
 
-    private void addRowConstraints(GridPane dataPane, double numberOfRows) {
-        RowConstraints oneHalf = new RowConstraints();
-        oneHalf.setPercentHeight(100 / numberOfRows);
-        oneHalf.setValignment(VPos.CENTER);
-        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-    }
+//    private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
+//        ColumnConstraints oneSixth = new ColumnConstraints();
+//        oneSixth.setPercentWidth(100 / numberOfColumns);
+//        oneSixth.setHalignment(HPos.CENTER);
+//        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
+//    }
+//
+//    private void addRowConstraints(GridPane dataPane, double numberOfRows) {
+//        RowConstraints oneHalf = new RowConstraints();
+//        oneHalf.setPercentHeight(100 / numberOfRows);
+//        oneHalf.setValignment(VPos.CENTER);
+//        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
+//    }
+//
+//    private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
+//        int counter = 0;
+//
+//        for (SampleAtomicAssignment atomCat : atomicAsssignmentCategories.values()){
+//            counter++;
+//        }
+//
+//        for (SampleCompoundAssignment comCat : compoundAsssignmentCategories.values()){
+//            counter++;
+//        }
+//
+//        return counter;
+//    }
+//
+//    private void addDropShadow(final Button btn) {
+//        btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                DropShadow dropShadow = new DropShadow();
+//                btn.setEffect(dropShadow);
+//            }
+//        });
+//        btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+//            @Override
+//            public void handle(MouseEvent event) {
+//                btn.setEffect(null);
+//            }
+//        });
+//    }
 
-    private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
-        int counter = 0;
-
-        for (SampleAtomicAssignment atomCat : atomicAsssignmentCategories.values()){
-            counter++;
-        }
-
-        for (SampleCompoundAssignment comCat : compoundAsssignmentCategories.values()){
-            counter++;
-        }
-
-        return counter;
-    }
-
-    private void addDropShadow(final Button btn) {
-        btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                DropShadow dropShadow = new DropShadow();
-                btn.setEffect(dropShadow);
-            }
-        });
-        btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                btn.setEffect(null);
-            }
-        });
-    }
 }

@@ -190,6 +190,9 @@ public class MainDisplay extends Application implements GTObserver {
             else if (layer==1){
                 new AssignmentSetupWindow().start(dialog, this.model, onPressInfo[0]); // passing courseID
             }
+            else if (layer==2){
+                new AssignmentSetupWindow().start(dialog, this.model, onPressInfo[0]); // passing courseID
+            }
         });
         addDropShadow(btnAdd);
         return btnAdd;
