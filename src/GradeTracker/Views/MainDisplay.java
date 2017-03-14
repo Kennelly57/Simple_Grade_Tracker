@@ -25,7 +25,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -62,7 +62,7 @@ public class MainDisplay extends Application implements GTObserver {
         univPrimaryStage.setWidth(primaryScreenBounds.getWidth());
         univPrimaryStage.setHeight(primaryScreenBounds.getHeight());
 
-        // the initial view
+        // the initial view is the courses screen
         showCourses();
     }
 
@@ -160,14 +160,13 @@ public class MainDisplay extends Application implements GTObserver {
     // to format and generate content
     // ------------------------------------------------------------------------
 
-
     /**
      * generateSetupAdd
      * Makes correct title, returns Text object with CSS id applied
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
      * -----------
      * At level 0, need no arguments, title just equals "Courses"
-     * At level 1, need course name, ie Courses/ Owl Biology
+     * At level 1, need course name, ie "Courses / Owl Biology"
      * At level 2, need course name & category name, ie "Courses / Owl Biology / Tests"
      */
     private Text generateSetupTitle(int layer, String... info) {
@@ -189,6 +188,9 @@ public class MainDisplay extends Application implements GTObserver {
         return setupTitle;
     }
 
+    /**
+     * Helper function to generateSetupTitle()
+     */
     private String shortenString(String string, int trimLength) {
         String stringTrimmed = string.substring(0, Math.min(string.length(), trimLength));
         if (!string.equals(stringTrimmed)) {
