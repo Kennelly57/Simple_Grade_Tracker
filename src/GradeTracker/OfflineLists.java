@@ -1,6 +1,5 @@
-package GradeTracker.Views.Panes.PopupPanes;
+package GradeTracker;
 
-import GradeTracker.ModelCourse;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
 
@@ -15,39 +14,30 @@ import java.util.Map;
 
 public class OfflineLists {
 
-    public void storeCourseList(ArrayList<ArrayList<String>> data) {
+    public void storeCourseList(ArrayList<String> data) {
         try {
             FileOutputStream fileStream = new FileOutputStream("courseList.txt", true);
             ObjectOutputStream outputStream = new ObjectOutputStream(fileStream);
             outputStream.writeObject(data);
-
-
-            outputStream.writeChar('\n');
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<ArrayList<String>> returnCourseList() {
-        ArrayList<ArrayList<String>> sum = new ArrayList<ArrayList<String>>();
+    public ArrayList<String> returnCourseList() {
+        ArrayList<String> sum = new ArrayList<String>();
         boolean temp = true;
         try {
             FileInputStream fileStream = new FileInputStream("courseList.txt");
             ObjectInputStream inputStream = new ObjectInputStream(fileStream);
-
-            while (temp) {
-                try {
-                    //sum.add((ArrayList<String>) inputStream.readObject());
-                    sum = (ArrayList<ArrayList<String>>) inputStream.readObject();
+            try {
+                sum = (ArrayList<String>) inputStream.readObject();
                 } catch (IOException e) {
-                    temp = false;
-                    break;
+                System.out.println("Error reading file");
                 } catch (ClassNotFoundException e) {
-                    temp = false;
-                    break;
+                System.out.println("Error reading file");
                 }
-            }
 
             inputStream.close();
             return sum;
@@ -67,13 +57,8 @@ public class OfflineLists {
         return gradeScale;
     }
 
-    private ArrayList<String> writeCompCat(ArrayList<String> dataList, SampleCompoundAssignment compCat, int cursor){
-        //Map<String, Assignment> assignments = compCat.getSubAssignmentMap();
-
-
-        return dataList;
-    }
-
+    /* Generates an array of all the information used to run the program.
+    *  Will be stored as an object in a text file. */
     public ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
         int cursor = 1;
@@ -91,36 +76,45 @@ public class OfflineLists {
                 dataList.add(Boolean.toString(atomicCat.completed()));
                 dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
                 dataList.add("</atomicCategory" + Integer.toString(atomicCatCursor) + ">");
+                atomicCatCursor++;
             }
             int compCatCursor = 1;
             for (SampleCompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
-                dataList = writeCompCat(dataList, compCat, compCatCursor);
+                dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
+                dataList.add(compCat.getName());
+                dataList.add(Double.toString(compCat.getPointsPossible()));
+                dataList.add(Double.toString(compCat.getPointsScore()));
+                dataList.add(Boolean.toString(compCat.completed()));
+                dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
+                int subCatCursor = 1;
+                for (SampleAtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
+                    dataList.add("<subCategory" + Integer.toString(subCatCursor) + ">");
+                    dataList.add(subCat.getName());
+                    dataList.add(Double.toString(subCat.getPointsPossible()));
+                    dataList.add(Double.toString(subCat.getPointsScore()));
+                    dataList.add(Boolean.toString(subCat.completed()));
+                    dataList.add(Integer.toString(course.getCategoryWeights().get(subCat.getName())));
+                    dataList.add("</subCategory" + Integer.toString(subCatCursor) + ">");
+                    subCatCursor++;
+                }
+
+                dataList.add("</compoundCategory" + Integer.toString(compCatCursor) + ">");
                 compCatCursor ++;
             }
 
             dataList.add("</course" + Integer.toString(cursor) + ">");
+            cursor++;
         }
+        System.out.println(dataList);
         return dataList;
     }
 
     public static void main(String args[]) {
-        ArrayList<ArrayList<String>> subsection = new ArrayList<ArrayList<String>>();
         OfflineLists test = new OfflineLists();
-        ArrayList<ArrayList<String>> testSum = new ArrayList<ArrayList<String>>();
-        ArrayList<ArrayList<String>> newTestSum = new ArrayList<ArrayList<String>>();
-        ArrayList<String> test1 = new ArrayList<String>();
-        ArrayList<String> test2 = new ArrayList<String>();
-        test1.add("OWLS");
-        test1.add("CATS");
-        test2.add("DOGS");
-        test2.add("NEANDERTHALS");
-        testSum.add(test1);
-        testSum.add(test2);
-        test.storeCourseList(testSum);
-        //testSum = null;
-        newTestSum = test.returnCourseList();
-        int outerLength = testSum.size();
+        GTModel upload = new GTModel();
+        ArrayList<String> data = test.dataGenerator(upload.getLatestCourses());
+        test.storeCourseList(data);
+        System.out.print(test.returnCourseList());
 
     }
 }
-
