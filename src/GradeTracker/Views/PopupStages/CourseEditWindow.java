@@ -1,8 +1,10 @@
 package GradeTracker.Views.PopupStages;
 
 import GradeTracker.GTModel;
+import GradeTracker.ModelCourse;
 import GradeTracker.Views.Panes.PopupPanes.GradePane;
 import GradeTracker.handleCSV;
+import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +21,7 @@ import javafx.stage.Stage;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
-public class CourseSetupWindow extends Application {
+public class CourseEditWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
     public Stage univPrimaryStage;
@@ -27,24 +29,25 @@ public class CourseSetupWindow extends Application {
     private String courseID;
     private String courseName;
     private GTModel model;
+    private ModelCourse course;
 
     private handleCSV csvHandler = new handleCSV();
 
-    public void start(final Stage primaryStage, GTModel theModel) {
+    public void start(final Stage primaryStage, GTModel theModel, ModelCourse course) {
         this.model = theModel;
+        this.course = course;
         univPrimaryStage = primaryStage;
-        primaryStage.setTitle("Course Setup");
+        primaryStage.setTitle("Edit Course");
         crsIDandNameScene = generateCrsIDandName();
         gradeDistributionScene = generateGradeDistroSetup();
         primaryStage.setScene(crsIDandNameScene);
         primaryStage.show();
     }
 
-
     @Override
     public void start(final Stage primaryStage) {
         univPrimaryStage = primaryStage;
-        primaryStage.setTitle("Course Setup");
+        primaryStage.setTitle("Edit Course");
         crsIDandNameScene = generateCrsIDandName();
         gradeDistributionScene = generateGradeDistroSetup();
         primaryStage.setScene(crsIDandNameScene);
@@ -54,7 +57,7 @@ public class CourseSetupWindow extends Application {
     private Scene generateCrsIDandName() {
         BorderPane crsIDandNamePane = new BorderPane();
         crsIDandNamePane.setPadding(new Insets(15, 15, 15, 25));
-        Text setupTitle = new Text("Set up a new Course:");
+        Text setupTitle = new Text("Edit ".concat(course.getID()));
         crsIDandNamePane.setTop(setupTitle);
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
@@ -70,14 +73,13 @@ public class CourseSetupWindow extends Application {
         Label identificationLabel = new Label("Course ID:");
         Label crsNameLabel = new Label("Course Name:");
 
-        TextField identificationTextField = new TextField();
-        TextField crsNameTextField = new TextField();
+        TextField identificationTextField = new TextField(course.getID());
+        TextField crsNameTextField = new TextField(course.getName());
 
         inputGrid.add(identificationLabel, 0, 2);
         inputGrid.add(identificationTextField, 1, 2);
         inputGrid.add(crsNameLabel, 0, 3);
         inputGrid.add(crsNameTextField, 1, 3);
-
 
         //GridPane inputGrid = new NameAndId().getGridPane();
         crsIDandNamePane.setCenter(inputGrid);
@@ -112,19 +114,13 @@ public class CourseSetupWindow extends Application {
     public Scene generateGradeDistroSetup() {
         BorderPane setupGradesPane = new BorderPane();
         setupGradesPane.setPadding(new Insets(15, 15, 15, 25));
-        Text setupTitle = new Text("Set up a new Course:");
+        Text setupTitle = new Text("Edit Course:");
         setupGradesPane.setTop(setupTitle);
         BorderPane.setAlignment(setupTitle, Pos.CENTER);
 
         gradeDistributionScene = new Scene(setupGradesPane, 400, 650);
         GradePane setupPane = new GradePane();
         VBox gradePane = setupPane.getRoot();
-
-//        gradePane.setPadding(new Insets(15,0, 5, 0));
-//        Text title = new Text("Configure the grade distribution:");
-//        GridPane gradeGrid = generateGradingCurvePane();
-//        gradePane.getChildren().add(title);
-//        gradePane.getChildren().add(gradeGrid);
 
         setupGradesPane.setCenter(gradePane);
 
@@ -157,7 +153,7 @@ public class CourseSetupWindow extends Application {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
-            if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()){
+            if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
                 this.model.addCourse(courseID, courseName, gradeIntArray);
             }
 

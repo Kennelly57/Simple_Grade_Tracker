@@ -4,7 +4,7 @@ import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.MainDisplay;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
-import GradeTracker.Views.PopupStages.CourseSetupWindow;
+import GradeTracker.Views.PopupStages.CourseEditWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -124,17 +124,18 @@ public class CoursesOverviewPane {
      * generateEditBtn
      */
     private Button generateEditBtn(ModelCourse course) {
-        Button btnBack = new Button();
-        btnBack.setText("✐");
-        btnBack.setId("labelButton");
-        btnBack.setOnAction((ActionEvent) -> {
-            ;
+        Button btnEdit = new Button();
+        btnEdit.setText("✐");
+        btnEdit.setId("labelButton");
+        btnEdit.setOnAction((ActionEvent) -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(mainDisplay.univPrimaryStage);
+            new CourseEditWindow().start(dialog, this.model, course);
         });
-        addDropShadow(btnBack);
-        return btnBack;
+        addDropShadow(btnEdit);
+        return btnEdit;
     }
-
-
     /**
      * generateEditAndDelBtnPane
      * @return hBox with "edit" button & "delete" button
