@@ -75,16 +75,65 @@ public class CategoriesOverviewPane {
         dataGrid.add(weightHeader, 4, 0);
         dataGrid.add(weightedHeader, 5, 0);
 
-        // Generate Table of Course Values
+
+        // --------------------------------------------------
+        // Fill in table values using dictionaries
+        // --------------------------------------------------
 
         int i = 0;
         ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
+
+        // --------------------------------------------------
+        // Fill in table values using dictionaries
+        // ---> Pt 1: Add Compound Assignments (AKA categories, ie "Tests")
+        // --------------------------------------------------
+        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
+
+            // Fill NAME Column
+            Label tempName = new Label(compAss.getName());
+            tempName.setOnMouseClicked((MouseEvent) -> {
+                // Call showAssignments; go to subitem overview scene
+                this.mainDisplay.showAssignments(course, compAss);
+            });
+
+            // Fill POINTS POSSIBLE Column
+            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
+
+            // Fill POINTS EARNED Column
+            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
+
+            // Fill PERCENT SCORE Column
+            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
+
+            // Fill WEIGHT Column
+            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
+
+            // Fill WEIGHTED SCORE Column
+            double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
+            Label tempWeightedScore = new Label(Double.toString(weightedScore));
+
+            // Add elements to Grid
+            dataGrid.add(tempName, 0, i + 1);
+            dataGrid.add(tempPointsPos, 1, i + 1);
+            dataGrid.add(tempPointsScore, 2, i + 1);
+            dataGrid.add(tempPercentScore, 3, i + 1);
+            dataGrid.add(tempWeight, 4, i + 1);
+            dataGrid.add(tempWeightedScore, 5, i + 1);
+
+            i++;
+        }
+
+        // --------------------------------------------------
+        // Fill in table values using dictionaries
+        // ---> Pt 2: Add Atomic Assignments (Directly editable, ie "Participation")
+        // --------------------------------------------------
         for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
 
+            // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
-            dataGrid.add(tempName, 0, i + 1);
 
+            // Fill POINTS POSSIBLE Column
             TextField pointsPos = new TextField();
             String currPointsPos = Double.toString(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
@@ -104,13 +153,10 @@ public class CategoriesOverviewPane {
                 }
             });
 
-            dataGrid.add(pointsPos, 1, i + 1);
-
+            // Fill POINTS EARNED Column
             TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
-
-
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent ke) {
@@ -126,43 +172,22 @@ public class CategoriesOverviewPane {
                 }
             });
 
-            dataGrid.add(pointsEarned, 2, i + 1);
-
+            // Fill PERCENT SCORE Column
             Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
-            dataGrid.add(tempPercentScore, 3, i + 1);
 
+            // Fill WEIGHT Column
             Label tempWeight = new Label(Double.toString(weightMap.get(atomAss.getName())));
-            dataGrid.add(tempWeight, 4, i + 1);
 
+            // Fill WEIGHTED SCORE Column
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
-            dataGrid.add(tempWeightedScore, 5, i + 1);
 
-            i++;
-        }
-
-        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
-            Label tempName = new Label(compAss.getName());
-            tempName.setOnMouseClicked((MouseEvent) -> {
-                // Send to assignment overview scene
-                this.mainDisplay.showAssignments(course, compAss);
-            });
+            // Add elements to Grid
             dataGrid.add(tempName, 0, i + 1);
-
-            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
-            dataGrid.add(tempPointsPos, 1, i + 1);
-
-            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
-            dataGrid.add(tempPointsScore, 2, i + 1);
-
-            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
+            dataGrid.add(pointsPos, 1, i + 1);
+            dataGrid.add(pointsEarned, 2, i + 1);
             dataGrid.add(tempPercentScore, 3, i + 1);
-
-            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
             dataGrid.add(tempWeight, 4, i + 1);
-
-            double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
-            Label tempWeightedScore = new Label(Double.toString(weightedScore));
             dataGrid.add(tempWeightedScore, 5, i + 1);
 
             i++;
