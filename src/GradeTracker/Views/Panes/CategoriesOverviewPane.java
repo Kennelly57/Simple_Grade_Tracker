@@ -85,7 +85,6 @@ public class CategoriesOverviewPane {
         GTModel theModel = this.model;
 
         // --------------------------------------------------
-        // Fill in table values using dictionaries
         // ---> Pt 1: Add Compound Assignments (AKA categories, ie "Tests")
         // --------------------------------------------------
         for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
@@ -125,7 +124,6 @@ public class CategoriesOverviewPane {
         }
 
         // --------------------------------------------------
-        // Fill in table values using dictionaries
         // ---> Pt 2: Add Atomic Assignments (Directly editable, ie "Participation")
         // --------------------------------------------------
         for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
