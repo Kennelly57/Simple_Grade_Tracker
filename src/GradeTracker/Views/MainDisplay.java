@@ -57,6 +57,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         OfflineLists.storeCourseList(OfflineLists.dataGenerator(model.getLatestCourses()));
         model = new GTModel();
+        model.registerObserver(this);
         model.dataSetter();
 
 
