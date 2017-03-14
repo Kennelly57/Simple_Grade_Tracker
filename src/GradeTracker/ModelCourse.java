@@ -1,7 +1,7 @@
 package GradeTracker;
 
-import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
+import GradeTracker.Samples.AtomicAssignment;
+import GradeTracker.Samples.CompoundAssignment;
 
 import java.util.*;
 
@@ -14,8 +14,8 @@ public class ModelCourse implements Cloneable {
     private int[] gradingScale;
     private String[] grades;
 
-    private Map<String, SampleAtomicAssignment> atomicAsssignmentCategories;
-    private Map<String, SampleCompoundAssignment> compoundAsssignmentCategories;
+    private Map<String, AtomicAssignment> atomicAsssignmentCategories;
+    private Map<String, CompoundAssignment> compoundAsssignmentCategories;
     //percentage as an integer
     private Map<String, Integer> assignmentCategoryWeights;
     private int totalWeight;
@@ -35,8 +35,8 @@ public class ModelCourse implements Cloneable {
         //Is there a way to check that grading scale returns what we think it should?
         this.gradingScale = gScale;
 
-        this.atomicAsssignmentCategories = new TreeMap<String, SampleAtomicAssignment>();
-        this.compoundAsssignmentCategories = new TreeMap<String, SampleCompoundAssignment>();
+        this.atomicAsssignmentCategories = new TreeMap<String, AtomicAssignment>();
+        this.compoundAsssignmentCategories = new TreeMap<String, CompoundAssignment>();
         this.assignmentCategoryWeights = new TreeMap<String, Integer>();
     }
 
@@ -45,13 +45,13 @@ public class ModelCourse implements Cloneable {
         int weight;
         ModelCourse modelClone = new ModelCourse(this.id, this.name, this.gradingScale);
 
-        for (SampleCompoundAssignment compoundAssignmentCategory : compoundAsssignmentCategories.values()) {
-            SampleCompoundAssignment compoundAssignmentClone = compoundAssignmentCategory.clone();
+        for (CompoundAssignment compoundAssignmentCategory : compoundAsssignmentCategories.values()) {
+            CompoundAssignment compoundAssignmentClone = compoundAssignmentCategory.clone();
             weight = assignmentCategoryWeights.get(compoundAssignmentClone.getName());
             modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight); //FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
         }
-        for (SampleAtomicAssignment atomicAssignmentCategory : atomicAsssignmentCategories.values()) {
-            SampleAtomicAssignment atomicAssignmentClone = atomicAssignmentCategory.clone();
+        for (AtomicAssignment atomicAssignmentCategory : atomicAsssignmentCategories.values()) {
+            AtomicAssignment atomicAssignmentClone = atomicAssignmentCategory.clone();
             weight = assignmentCategoryWeights.get(atomicAssignmentClone.getName());
             modelClone.addAtomicAssignmentCategory(atomicAssignmentClone, weight);
         }
@@ -87,10 +87,10 @@ public class ModelCourse implements Cloneable {
         this.gradingScale = newGradingScale;
     }
 
-    public Map<String, SampleAtomicAssignment> getAtomicAssignmentCategories(){
+    public Map<String, AtomicAssignment> getAtomicAssignmentCategories(){
         return atomicAsssignmentCategories;
     }
-    public Map<String, SampleCompoundAssignment> getCompoundAssignmentCategories(){
+    public Map<String, CompoundAssignment> getCompoundAssignmentCategories(){
         return compoundAsssignmentCategories;
     }
     public Map<String, Integer> getCategoryWeights(){
@@ -111,7 +111,7 @@ public class ModelCourse implements Cloneable {
             }
         }
 
-        for (SampleAtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
+        for (AtomicAssignment atomicAssignment : atomicAsssignmentCategories.values()) {
             if (atomicAssignment.completed()) {
                 percentageScore = atomicAssignment.getPercentageScore();
                 weightedScore = percentageScore * this.assignmentCategoryWeights.get(atomicAssignment.getName()) * 100/weightSum;
@@ -119,7 +119,7 @@ public class ModelCourse implements Cloneable {
             }
         }
 
-        for (SampleCompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
+        for (CompoundAssignment compoundAssignment : compoundAsssignmentCategories.values()) {
             if (compoundAssignment.completed()) {
                 percentageScore = compoundAssignment.getPercentageScore();
                 weightedScore = percentageScore * this.assignmentCategoryWeights.get(compoundAssignment.getName()) * 100 / weightSum;
@@ -143,10 +143,10 @@ public class ModelCourse implements Cloneable {
 
     //WE NEED TO AVOID DUPLICATE NAMES
     public boolean addAtomicAssignmentCategory(String assignmentCategoryName, Integer weight) {
-        return addAtomicAssignmentCategory(new SampleAtomicAssignment(assignmentCategoryName), weight);
+        return addAtomicAssignmentCategory(new AtomicAssignment(assignmentCategoryName), weight);
     }
 
-    protected boolean addAtomicAssignmentCategory(SampleAtomicAssignment atomicAssignment, Integer weight) {
+    protected boolean addAtomicAssignmentCategory(AtomicAssignment atomicAssignment, Integer weight) {
         if (!this.containsAtomic(atomicAssignment.getName())) {
             totalWeight = totalWeight + weight;
             atomicAsssignmentCategories.put(atomicAssignment.getName(), atomicAssignment);
@@ -163,14 +163,14 @@ public class ModelCourse implements Cloneable {
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight, int[] gScale) {
         if (!this.contains(assignmentCategoryName)) {
             totalWeight = totalWeight + weight;
-            compoundAsssignmentCategories.put(assignmentCategoryName, new SampleCompoundAssignment(assignmentCategoryName, gScale));
+            compoundAsssignmentCategories.put(assignmentCategoryName, new CompoundAssignment(assignmentCategoryName, gScale));
             assignmentCategoryWeights.put(assignmentCategoryName, weight);
             return true;
         }
         return false;
     }
 
-    protected void addCompoundAssignmentCategory(SampleCompoundAssignment compoundAssignment, int weight){
+    protected void addCompoundAssignmentCategory(CompoundAssignment compoundAssignment, int weight){
         String assignmentCategoryName = compoundAssignment.getName();
         totalWeight = totalWeight + weight;
         compoundAsssignmentCategories.put(assignmentCategoryName, compoundAssignment);
@@ -200,11 +200,11 @@ public class ModelCourse implements Cloneable {
     }
 
     public boolean addAtomicAssignmentToCompoundCategory(String categoryName, String assignmentName){
-        return addAtomicAssignmentToCompoundCategory(categoryName, new SampleAtomicAssignment(assignmentName));
+        return addAtomicAssignmentToCompoundCategory(categoryName, new AtomicAssignment(assignmentName));
     }
 
-    public boolean addAtomicAssignmentToCompoundCategory(String categoryName, SampleAtomicAssignment atomicAssignment){
-        for (SampleCompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
+    public boolean addAtomicAssignmentToCompoundCategory(String categoryName, AtomicAssignment atomicAssignment){
+        for (CompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
             if (compCat.containsCompound(categoryName) &&
                     !compoundAsssignmentCategories.get(categoryName).contains(atomicAssignment.getName())) {
                 compoundAsssignmentCategories.get(categoryName).addAtomicAssignment(categoryName, atomicAssignment);
@@ -214,8 +214,8 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
-    public boolean addCompoundAssignmentToCompoundCategory(String categoryName, SampleCompoundAssignment compoundAssignment){
-        for (SampleCompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
+    public boolean addCompoundAssignmentToCompoundCategory(String categoryName, CompoundAssignment compoundAssignment){
+        for (CompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
             if (compCat.containsCompound(categoryName) &&
                     !compoundAsssignmentCategories.get(categoryName).contains(compoundAssignment.getName())) {
                 compoundAsssignmentCategories.get(categoryName).addCompoundAssignment(categoryName, compoundAssignment);
@@ -237,10 +237,10 @@ public class ModelCourse implements Cloneable {
 
     public boolean setAssignmentScore(String assignmentName, double score) {
         if (atomicAsssignmentCategories.containsKey(assignmentName)) {
-            SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
+            AtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
             return assignment.setScore(assignmentName, score);
         } else {
-            for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+            for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.containsAtomic(assignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(assignmentName);
                     return assignment.setScore(assignmentName, score);
@@ -252,11 +252,11 @@ public class ModelCourse implements Cloneable {
 
     public boolean setAtomicAssignmentPointsPossible(String atomicAssignmentName, double pointsPossible){
         if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
-            SampleAtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
+            AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
             assignment.setPointsPossible(pointsPossible);
             return true;
         } else {
-            for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+            for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
                 if (assignmentCategory.containsAtomic(atomicAssignmentName)){
                     Assignment assignment = assignmentCategory.getAssignment(atomicAssignmentName);
                     assignment.setPointsPossible(atomicAssignmentName, pointsPossible);
@@ -272,13 +272,13 @@ public class ModelCourse implements Cloneable {
     }
 
     public boolean containsAtomic(String assignmentName){
-        for (SampleCompoundAssignment compoundCat : compoundAsssignmentCategories.values()) {
+        for (CompoundAssignment compoundCat : compoundAsssignmentCategories.values()) {
             if (compoundCat.containsAtomic(assignmentName)){
                 return true;
             }
         }
         String atomiCatName;
-        for (SampleAtomicAssignment atomiCat : atomicAsssignmentCategories.values()) {
+        for (AtomicAssignment atomiCat : atomicAsssignmentCategories.values()) {
             atomiCatName = atomiCat.getName();
             if (atomiCatName.equalsIgnoreCase(assignmentName)){
                 return true;
@@ -287,7 +287,7 @@ public class ModelCourse implements Cloneable {
         return false;
     }
     public boolean containsCompound(String assignmentName){
-        for (SampleCompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
+        for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
             if (assignmentCategory.containsCompound(assignmentName)){
                 return true;
             }

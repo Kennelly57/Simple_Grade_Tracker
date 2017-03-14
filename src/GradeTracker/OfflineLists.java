@@ -1,7 +1,7 @@
 package GradeTracker;
 
-import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
+import GradeTracker.Samples.AtomicAssignment;
+import GradeTracker.Samples.CompoundAssignment;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -68,7 +68,7 @@ public class OfflineLists {
             dataList.add(course.getID());
             dataList.add(intArrayConverter(course.getGradingScale()));
             int atomicCatCursor = 1;
-            for (SampleAtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
+            for (AtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
                 dataList.add("<atomicCategory" + Integer.toString(atomicCatCursor) + ">");
                 dataList.add(atomicCat.getName());
                 dataList.add(Double.toString(atomicCat.getPointsPossible()));
@@ -79,7 +79,7 @@ public class OfflineLists {
                 atomicCatCursor++;
             }
             int compCatCursor = 1;
-            for (SampleCompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
+            for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
                 dataList.add("<compoundCategory" + Integer.toString(compCatCursor) + ">");
                 dataList.add(compCat.getName());
                 dataList.add(Double.toString(compCat.getPointsPossible()));
@@ -87,7 +87,7 @@ public class OfflineLists {
                 dataList.add(Boolean.toString(compCat.completed()));
                 dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
                 int subCatCursor = 1;
-                for (SampleAtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
+                for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
                     dataList.add("<subCategory" + Integer.toString(subCatCursor) + ">");
                     dataList.add(subCat.getName());
                     dataList.add(Double.toString(subCat.getPointsPossible()));

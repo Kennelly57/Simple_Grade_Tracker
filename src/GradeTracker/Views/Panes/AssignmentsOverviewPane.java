@@ -3,23 +3,17 @@ package GradeTracker.Views.Panes;
 
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
+import GradeTracker.Samples.CompoundAssignment;
 import GradeTracker.Views.MainDisplay;
-import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
+import GradeTracker.Samples.AtomicAssignment;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-import javafx.geometry.VPos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 
 import java.util.Map;
 
@@ -31,10 +25,10 @@ public class AssignmentsOverviewPane {
     private DropShadow shadow;
     private MainDisplay mainDisplay;
     private ModelCourse course;
-    private SampleCompoundAssignment category;
+    private CompoundAssignment category;
     private GTModel model;
 
-    public AssignmentsOverviewPane(ModelCourse myCourse, SampleCompoundAssignment myCategory, MainDisplay newMainDisplay, GTModel gtModel) {
+    public AssignmentsOverviewPane(ModelCourse myCourse, CompoundAssignment myCategory, MainDisplay newMainDisplay, GTModel gtModel) {
         this.model = gtModel;
         this.course = myCourse;
         this.category = myCategory;
@@ -54,7 +48,7 @@ public class AssignmentsOverviewPane {
 
     private GridPane generateGridPane() {
 
-        Map<String, SampleAtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
+        Map<String, AtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -79,7 +73,7 @@ public class AssignmentsOverviewPane {
         int i = 0; // keeps track of row we're adding to
         GTModel theModel = this.model;
 
-        for (SampleAtomicAssignment atomAss: subAssignmentMap.values()) {
+        for (AtomicAssignment atomAss: subAssignmentMap.values()) {
 
             // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
@@ -156,14 +150,14 @@ public class AssignmentsOverviewPane {
 //        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
 //    }
 //
-//    private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
+//    private int getNumCategories(Map<String, AtomicAssignment> atomicAsssignmentCategories, Map<String, CompoundAssignment> compoundAsssignmentCategories){
 //        int counter = 0;
 //
-//        for (SampleAtomicAssignment atomCat : atomicAsssignmentCategories.values()){
+//        for (AtomicAssignment atomCat : atomicAsssignmentCategories.values()){
 //            counter++;
 //        }
 //
-//        for (SampleCompoundAssignment comCat : compoundAsssignmentCategories.values()){
+//        for (CompoundAssignment comCat : compoundAsssignmentCategories.values()){
 //            counter++;
 //        }
 //

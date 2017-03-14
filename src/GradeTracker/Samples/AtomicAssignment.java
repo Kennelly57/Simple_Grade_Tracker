@@ -5,7 +5,7 @@ import GradeTracker.Assignment;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleAtomicAssignment implements Assignment, Cloneable {
+public class AtomicAssignment implements Assignment, Cloneable {
     private String name;
     private String grade;
     private double pointsPossible;
@@ -13,14 +13,14 @@ public class SampleAtomicAssignment implements Assignment, Cloneable {
     private double percentageScore;
     private boolean completed;
 
-    public SampleAtomicAssignment(String assignmentName){
+    public AtomicAssignment(String assignmentName){
         completed = false;
         this.name = assignmentName;
     }
 
     @Override
-    public SampleAtomicAssignment clone(){
-        SampleAtomicAssignment clone = new SampleAtomicAssignment(this.name);
+    public AtomicAssignment clone(){
+        AtomicAssignment clone = new AtomicAssignment(this.name);
         clone.setScore(this.name, this.pointsScore);
         clone.setGrade(this.grade);
         clone.setPointsPossible(this.pointsPossible);

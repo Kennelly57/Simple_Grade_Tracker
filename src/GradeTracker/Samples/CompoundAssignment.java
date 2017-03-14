@@ -8,33 +8,33 @@ import java.util.Map;
 /**
  * Created by robertsk2 on 3/4/17.
  */
-public class SampleCompoundAssignment implements Assignment {
+public class CompoundAssignment implements Assignment {
     private String name;
     private boolean completed;
     private int[] gradingScale;
 
     //Question: How do we deal with points based vs percentage based weighting
-    private Map<String, SampleAtomicAssignment> atomicSubAssignmentMap;
-    private Map<String, SampleCompoundAssignment> compoundSubAssignmentMap;
+    private Map<String, AtomicAssignment> atomicSubAssignmentMap;
+    private Map<String, CompoundAssignment> compoundSubAssignmentMap;
 
-    public SampleCompoundAssignment(String name, int[] newGradingScale){
+    public CompoundAssignment(String name, int[] newGradingScale){
         this.completed = false;
         this.name = name;
         this.gradingScale = newGradingScale;//CAN WE TEST TO VERIFY THIS IS CORRECTLY FORMATED
-        this.compoundSubAssignmentMap = new HashMap<String, SampleCompoundAssignment>();
-        this.atomicSubAssignmentMap = new HashMap<String, SampleAtomicAssignment>();
+        this.compoundSubAssignmentMap = new HashMap<String, CompoundAssignment>();
+        this.atomicSubAssignmentMap = new HashMap<String, AtomicAssignment>();
     }
 
     @Override
-    public SampleCompoundAssignment clone(){
-        SampleCompoundAssignment clone = new SampleCompoundAssignment(this.name, this.gradingScale);
+    public CompoundAssignment clone(){
+        CompoundAssignment clone = new CompoundAssignment(this.name, this.gradingScale);
         if (this.completed()){
             clone.markAsCompleted();
         } else {clone.markAsIncomplete();}
-        for (SampleAtomicAssignment assignment : atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment assignment : atomicSubAssignmentMap.values()) {
             clone.addAtomicAssignment(this.getName(), assignment.clone());
         }
-        for (SampleCompoundAssignment assignment : compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment assignment : compoundSubAssignmentMap.values()) {
             clone.addCompoundAssignment(this.getName(), assignment.clone());
         }
 
@@ -49,7 +49,7 @@ public class SampleCompoundAssignment implements Assignment {
         if (this.getName().equalsIgnoreCase(assignmentName)){
             return true;
         }
-        for (SampleCompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
             if(subAssignment.containsCompound(assignmentName)){
                 return true;
             }
@@ -62,7 +62,7 @@ public class SampleCompoundAssignment implements Assignment {
             System.out.println("Finding Test");
         }
 
-        for (SampleAtomicAssignment subAssignment: atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment subAssignment: atomicSubAssignmentMap.values()) {
             if(subAssignment.getName().equalsIgnoreCase(assignmentName)){
 
                 if (assignmentName.equalsIgnoreCase("test")){
@@ -72,7 +72,7 @@ public class SampleCompoundAssignment implements Assignment {
                 return true;
             }
         }
-        for (SampleCompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
             if(subAssignment.containsAtomic(assignmentName)){
 
                 if (assignmentName.equalsIgnoreCase("test")){
@@ -98,11 +98,11 @@ public class SampleCompoundAssignment implements Assignment {
         return this.name;
     }
 
-    public Map<String, SampleCompoundAssignment> getCompoundSubAssignmentMap(){
+    public Map<String, CompoundAssignment> getCompoundSubAssignmentMap(){
         return this.compoundSubAssignmentMap;
     }
 
-    public Map<String, SampleAtomicAssignment> getAtomicSubAssignmentMap(){
+    public Map<String, AtomicAssignment> getAtomicSubAssignmentMap(){
         return this.atomicSubAssignmentMap;
     }
 
@@ -123,12 +123,12 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsPossible(){
         double pointsPossibleSum = 0;
-        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsPossibleSum += subAssignment.getPointsPossible();
             }
         }
-        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsPossibleSum += subAssignment.getPointsPossible();
             }
@@ -139,12 +139,12 @@ public class SampleCompoundAssignment implements Assignment {
 
     public double getPointsScore(){
         double pointsAchievedSum = 0;
-        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsAchievedSum += subAssignment.getPointsScore();
             }
         }
-        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if(subAssignment.completed()){
                 pointsAchievedSum += subAssignment.getPointsScore();
             }
@@ -156,13 +156,13 @@ public class SampleCompoundAssignment implements Assignment {
     public double getPercentageScore() {
         double pointsPossibleSum = 0;
         double pointsAchievedSum = 0;
-        for (SampleAtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment subAssignment : atomicSubAssignmentMap.values()) {
             if (subAssignment.completed()) {
                 pointsPossibleSum += subAssignment.getPointsPossible();
                 pointsAchievedSum += subAssignment.getPointsScore();
             }
         }
-        for (SampleCompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment subAssignment : compoundSubAssignmentMap.values()) {
             if (subAssignment.completed()) {
                 pointsPossibleSum += subAssignment.getPointsPossible();
                 pointsAchievedSum += subAssignment.getPointsScore();
@@ -175,12 +175,12 @@ public class SampleCompoundAssignment implements Assignment {
         }
     }
 
-    public boolean addAtomicAssignment(String compoundToAddTo, SampleAtomicAssignment atomicAssignment){
+    public boolean addAtomicAssignment(String compoundToAddTo, AtomicAssignment atomicAssignment){
         if (!this.containsAtomic(atomicAssignment.getName())) {
             if (this.getName().equalsIgnoreCase(compoundToAddTo)){
                 this.atomicSubAssignmentMap.put(atomicAssignment.getName(), atomicAssignment);
                 int i = 0;
-                for (SampleAtomicAssignment a:this.atomicSubAssignmentMap.values()) {
+                for (AtomicAssignment a:this.atomicSubAssignmentMap.values()) {
                     System.out.print("ASSIGNMENT ");
                     System.out.print(atomicAssignment.getName());
                     System.out.print(" IS IN " + Integer.toString(i) + " ");
@@ -189,7 +189,7 @@ public class SampleCompoundAssignment implements Assignment {
 
                 return true;
             } else {
-                for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()){
+                for (CompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()){
                     if (compoundAssignment.addAtomicAssignment(compoundToAddTo, atomicAssignment)){
                         return true;
                     }
@@ -199,13 +199,13 @@ public class SampleCompoundAssignment implements Assignment {
         return false;
     }
 
-    public boolean addCompoundAssignment(String compoundToAddTo, SampleCompoundAssignment compoundAssignment){
+    public boolean addCompoundAssignment(String compoundToAddTo, CompoundAssignment compoundAssignment){
         if (!this.containsAtomic(compoundAssignment.getName())) {
             if (this.getName().equalsIgnoreCase(compoundToAddTo)){
                 this.compoundSubAssignmentMap.put(compoundAssignment.getName(), compoundAssignment);
                 return true;
             } else {
-                for (SampleCompoundAssignment compoundSubAssignment: this.compoundSubAssignmentMap.values()){
+                for (CompoundAssignment compoundSubAssignment: this.compoundSubAssignmentMap.values()){
                     if (compoundSubAssignment.addCompoundAssignment(compoundToAddTo, compoundAssignment)){
                         return true;
                     }
@@ -220,7 +220,7 @@ public class SampleCompoundAssignment implements Assignment {
         if (this.atomicSubAssignmentMap.containsKey(targetName)) {
             return this.atomicSubAssignmentMap.get(targetName);
         } else {
-            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
+            for (CompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.getName().equalsIgnoreCase(targetName)){
                     return subAssignment;
                 } else if (subAssignment.containsAtomic(targetName)){
@@ -236,7 +236,7 @@ public class SampleCompoundAssignment implements Assignment {
             this.atomicSubAssignmentMap.get(assignmentName).setPointsScore(score);
             return true;
         } else {
-            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
+            for (CompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.containsAtomic(assignmentName)){
                     return subAssignment.setScore(assignmentName, score);
                 }
@@ -250,7 +250,7 @@ public class SampleCompoundAssignment implements Assignment {
             this.atomicSubAssignmentMap.get(assignmentName).setPointsPossible(score);
             return true;
         } else {
-            for (SampleCompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
+            for (CompoundAssignment subAssignment : getCompoundSubAssignmentMap().values()) {
                 if (subAssignment.containsAtomic(assignmentName)){
                     return subAssignment.setPointsPossible(assignmentName, score);
                 }
@@ -263,7 +263,7 @@ public class SampleCompoundAssignment implements Assignment {
         if (this.atomicSubAssignmentMap.containsKey(targetName)){
             this.atomicSubAssignmentMap.remove(targetName);
         } else {
-            for (SampleCompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()) {
+            for (CompoundAssignment compoundAssignment: this.compoundSubAssignmentMap.values()) {
                 if (compoundAssignment.containsAtomic(targetName)){
                     removeAssignment(targetName);
                 }
@@ -273,13 +273,13 @@ public class SampleCompoundAssignment implements Assignment {
 
     public boolean completed(){
         this.completed = false;
-        for (SampleAtomicAssignment assignment: atomicSubAssignmentMap.values()) {
+        for (AtomicAssignment assignment: atomicSubAssignmentMap.values()) {
             if (assignment.completed()){
                 this.completed = true;
                 return true;
             }
         }
-        for (SampleCompoundAssignment assignment: compoundSubAssignmentMap.values()) {
+        for (CompoundAssignment assignment: compoundSubAssignmentMap.values()) {
             if (assignment.completed()){
                 this.completed = true;
                 return true;

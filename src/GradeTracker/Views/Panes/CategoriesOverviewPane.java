@@ -3,19 +3,16 @@ package GradeTracker.Views.Panes;
 
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
+import GradeTracker.Samples.AtomicAssignment;
+import GradeTracker.Samples.CompoundAssignment;
 import GradeTracker.Views.MainDisplay;
-import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 
-import javafx.geometry.VPos;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -51,8 +48,8 @@ public class CategoriesOverviewPane {
 
     private GridPane generateGridPane() {
 
-        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
-        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
+        Map<String, AtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
+        Map<String, CompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
         Map<String, Integer> weightMap = this.course.getCategoryWeights();
 
         GridPane dataGrid = new GridPane();
@@ -86,7 +83,7 @@ public class CategoriesOverviewPane {
         // --------------------------------------------------
         // ---> Pt 1: Add Compound Assignments (AKA categories, ie "Tests")
         // --------------------------------------------------
-        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
+        for (CompoundAssignment compAss: compoundAsssignmentCategories.values()) {
 
             // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
             Label tempName = new Label(compAss.getName());
@@ -125,7 +122,7 @@ public class CategoriesOverviewPane {
         // --------------------------------------------------
         // ---> Pt 2: Add Atomic Assignments (Directly editable, ie "Participation")
         // --------------------------------------------------
-        for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
+        for (AtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
 
             // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
@@ -229,14 +226,14 @@ public class CategoriesOverviewPane {
 //        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
 //    }
 //
-//    private int getNumCategories(Map<String, SampleAtomicAssignment> atomicAsssignmentCategories, Map<String, SampleCompoundAssignment> compoundAsssignmentCategories){
+//    private int getNumCategories(Map<String, AtomicAssignment> atomicAsssignmentCategories, Map<String, CompoundAssignment> compoundAsssignmentCategories){
 //        int counter = 0;
 //
-//        for (SampleAtomicAssignment atomCat : atomicAsssignmentCategories.values()){
+//        for (AtomicAssignment atomCat : atomicAsssignmentCategories.values()){
 //            counter++;
 //        }
 //
-//        for (SampleCompoundAssignment comCat : compoundAsssignmentCategories.values()){
+//        for (CompoundAssignment comCat : compoundAsssignmentCategories.values()){
 //            counter++;
 //        }
 //

@@ -3,10 +3,10 @@ package GradeTracker.Views;
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
+import GradeTracker.Samples.AtomicAssignment;
 import GradeTracker.Views.Panes.AssignmentsOverviewPane;
-import GradeTracker.Samples.SampleCompoundAssignment;
+import GradeTracker.Samples.CompoundAssignment;
 import GradeTracker.Views.Panes.CoursesOverviewPane;
-import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Views.Panes.CategoriesOverviewPane;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
@@ -43,7 +43,7 @@ public class MainDisplay extends Application implements GTObserver {
 
     private int layer;
     private ModelCourse courseShowing;
-    private SampleCompoundAssignment categoryShowing;
+    private CompoundAssignment categoryShowing;
 
     @Override
     public void start(Stage primaryStage) {
@@ -125,7 +125,7 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
 
-    public void showAssignments(ModelCourse course, SampleCompoundAssignment category) {
+    public void showAssignments(ModelCourse course, CompoundAssignment category) {
         this.layer = 2;
         this.updateCourses();
         course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
@@ -452,7 +452,7 @@ public class MainDisplay extends Application implements GTObserver {
         this.model.addCourse(courseID_2, "Owls Patterns & Colors", gScale);
         this.model.addCourse(courseID_3, "Intro CS", gScale);
 
-        SampleAtomicAssignment midtermExams = new SampleAtomicAssignment("Midterm Exams");
+        AtomicAssignment midtermExams = new AtomicAssignment("Midterm Exams");
 
         // demo stuff for test 101
         this.model.addAtomicAssignmentCategory(courseID_1, "Midterm Exams", 30);
