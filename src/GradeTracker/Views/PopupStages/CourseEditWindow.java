@@ -4,7 +4,6 @@ import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.Panes.PopupPanes.GradePane;
 import GradeTracker.handleCSV;
-import com.sun.tools.internal.ws.processor.model.Model;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

@@ -211,13 +211,13 @@ public class GTModel {
     }
 
 
-    private int[] gradeScaleStringParser(String gradeScale){
+    public int[] gradeScaleStringParser(String gradeScale){ //Maybe set to private?
         int[] gScale = new int[12];
         int stringLength = gradeScale.length();
         int currentIndex = 0;
         for (int cursor = 0; cursor < stringLength; cursor++){
             if (gradeScale.charAt(cursor) == ',') {
-                String tempString = gradeScale.substring(cursor, cursor+3);
+                String tempString = gradeScale.substring(cursor+1, cursor+3);
                 int tempInt = Integer.parseInt(tempString);
                 gScale[currentIndex] = tempInt;
                 currentIndex++;
@@ -229,7 +229,7 @@ public class GTModel {
     /* Reads the data file and sets the model appropriately.
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
-    private void dataSetter(){
+    public void dataSetter(){
         ArrayList<String> data = returnCourseList();
         String subCategoryName = null;
         String courseName = null;
@@ -243,8 +243,8 @@ public class GTModel {
             } else if (data.get(pointer).equals("<atomicCategory>")) {
                 subCategoryName = data.get(pointer + 1);
                 this.addAtomicAssignmentCategory(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 2)));
-                this.setAssignmentPointsPossible(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 3)));
-                this.setAssignmentScore(courseName, subCategoryName, Integer.parseInt(data.get(pointer + 4)));
+                this.setAssignmentPointsPossible(courseName, subCategoryName, Double.parseDouble(data.get(pointer + 3)));
+                this.setAssignmentScore(courseName, subCategoryName, Double.parseDouble(data.get(pointer + 4)));
                 if (Boolean.parseBoolean(data.get(pointer + 5))){
                     this.markAtomicAssignmentComplete(courseName, subCategoryName);
                 } else if (!Boolean.parseBoolean(data.get(pointer + 5))){
@@ -256,8 +256,8 @@ public class GTModel {
             } else if (data.get(pointer).equals("<subCategory>")) {
                 lowestCategoryName = data.get(pointer + 1);
                 this.addAtomicAssignmentToCompoundCategory(courseName, subCategoryName, lowestCategoryName);
-                this.setAssignmentPointsPossible(courseName, lowestCategoryName, Integer.parseInt(data.get(pointer + 2)));
-                this.setAssignmentScore(courseName, lowestCategoryName, Integer.parseInt(data.get(pointer + 3)));
+                this.setAssignmentPointsPossible(courseName, lowestCategoryName, Double.parseDouble(data.get(pointer + 2)));
+                this.setAssignmentScore(courseName, lowestCategoryName, Double.parseDouble(data.get(pointer + 3)));
                 if (Boolean.parseBoolean(data.get(pointer + 4))){
                     this.markAtomicAssignmentComplete(courseName, subCategoryName);
                 } else if (!Boolean.parseBoolean(data.get(pointer + 4))){

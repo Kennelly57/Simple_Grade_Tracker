@@ -50,7 +50,7 @@ public class OfflineLists {
     }
 
     public static String intArrayConverter(int[] gradeArray){
-        String gradeScale = ",";
+        String gradeScale = "";
         String temp = "";
         for (int item : gradeArray){
             temp = Integer.toString(item);

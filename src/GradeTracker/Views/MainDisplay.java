@@ -3,6 +3,7 @@ package GradeTracker.Views;
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
+import GradeTracker.OfflineLists;
 import GradeTracker.Samples.AtomicAssignment;
 import GradeTracker.Views.Panes.AssignmentsOverviewPane;
 import GradeTracker.Samples.CompoundAssignment;
@@ -53,6 +54,11 @@ public class MainDisplay extends Application implements GTObserver {
         this.updateCourses();
         makeDemoAssignmentList();
         makeDropshadow();
+
+        OfflineLists.storeCourseList(OfflineLists.dataGenerator(model.getLatestCourses()));
+        model = new GTModel();
+        model.dataSetter();
+
 
         // get screen size & set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
