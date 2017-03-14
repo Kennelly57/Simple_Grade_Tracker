@@ -185,14 +185,14 @@ public class CourseSetupWindow extends Application {
 
             if(editingExistingCourse) {
                 if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
-                    ;
+                    this.model.updateCourse(course, courseID, courseName, gradeIntArray);
                 }
             } else {
                 if (allInts && !this.courseName.isEmpty() && !this.courseID.isEmpty()) {
                     this.model.addCourse(courseID, courseName, gradeIntArray);
+                    System.out.println("Adding course...");
                 }
             }
-
 
             univPrimaryStage.hide();
 

@@ -10,11 +10,15 @@ import java.util.*;
  * Created by michelsd on 3/4/17.
  */
 public class ModelCourse implements Cloneable {
-    private String id;
-    private String name;
-    private int[] gradingScale;
-    private String[] grades;
 
+    // NOTE: these are public because they should be editable by the model, but only in very particular ways, so as not
+    // to mess up the way the courses are stored in the model. Writing setters might suggest you can edit these vars
+    // in ways that you shouldnt.
+    public String id;
+    public String name;
+    public int[] gradingScale;
+
+    private String[] grades;
     private Map<String, AtomicAssignment> atomicAsssignmentCategories;
     private Map<String, CompoundAssignment> compoundAsssignmentCategories;
     //percentage as an integer
