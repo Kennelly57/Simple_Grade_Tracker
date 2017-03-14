@@ -201,7 +201,7 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     /**
-     * Helper function to generateSetupTitle(),
+     * Helper fcn to generateSetupTitle(),
      * Truncates title of screen to fit dimensions
      */
     private String shortenString(String string, int trimLength) {
@@ -378,10 +378,11 @@ public class MainDisplay extends Application implements GTObserver {
 
                 // Only want to highlight left leftmost cells of grid, excluding the first row
                 boolean isNotFirstRow = columnCounter >= numberOfColumns;
-                boolean isLeftmostCol = columnCounter % numberOfColumns == 0;
-                if (isNotFirstRow && isLeftmostCol) {
+                boolean isBtnCol = columnCounter % numberOfColumns == 0;
+                if (isNotFirstRow && isBtnCol) {
 
                     styleLeftMostCol((Label) n, control);
+
 
                 }
                 columnCounter++;
@@ -397,7 +398,7 @@ public class MainDisplay extends Application implements GTObserver {
         addRowConstraints(dataPane, numberOfRows);
     }
 
-    // Helper function for styling elements of grids that act as buttons.
+    // Helper fcn for styling elements of grids that act as buttons.
     private void styleLeftMostCol(Label label, Control control) {
         String key = label.getText();
         boolean isCourse = model.getLatestCourses().containsKey(key);
