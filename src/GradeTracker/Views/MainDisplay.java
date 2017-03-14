@@ -189,10 +189,9 @@ public class MainDisplay extends Application implements GTObserver {
         return setupTitle;
     }
 
-    @NotNull
     private String shortenString(String string, int trimLength) {
         String stringTrimmed = string.substring(0, Math.min(string.length(), trimLength));
-        if (!string.equals(stringTrimmed)){
+        if (!string.equals(stringTrimmed)) {
             stringTrimmed += "...";
         }
         return stringTrimmed;
