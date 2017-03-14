@@ -1,5 +1,6 @@
 package GradeTracker.Views.Panes.PopupPanes;
 
+import GradeTracker.ModelCourse;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +15,8 @@ import java.util.List;
 public class GradePane {
 
     private VBox root;
+    private boolean editingExistingCourse;
+    private int[] gradingScale;
     private TextField tfAPlus;
     private TextField tfA;
     private TextField tfAMinus;
@@ -28,18 +31,28 @@ public class GradePane {
     private TextField tfDMinus;
 
     public GradePane() {
+        editingExistingCourse = false;
         root = generateGradePane();
     }
 
-    public VBox getRoot(){
+    public GradePane(ModelCourse course) {
+        editingExistingCourse = true;
+        gradingScale = course.getGradingScale();
+        root = generateGradePane();
+    }
+
+    public VBox getRoot() {
         return root;
     }
 
     private VBox generateGradePane() {
+
         VBox gradePane = new VBox();
         gradePane.setPadding(new Insets(15, 0, 5, 0));
+
         Text title = new Text("Configure the grade distribution:");
         GridPane gradeGrid = generateGradingCurvePane();
+
         gradePane.getChildren().add(title);
         gradePane.getChildren().add(gradeGrid);
 
@@ -71,6 +84,7 @@ public class GradePane {
                 gradeCPlus, gradeC, gradeCMinus,
                 gradeDPlus, gradeD, gradeDMinus);
 
+        // Set default values for grading map
         tfAPlus = new TextField("96");
         tfA = new TextField("93");
         tfAMinus = new TextField("90");
@@ -84,17 +98,33 @@ public class GradePane {
         tfD = new TextField("63");
         tfDMinus = new TextField("60");
 
+        // If we're editing an existing course, set values to existing values instead
+        if (editingExistingCourse) {
+            tfAPlus.setText(Double.toString(gradingScale[0]));
+            tfA.setText(Double.toString(gradingScale[1]));
+            tfAMinus.setText(Double.toString(gradingScale[2]));
+            tfBPlus.setText(Double.toString(gradingScale[3]));
+            tfB.setText(Double.toString(gradingScale[4]));
+            tfBMinus.setText(Double.toString(gradingScale[5]));
+            tfCPlus.setText(Double.toString(gradingScale[6]));
+            tfC.setText(Double.toString(gradingScale[7]));
+            tfCMinus.setText(Double.toString(gradingScale[8]));
+            tfDPlus.setText(Double.toString(gradingScale[9]));
+            tfD.setText(Double.toString(gradingScale[10]));
+            tfDMinus.setText(Double.toString(gradingScale[11]));
+        }
+
         List<TextField> textFieldList = Arrays.asList(
                 tfAPlus, tfA, tfAMinus,
                 tfBPlus, tfB, tfBMinus,
                 tfCPlus, tfC, tfCMinus,
                 tfDPlus, tfD, tfDMinus);
 
-
         for (int i = 0; i < 12; i++) {
             gradeGrid.add(labelList.get(i), 0, i);
             gradeGrid.add(textFieldList.get(i), 1, i);
         }
+
         return gradeGrid;
     }
 

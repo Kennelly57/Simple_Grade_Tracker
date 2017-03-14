@@ -3,8 +3,7 @@ package GradeTracker.Views.Panes;
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.MainDisplay;
-import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
-import GradeTracker.Views.PopupStages.CourseEditWindow;
+import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -128,7 +127,7 @@ public class CoursesOverviewPane {
             final Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.initOwner(mainDisplay.univPrimaryStage);
-            new CourseEditWindow().start(dialog, this.model, course);
+            new CourseSetupWindow().start(dialog, this.model, course);
         });
         addDropShadow(btnEdit);
         return btnEdit;

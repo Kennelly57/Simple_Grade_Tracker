@@ -306,7 +306,7 @@ public class MainDisplay extends Application implements GTObserver {
         root.setAlignment(dataPane, Pos.CENTER);
 
         root.setBottom(controlBtns);
-        root.setAlignment(dataPane, Pos.CENTER);
+        root.setAlignment(controlBtns, Pos.CENTER);
 
         root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
     }
