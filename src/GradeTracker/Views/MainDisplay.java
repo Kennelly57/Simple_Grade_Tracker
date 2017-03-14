@@ -165,7 +165,7 @@ public class MainDisplay extends Application implements GTObserver {
      * generateSetupAdd
      * Makes correct title, returns Text object with CSS id applied
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
-     * <p>
+     * -----------
      * At level 0, need no arguments, title just equals "Courses"
      * At level 1, need course name, ie Courses/ Owl Biology
      * At level 2, need course name & category name, ie "Courses / Owl Biology / Tests"
