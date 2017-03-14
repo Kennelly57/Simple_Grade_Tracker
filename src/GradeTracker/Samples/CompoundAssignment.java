@@ -288,6 +288,14 @@ public class CompoundAssignment implements Assignment {
         return false;
     }
 
+    public int[] getGradingScale(){
+        return this.gradingScale;
+    }
+
+    public void setGradingScale(int[] newGScale){
+        this.gradingScale = newGScale;
+    }
+
 
     public void markAsCompleted(){
         this.completed = true;

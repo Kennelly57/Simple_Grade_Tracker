@@ -25,7 +25,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-//import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -109,7 +108,10 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
-        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
+
+        Text gradeMsg = getGradeMessage(course);
+
+        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack, gradeMsg);
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 
         // Format GridPane
@@ -123,7 +125,6 @@ public class MainDisplay extends Application implements GTObserver {
         // Set stage to scene
         createScene(root);
     }
-
 
     public void showAssignments(ModelCourse course, CompoundAssignment category) {
         this.layer = 2;
@@ -140,7 +141,10 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
-        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
+
+        Text gradeMsg = getGradeMessage(course);
+
+        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack, gradeMsg);
         GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
 
         // Format GridPane
@@ -188,8 +192,17 @@ public class MainDisplay extends Application implements GTObserver {
         return setupTitle;
     }
 
+    // Generates Text displaying course grade
+    private Text getGradeMessage(ModelCourse course) {
+        String gradeMsgStr = "Calculated Course Grade: " + course.getGrade();
+        Text gradeMsg = new Text(gradeMsgStr);
+        gradeMsg.setId("gradeMsg");
+        return gradeMsg;
+    }
+
     /**
-     * Helper function to generateSetupTitle()
+     * Helper function to generateSetupTitle(),
+     * Truncates title of screen to fit dimensions
      */
     private String shortenString(String string, int trimLength) {
         String stringTrimmed = string.substring(0, Math.min(string.length(), trimLength));
@@ -203,7 +216,7 @@ public class MainDisplay extends Application implements GTObserver {
      * generateBtnAdd
      * generates "+" that will open appropriate popup
      * Takes into account which layer we are at, where 0=courses(ie Biology), 1=categories(ie Tests) 2=assignments(ie Test #1)
-     * <p>
+     * -------------------
      * At level 0, need no arguments, just open CourseSetupWindow
      * At level 1, need courseId to generate appropriate AssignmentSetupWindow
      * At level 2, need courseId & category name to generate appropriate AssignmentSetupWindow
@@ -272,11 +285,13 @@ public class MainDisplay extends Application implements GTObserver {
      *
      * @return hBox with "+" button & "←" button
      */
-    private HBox generateControlBtnPane_WithBackBtn(Button btnAdd, Button btnBack) {
+    private HBox generateControlBtnPane_WithBackBtn(Button btnAdd, Button btnBack, Text grade) {
         HBox btnHbox = new HBox();
-        HBox spacer = new HBox();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        btnHbox.getChildren().addAll(btnBack, spacer, btnAdd);
+        HBox spacerLeft = new HBox();
+        HBox spacerRight = new HBox();
+        HBox.setHgrow(spacerLeft, Priority.ALWAYS);
+        HBox.setHgrow(spacerRight, Priority.ALWAYS);
+        btnHbox.getChildren().addAll(btnBack, spacerLeft, grade, spacerRight, btnAdd);
         return btnHbox;
     }
 
@@ -298,6 +313,7 @@ public class MainDisplay extends Application implements GTObserver {
 
     /**
      * Generates a scene using "root" BorderPane and configures CSS
+     * btnAdd.requestFocus() keeps the cursor off of editable areas.
      */
     private void createScene(BorderPane root) {
         Scene scene = new Scene(root);
