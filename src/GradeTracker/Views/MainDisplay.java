@@ -1,14 +1,15 @@
-package GradeTracker.Overviews;
+package GradeTracker.Views;
 
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
+import GradeTracker.Views.HelperPanes.OverviewPanes.AssignmentsOverviewPane;
 import GradeTracker.Samples.SampleCompoundAssignment;
-import GradeTracker.Panes.CoursesOverviewPane;
+import GradeTracker.Views.HelperPanes.OverviewPanes.CoursesOverviewPane;
 import GradeTracker.Samples.SampleAtomicAssignment;
-import GradeTracker.Panes.CategoriesOverviewPane;
-import GradeTracker.Setups.AssignmentSetupWindow;
-import GradeTracker.Setups.CourseSetupWindow;
+import GradeTracker.Views.HelperPanes.OverviewPanes.CategoriesOverviewPane;
+import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
+import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
@@ -27,7 +28,8 @@ import javafx.stage.Stage;
 import java.util.Map;
 
 /**
- * This generates all neccessary views.
+ * MainDisplay.java
+ * Generates all necessary views.
  */
 public class MainDisplay extends Application implements GTObserver {
     public static Stage univPrimaryStage;
@@ -63,7 +65,7 @@ public class MainDisplay extends Application implements GTObserver {
 
     // ------------------------------------------------------------------------
     // Core functions: makeCourses(), makeCategories, makeAssignments()
-    // each creates a scene and sets the stage to that scene
+    // Each creates a scene and sets the stage to that scene
     // ------------------------------------------------------------------------
 
     public void showCourses() {
@@ -123,6 +125,29 @@ public class MainDisplay extends Application implements GTObserver {
     public void showAssignments(ModelCourse course, SampleCompoundAssignment category) {
         this.layer= 2;
         this.updateCourses();
+        course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        this.courseShowing = course;
+
+        // Borderpane "root" will hold other panes
+        BorderPane root = new BorderPane();
+
+        // Create instances of subpanes
+        Text screenTitle = generateSetupTitle(layer, course.getName());
+        Button btnAdd = generateBtnAdd(layer, course.getID());
+        Button btnBack = generateBtnBack(layer);
+        HBox controlBtns = generateControlBtnPane_WithBackBtn(btnAdd, btnBack);
+        GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
+
+        // Format GridPane
+        double numberOfColumns = 6.0;
+        double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
+        formatGridPane(dataPane, numberOfColumns, numberOfRows);
+
+        // Place subpanes in "root" pane
+        addPanesToRoot(root, screenTitle, dataPane, controlBtns);
+
+        // Set stage to scene
+        createScene(root);
     }
 
     // ------------------------------------------------------------------------
@@ -318,6 +343,9 @@ public class MainDisplay extends Application implements GTObserver {
             }
         });
     }
+
+
+
 
     private void makeDemoAssignmentList() {
 

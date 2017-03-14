@@ -1,11 +1,8 @@
-package GradeTracker.Panes;
+package GradeTracker.Views.HelperPanes.PopupPanes;
 
 import GradeTracker.GTModel;
-import GradeTracker.Overviews.MainDisplay;
-import GradeTracker.Setups.AssignmentSetupWindow;
+import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import com.sun.istack.internal.NotNull;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

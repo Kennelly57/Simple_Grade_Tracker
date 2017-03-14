@@ -1,50 +1,43 @@
-package GradeTracker.Panes;
+package GradeTracker.Views.HelperPanes.OverviewPanes;
 
 
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
-import GradeTracker.Overviews.MainDisplay;
+import GradeTracker.Views.MainDisplay;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
-
-import java.util.Map;
-import java.util.regex.Pattern;
-
-//import com.sun.tools.internal.ws.processor.model.Model;
-import GradeTracker.Setups.AssignmentSetupWindow;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
-
-import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 
-import static GradeTracker.Overviews.MainDisplay.univPrimaryStage;
+import java.util.Map;
 
-public class CategoriesOverviewPane {
+//import com.sun.tools.internal.ws.processor.model.Model;
+
+public class AssignmentsOverviewPane {
 
     private GridPane root;
     private DropShadow shadow;
     private MainDisplay mainDisplay;
     private ModelCourse course;
+    private SampleCompoundAssignment category;
     private GTModel model;
 
-    public CategoriesOverviewPane(ModelCourse myCourse, MainDisplay newMainDisplay, GTModel gtModel) {
+    public AssignmentsOverviewPane(ModelCourse myCourse, SampleCompoundAssignment myCategory, MainDisplay newMainDisplay, GTModel gtModel) {
         this.model = gtModel;
         this.course = myCourse;
+        this.category = myCategory;
         makeDropShadow();
         root = generateGridPane();
         this.mainDisplay = newMainDisplay;
@@ -61,9 +54,10 @@ public class CategoriesOverviewPane {
 
     private GridPane generateGridPane() {
 
-        Map<String, SampleAtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
-        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
+        Map<String, SampleAtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
         Map<String, Integer> weightMap = this.course.getCategoryWeights();
+//        Map<String, SampleCompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
+//        Map<String, Integer> weightMap = this.course.getCategoryWeights();
 
         GridPane dataGrid = new GridPane();
         dataGrid.setHgap(10);
@@ -71,7 +65,7 @@ public class CategoriesOverviewPane {
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
         dataGrid.setGridLinesVisible(true);
 
-        Label nameHeader = new Label("Category");
+        Label nameHeader = new Label("Assignment");
         Label pointsPosHeader = new Label("Points Possible");
         Label scorePtsHeader = new Label("Points Earned");
         Label scorePercentHeader = new Label("Score (%)");
@@ -90,7 +84,7 @@ public class CategoriesOverviewPane {
         int i = 0;
         ModelCourse theCourse = this.course;
         GTModel theModel = this.model;
-        for (SampleAtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
+        for (SampleAtomicAssignment atomAss: subAssignmentMap.values()) {
 
             Label tempName = new Label(atomAss.getName());
             dataGrid.add(tempName, 0, i + 1);
@@ -119,7 +113,6 @@ public class CategoriesOverviewPane {
             TextField pointsEarned = new TextField();
             String currPointsScore = Double.toString(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
-
 
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -151,32 +144,6 @@ public class CategoriesOverviewPane {
             i++;
         }
 
-        for (SampleCompoundAssignment compAss: compoundAsssignmentCategories.values()) {
-            Label tempName = new Label(compAss.getName());
-            dataGrid.add(tempName, 0, i + 1);
-
-            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
-            dataGrid.add(tempPointsPos, 1, i + 1);
-
-            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
-            dataGrid.add(tempPointsScore, 2, i + 1);
-
-            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
-            dataGrid.add(tempPercentScore, 3, i + 1);
-
-            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
-            dataGrid.add(tempWeight, 4, i + 1);
-
-            double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
-            Label tempWeightedScore = new Label(Double.toString(weightedScore));
-            dataGrid.add(tempWeightedScore, 5, i + 1);
-
-            i++;
-        }
-
-//        double numberOfColumns = 6.0;
-//        double numberOfRows = model.getLatestCourses().size();
-//        formatAssignmentGridPane(dataGrid, numberOfColumns, numberOfRows);
         return dataGrid;
     }
 
@@ -191,31 +158,6 @@ public class CategoriesOverviewPane {
     private void refreshPane() {
         this.mainDisplay.showCategories(course);
     }
-
-
-//    private void formatAssignmentGridPane(GridPane dataPane, double numberOfColumns, double numberOfRows) {
-//        dataPane.setId("dataPane");
-//        int columnCounter = 0;
-//        for (Node n : dataPane.getChildren()) {
-//            if (n instanceof Control) {
-//                Control control = (Control) n;
-//                control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-//                control.setId("gridNodes");
-//                if (columnCounter < 6) {
-//                    control.setId("categories");
-//                    columnCounter++;
-//                }
-//            }
-//            if (n instanceof Pane) {
-//                Pane pane = (Pane) n;
-//                pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-//                pane.setId("gridNodes");
-//            }
-//        }
-//        addColumnConstraints(dataPane, numberOfColumns);
-//        addRowConstraints(dataPane, numberOfRows);
-//        BorderPane.setAlignment(dataPane, Pos.CENTER_LEFT);
-//    }
 
     private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
         ColumnConstraints oneSixth = new ColumnConstraints();

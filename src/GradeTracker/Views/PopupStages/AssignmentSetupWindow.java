@@ -1,21 +1,12 @@
-package GradeTracker.Setups;
+package GradeTracker.Views.PopupStages;
 
 
 import GradeTracker.GTModel;
-import GradeTracker.Panes.CreateAssignmentPane;
+import GradeTracker.Views.HelperPanes.PopupPanes.CreateAssignmentPane;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class AssignmentSetupWindow extends Application {
 

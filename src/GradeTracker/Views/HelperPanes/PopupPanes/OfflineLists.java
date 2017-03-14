@@ -1,11 +1,11 @@
-package GradeTracker;
+package GradeTracker.Views.HelperPanes.PopupPanes;
 
+import GradeTracker.ModelCourse;
 import GradeTracker.Samples.SampleAtomicAssignment;
 import GradeTracker.Samples.SampleCompoundAssignment;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**

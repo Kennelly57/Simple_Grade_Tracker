@@ -1,15 +1,13 @@
-package GradeTracker.Panes;
+package GradeTracker.Views.HelperPanes.OverviewPanes;
 
 import GradeTracker.ModelCourse;
-import GradeTracker.Overviews.MainDisplay;
+import GradeTracker.Views.MainDisplay;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 import java.util.Map;
 

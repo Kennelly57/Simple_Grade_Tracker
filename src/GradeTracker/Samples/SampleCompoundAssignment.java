@@ -38,7 +38,6 @@ public class SampleCompoundAssignment implements Assignment {
             clone.addCompoundAssignment(this.getName(), assignment.clone());
         }
 
-
         return clone;
     }
 
