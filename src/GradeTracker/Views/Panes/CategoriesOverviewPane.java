@@ -1,6 +1,7 @@
 package GradeTracker.Views.Panes;
 
 
+import GradeTracker.Assignment;
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Samples.AtomicAssignment;
@@ -10,9 +11,12 @@ import GradeTracker.Views.MainDisplay;
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
+import GradeTracker.Views.PopupStages.CourseSetupWindow;
+import com.sun.nio.sctp.AssociationChangeNotification;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -20,6 +24,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class CategoriesOverviewPane {
 
@@ -37,14 +43,9 @@ public class CategoriesOverviewPane {
         this.mainDisplay = newMainDisplay;
     }
 
-    public GridPane getRoot() {
-        return root;
-    }
-
-    private void makeDropShadow() {
-        shadow = new DropShadow();
-        shadow.setRadius(20.0);
-    }
+    // --------------------------------------------------
+    // Core fcn: Make gridpane
+    // --------------------------------------------------
 
     private GridPane generateGridPane() {
 
@@ -74,16 +75,20 @@ public class CategoriesOverviewPane {
 
 
         // --------------------------------------------------
-        // Fill in table values using dictionaries, making appropriate fields editable / clickable
+        // ---> Fill in table values using dictionaries, making appropriate fields editable / clickable
         // --------------------------------------------------
 
         int i = 0; // keeps track of row we're adding to
         GTModel theModel = this.model;
 
         // --------------------------------------------------
-        // ---> Pt 1: Add Compound Assignments (AKA categories, ie "Tests")
+        // ------> Pt 1: Add Compound Assignments (AKA categories, ie "Tests")
         // --------------------------------------------------
         for (CompoundAssignment compAss: compoundAsssignmentCategories.values()) {
+
+            // Fill DELETE Column
+            Button btnDel = generateDelBtn(compAss);
+            HBox hBoxEditDel = generateDelBtnPane(btnDel);
 
             // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
             Label tempName = new Label(compAss.getName());
@@ -109,20 +114,25 @@ public class CategoriesOverviewPane {
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
 
             // Add columns to Grid
-            dataGrid.add(tempName, 0, i + 1);
-            dataGrid.add(tempPointsPos, 1, i + 1);
-            dataGrid.add(tempPointsScore, 2, i + 1);
-            dataGrid.add(tempPercentScore, 3, i + 1);
-            dataGrid.add(tempWeight, 4, i + 1);
-            dataGrid.add(tempWeightedScore, 5, i + 1);
+            dataGrid.add(hBoxEditDel, 0, i+1);
+            dataGrid.add(tempName, 1, i + 1);
+            dataGrid.add(tempPointsPos, 2, i + 1);
+            dataGrid.add(tempPointsScore, 3, i + 1);
+            dataGrid.add(tempPercentScore, 4, i + 1);
+            dataGrid.add(tempWeight, 5, i + 1);
+            dataGrid.add(tempWeightedScore, 6, i + 1);
 
             i++;
         }
 
         // --------------------------------------------------
-        // ---> Pt 2: Add Atomic Assignments (Directly editable, ie "Participation")
+        // ------> Pt 2: Add Atomic Assignments (Directly editable, ie "Participation")
         // --------------------------------------------------
         for (AtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
+
+            // Fill DELETE Column
+            Button btnDel = generateDelBtn(atomAss);
+            HBox hBoxEditDel = generateDelBtnPane(btnDel);
 
             // Fill NAME Column
             Label tempName = new Label(atomAss.getName());
@@ -172,17 +182,58 @@ public class CategoriesOverviewPane {
             Label tempWeightedScore = new Label(Double.toString(weightedScore));
 
             // Add columns to Grid
-            dataGrid.add(tempName, 0, i + 1);
-            dataGrid.add(pointsPos, 1, i + 1);
-            dataGrid.add(pointsEarned, 2, i + 1);
-            dataGrid.add(tempPercentScore, 3, i + 1);
-            dataGrid.add(tempWeight, 4, i + 1);
-            dataGrid.add(tempWeightedScore, 5, i + 1);
+            dataGrid.add(hBoxEditDel, 0, i+1);
+            dataGrid.add(tempName, 1, i + 1);
+            dataGrid.add(pointsPos, 2, i + 1);
+            dataGrid.add(pointsEarned, 3, i + 1);
+            dataGrid.add(tempPercentScore, 4, i + 1);
+            dataGrid.add(tempWeight, 5, i + 1);
+            dataGrid.add(tempWeightedScore, 6, i + 1);
 
             i++;
         }
 
         return dataGrid;
+    }
+
+    // --------------------------------------------------
+    // Auxillary functions
+    // --------------------------------------------------
+
+    public GridPane getRoot() {
+        return root;
+    }
+
+    /**
+     * generateDelBtn
+     */
+    private Button generateDelBtn(Assignment myAssignment) {
+        Button btnDel = new Button();
+        btnDel.setText("✘");
+        btnDel.setId("labelButton");
+        btnDel.setOnAction(event -> {
+//            String courseID = course.getID();
+//            this.model.removeCourse(courseID);
+//            this.mainDisplay.showCourses();
+        });
+        addDropShadow(btnDel);
+        return btnDel;
+    }
+
+    /**
+     * generateDelBtnPane
+     * @return hBox with "delete" button
+     */
+    private HBox generateDelBtnPane(Button btnDel) {
+        HBox btnHbox = new HBox();
+        btnHbox.getChildren().addAll(btnDel);
+        btnHbox.setSpacing(30.0);
+        return btnHbox;
+    }
+
+    private void makeDropShadow() {
+        shadow = new DropShadow();
+        shadow.setRadius(20.0);
     }
 
     // Makes sure user only inputs a double
@@ -210,50 +261,19 @@ public class CategoriesOverviewPane {
         });
     }
 
-    // LOOKS LIKE WE CAN DELETE ALL THIS, EH?
+    private void addDropShadow(final Button button) {
+        button.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent e) {
+                button.setEffect(shadow);
+            }
+        });
 
-//    private void addColumnConstraints(GridPane dataPane, double numberOfColumns) {
-//        ColumnConstraints oneSixth = new ColumnConstraints();
-//        oneSixth.setPercentWidth(100 / numberOfColumns);
-//        oneSixth.setHalignment(HPos.CENTER);
-//        dataPane.getColumnConstraints().addAll(oneSixth, oneSixth, oneSixth, oneSixth, oneSixth, oneSixth);
-//    }
-//
-//    private void addRowConstraints(GridPane dataPane, double numberOfRows) {
-//        RowConstraints oneHalf = new RowConstraints();
-//        oneHalf.setPercentHeight(100 / numberOfRows);
-//        oneHalf.setValignment(VPos.CENTER);
-//        dataPane.getRowConstraints().addAll(oneHalf, oneHalf, oneHalf, oneHalf, oneHalf, oneHalf);
-//    }
-//
-//    private int getNumCategories(Map<String, AtomicAssignment> atomicAsssignmentCategories, Map<String, CompoundAssignment> compoundAsssignmentCategories){
-//        int counter = 0;
-//
-//        for (AtomicAssignment atomCat : atomicAsssignmentCategories.values()){
-//            counter++;
-//        }
-//
-//        for (CompoundAssignment comCat : compoundAsssignmentCategories.values()){
-//            counter++;
-//        }
-//
-//        return counter;
-//    }
-//
-//    private void addDropShadow(final Button btn) {
-//        btn.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                DropShadow dropShadow = new DropShadow();
-//                btn.setEffect(dropShadow);
-//            }
-//        });
-//        btn.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-//                btn.setEffect(null);
-//            }
-//        });
-//    }
-
+        button.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent e) {
+                button.setEffect(null);
+            }
+        });
+    }
 }

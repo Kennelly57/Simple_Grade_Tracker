@@ -68,7 +68,6 @@ public class MainDisplay extends Application implements GTObserver {
         }
         //makeDemoAssignmentList();
 
-
         // get screen size & set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         univPrimaryStage.setX(primaryScreenBounds.getMinX());
@@ -134,7 +133,7 @@ public class MainDisplay extends Application implements GTObserver {
         GridPane dataPane = new CategoriesOverviewPane(course, this, this.model).getRoot();
 
         // Format GridPane
-        double numberOfColumns = 6.0;
+        double numberOfColumns = 7.0;
         double numberOfRows = course.getAtomicAssignmentCategories().size() + course.getCompoundAssignmentCategories().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
@@ -403,7 +402,6 @@ public class MainDisplay extends Application implements GTObserver {
                 if (isNotFirstRow && isBtnCol) {
 
                     styleLeftMostCol((Label) n, control);
-
 
                 }
                 columnCounter++;
