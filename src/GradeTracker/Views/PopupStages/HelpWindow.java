@@ -13,8 +13,6 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import static GradeTracker.Views.MainDisplay.univPrimaryStage;
-
 public class HelpWindow extends Application {
 
 
