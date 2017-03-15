@@ -232,7 +232,7 @@ public class ModelCourse implements Cloneable {
 
     public boolean removeAssignmentFromCompoundCategory(String categoryName, String assignmentName){
         if (compoundAsssignmentCategories.containsKey(categoryName) &&
-                ! compoundAsssignmentCategories.get(categoryName).contains(assignmentName)){
+                compoundAsssignmentCategories.get(categoryName).contains(assignmentName)){
             compoundAsssignmentCategories.get(categoryName).removeAssignment(assignmentName);
             return true;
         } else {
