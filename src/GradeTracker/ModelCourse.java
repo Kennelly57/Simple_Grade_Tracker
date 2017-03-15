@@ -1,13 +1,14 @@
 package GradeTracker;
 
-import GradeTracker.Samples.AtomicAssignment;
-import GradeTracker.Samples.CompoundAssignment;
-import com.sun.javafx.sg.prism.NGShape;
+import GradeTracker.AssignmentClasses.Assignment;
+import GradeTracker.AssignmentClasses.AtomicAssignment;
+import GradeTracker.AssignmentClasses.CompoundAssignment;
 
 import java.util.*;
 
 /**
- * Created by michelsd on 3/4/17.
+ * This object stores all information on a single course
+ * @author Kilian Roberts
  */
 public class ModelCourse implements Cloneable {
 
@@ -18,13 +19,22 @@ public class ModelCourse implements Cloneable {
     private String[] grades;
     private Map<String, AtomicAssignment> atomicAsssignmentCategories;
     private Map<String, CompoundAssignment> compoundAsssignmentCategories;
-    //percentage as an integer
+
+    /*
+    Assignment categories are stored separately so that each assignment doesn't need to know
+    whether it is a category in and of itself or if it is contained within a compound assignment
+     */
     private Map<String, Integer> assignmentCategoryWeights;
     private int totalWeight;
 
     private Integer maxAssignmentCategoryNumber;
 
-
+    /**
+     * Creates a model course object
+     * @param courseId
+     * @param courseName
+     * @param gScale An integer array representing the cutoff points of the grades A+ through D-
+     */
     public ModelCourse(String courseId, String courseName, int[] gScale) {
         this.id = courseId;
         this.name = courseName;
@@ -43,6 +53,7 @@ public class ModelCourse implements Cloneable {
     }
 
     @Override
+    // The model creates copies of modelCourse objects to give to observers to prevent them from changing the model's data
     public ModelCourse clone(){
         int weight;
         ModelCourse modelClone = new ModelCourse(this.id, this.name, this.gradingScale);
@@ -50,7 +61,7 @@ public class ModelCourse implements Cloneable {
         for (CompoundAssignment compoundAssignmentCategory : compoundAsssignmentCategories.values()) {
             CompoundAssignment compoundAssignmentClone = compoundAssignmentCategory.clone();
             weight = assignmentCategoryWeights.get(compoundAssignmentClone.getName());
-            modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight); //FIX THIS AFTER ADDING A WAY TO ADD ASSIGNMENTS
+            modelClone.addCompoundAssignmentCategory(compoundAssignmentClone, weight);
         }
         for (AtomicAssignment atomicAssignmentCategory : atomicAsssignmentCategories.values()) {
             AtomicAssignment atomicAssignmentClone = atomicAssignmentCategory.clone();
@@ -61,47 +72,72 @@ public class ModelCourse implements Cloneable {
         return modelClone;
     }
 
+    /**
+     * @return this course's ID
+     */
     public String getID() {
         return this.id;
     }
 
+    /**
+     * Changes this course's ID
+     * @param newID
+     */
     public void setId(String newID) { this.id = newID; }
 
-    public boolean weightIsOneHundred(){
-        return this.totalWeight == 100;
-    }
 
-    public void computeTotalWeight(){
-        int runningTotal = 0;
-        for (Integer weight : assignmentCategoryWeights.values()) {
-            runningTotal += weight;
-        }
-        this.totalWeight = runningTotal;
-    }
-
+    /**
+     * @return this course's name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Changes this course's name
+     * @param newName
+     */
     public void setName(String newName) { this.name = newName; }
 
+    /**
+     * @return this course's grading scale
+     */
     public int[] getGradingScale() {
         return gradingScale;
     }
 
+    /**
+     * Changes this course's grading scale
+     * @param newGradingScale
+     */
     public void setGradingScale(int[] newGradingScale){
         this.gradingScale = newGradingScale;
     }
 
+    /**
+     * @return the dictionary containing this course's atomic assignment categories
+     */
     public Map<String, AtomicAssignment> getAtomicAssignmentCategories(){
         return atomicAsssignmentCategories;
     }
+
+    /**
+     * @return the dictionary containing this course's atomic compound categories
+     */
     public Map<String, CompoundAssignment> getCompoundAssignmentCategories(){
         return compoundAsssignmentCategories;
     }
+
+    /**
+     * @return the dictionary containing this course's category weights
+     */
     public Map<String, Integer> getCategoryWeights(){
         return this.assignmentCategoryWeights;
     }
+
+    /**
+     * @return the user's current grade in this course
+     */
     public String getGrade() {
         double currentPerecentage = 0;
         double weightSum = 0;
@@ -109,10 +145,10 @@ public class ModelCourse implements Cloneable {
         double percentageScore;
         double weightedScore;
 
-        for (String asngment: this.assignmentCategoryWeights.keySet()) {
-            if ((this.atomicAsssignmentCategories.containsKey(asngment) && this.atomicAsssignmentCategories.get(asngment).completed()) ||
-                    (this.compoundAsssignmentCategories.containsKey(asngment) && this.compoundAsssignmentCategories.get(asngment).completed())) {
-                weight = this.assignmentCategoryWeights.get(asngment);
+        for (String assignment: this.assignmentCategoryWeights.keySet()) {
+            if ((this.atomicAsssignmentCategories.containsKey(assignment) && this.atomicAsssignmentCategories.get(assignment).completed()) ||
+                    (this.compoundAsssignmentCategories.containsKey(assignment) && this.compoundAsssignmentCategories.get(assignment).completed())) {
+                weight = this.assignmentCategoryWeights.get(assignment);
                 weightSum += weight;
             }
         }
@@ -147,12 +183,18 @@ public class ModelCourse implements Cloneable {
     }
 
 
-    //WE NEED TO AVOID DUPLICATE NAMES
+    /**
+     * Adds an atomic assignment category with the given weight and name.
+     * Repeated names are not allowed
+     * @param assignmentCategoryName
+     * @param weight
+     * @return a boolean that describes whether the assignment was successfully added
+     */
     public boolean addAtomicAssignmentCategory(String assignmentCategoryName, Integer weight) {
         return addAtomicAssignmentCategory(new AtomicAssignment(assignmentCategoryName), weight);
     }
 
-    protected boolean addAtomicAssignmentCategory(AtomicAssignment atomicAssignment, Integer weight) {
+    private boolean addAtomicAssignmentCategory(AtomicAssignment atomicAssignment, Integer weight) {
         if (!this.containsAtomic(atomicAssignment.getName())) {
             totalWeight = totalWeight + weight;
             atomicAsssignmentCategories.put(atomicAssignment.getName(), atomicAssignment);
@@ -162,6 +204,13 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Adds a compound assignment category with the given weight and name.
+     * Repeated names are not allowed
+     * @param assignmentCategoryName
+     * @param weight
+     * @return a boolean that describes whether the assignment was successfully added
+     */
     public boolean addCompoundAssignmentCategory(String assignmentCategoryName, Integer weight){
         return addCompoundAssignmentCategory(assignmentCategoryName, weight, this.gradingScale);
     }
@@ -176,13 +225,19 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
-    protected void addCompoundAssignmentCategory(CompoundAssignment compoundAssignment, int weight){
+    private void addCompoundAssignmentCategory(CompoundAssignment compoundAssignment, int weight){
         String assignmentCategoryName = compoundAssignment.getName();
         totalWeight = totalWeight + weight;
         compoundAsssignmentCategories.put(assignmentCategoryName, compoundAssignment);
         assignmentCategoryWeights.put(assignmentCategoryName, weight);
     }
 
+    /**
+     * Sets the weight of the given assignment category to the given value
+     * @param assignmentCategoryName
+     * @param weight
+     * @return a boolean describing whether the weight was successfully set
+     */
     public boolean setAssignmentCategoryWeight(String assignmentCategoryName, int weight){
         if (assignmentCategoryWeights.containsKey(assignmentCategoryName)){
             assignmentCategoryWeights.put(assignmentCategoryName, weight);
@@ -192,6 +247,11 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Removes a given assignment category
+     * @param assignmentCategoryName
+     * @return a boolean describing whether the category was successfully removed
+     */
     public boolean removeAssignmentCategory(String assignmentCategoryName) {
         if (this.contains(assignmentCategoryName)) {
             int weight = assignmentCategoryWeights.get(assignmentCategoryName);
@@ -204,11 +264,17 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Adds a new atomic assignment with the given name to the given compound category
+     * @param categoryName
+     * @param assignmentName
+     * @return a boolean describing whether the assignment was successfully added
+     */
     public boolean addAtomicAssignmentToCompoundCategory(String categoryName, String assignmentName){
         return addAtomicAssignmentToCompoundCategory(categoryName, new AtomicAssignment(assignmentName));
     }
 
-    public boolean addAtomicAssignmentToCompoundCategory(String categoryName, AtomicAssignment atomicAssignment){
+    private boolean addAtomicAssignmentToCompoundCategory(String categoryName, AtomicAssignment atomicAssignment){
         for (CompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
             if (compCat.containsCompound(categoryName) &&
                     !compoundAsssignmentCategories.get(categoryName).contains(atomicAssignment.getName())) {
@@ -219,6 +285,12 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Adds a compound assignment to the given compound category
+     * @param categoryName
+     * @param compoundAssignment
+     * @return a boolean describing whether the assignment was successfully added
+     */
     public boolean addCompoundAssignmentToCompoundCategory(String categoryName, CompoundAssignment compoundAssignment){
         for (CompoundAssignment compCat: this.compoundAsssignmentCategories.values()) {
             if (compCat.containsCompound(categoryName) &&
@@ -230,6 +302,12 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Removes an assignment from a compound category
+     * @param categoryName
+     * @param assignmentName
+     * @return a boolean describing whether the assignment was successfully removed
+     */
     public boolean removeAssignmentFromCompoundCategory(String categoryName, String assignmentName){
         if (compoundAsssignmentCategories.containsKey(categoryName) &&
                 compoundAsssignmentCategories.get(categoryName).contains(assignmentName)){
@@ -240,6 +318,12 @@ public class ModelCourse implements Cloneable {
         }
     }
 
+    /**
+     * Sets the score of the given assignment to the given value
+     * @param assignmentName
+     * @param score
+     * @return a boolean describing whether the score was successfully set
+     */
     public boolean setAssignmentScore(String assignmentName, double score) {
         if (atomicAsssignmentCategories.containsKey(assignmentName)) {
             AtomicAssignment assignment = atomicAsssignmentCategories.get(assignmentName);
@@ -255,6 +339,12 @@ public class ModelCourse implements Cloneable {
         }
     }
 
+    /**
+     * Sets the value of the given assignment to the given number
+     * @param atomicAssignmentName
+     * @param pointsPossible
+     * @return a boolean describing whether the value was successfully set
+     */
     public boolean setAtomicAssignmentPointsPossible(String atomicAssignmentName, double pointsPossible){
         if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
             AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
@@ -272,6 +362,11 @@ public class ModelCourse implements Cloneable {
         }
     }
 
+    /**
+     * Marks an atomic assignment as having been completed. Incomplete assignments are ignored when calculating grades.
+     * @param atomicAssignmentName
+     * @return a boolean describing whether the assignment was successfully marked as completed
+     */
     public boolean markAtomicAssignmentComplete(String atomicAssignmentName){
         if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
             AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
@@ -289,6 +384,11 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * Marks an atomic assignment as not having been completed. Incomplete assignments are ignored when calculating grades.
+     * @param atomicAssignmentName
+     * @return a boolean describing whether the assignment was successfully marked as completed
+     */
     public boolean markAtomicAssignmentIncomplete(String atomicAssignmentName){
         if (atomicAsssignmentCategories.containsKey(atomicAssignmentName)) {
             AtomicAssignment assignment = atomicAsssignmentCategories.get(atomicAssignmentName);
@@ -306,10 +406,18 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
+    /**
+     * @param assignmentName
+     * @return whether or not the course contains any assignment with the given name
+     */
     public boolean contains(String assignmentName){
         return (this.containsCompound(assignmentName)||this.containsAtomic(assignmentName));
     }
 
+    /**
+     * @param assignmentName
+     * @return whether or not the course contains an atomic assignment with the given name
+     */
     public boolean containsAtomic(String assignmentName){
         for (CompoundAssignment compoundCat : compoundAsssignmentCategories.values()) {
             if (compoundCat.containsAtomic(assignmentName)){
@@ -325,6 +433,11 @@ public class ModelCourse implements Cloneable {
         }
         return false;
     }
+
+    /**
+     * @param assignmentName
+     * @return whether or not the course contains a compound assignment with the given name
+     */
     public boolean containsCompound(String assignmentName){
         for (CompoundAssignment assignmentCategory : compoundAsssignmentCategories.values()) {
             if (assignmentCategory.containsCompound(assignmentName)){
@@ -334,7 +447,12 @@ public class ModelCourse implements Cloneable {
         return false;
     }
 
-
-
-
+    // Computes the total weight of all the assignment categories
+    private void computeTotalWeight(){
+        int runningTotal = 0;
+        for (Integer weight : assignmentCategoryWeights.values()) {
+            runningTotal += weight;
+        }
+        this.totalWeight = runningTotal;
+    }
 }

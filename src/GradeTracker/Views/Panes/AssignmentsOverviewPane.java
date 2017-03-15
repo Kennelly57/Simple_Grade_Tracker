@@ -2,9 +2,9 @@ package GradeTracker.Views.Panes;
 
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
-import GradeTracker.Samples.CompoundAssignment;
+import GradeTracker.AssignmentClasses.CompoundAssignment;
 import GradeTracker.Views.MainDisplay;
-import GradeTracker.Samples.AtomicAssignment;
+import GradeTracker.AssignmentClasses.AtomicAssignment;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;

@@ -1,6 +1,4 @@
-package GradeTracker.Samples;
-
-import GradeTracker.Assignment;
+package GradeTracker.AssignmentClasses;
 
 import java.util.HashMap;
 import java.util.Map;
