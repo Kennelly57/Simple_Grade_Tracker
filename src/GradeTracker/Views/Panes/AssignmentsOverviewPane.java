@@ -118,9 +118,6 @@ public class AssignmentsOverviewPane {
 
             // Fill PERCENT SCORE Column
             Label tempPercentScore = new Label(this.formatDouble(100*atomAss.getPercentageScore()));
-//            System.out.println(decimalFormatter.format(atomAss.getPercentageScore()));
-//            System.out.println(atomAss.getPercentageScore());
-
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
             dataGrid.add(tempName, 1, i + 1);

@@ -31,8 +31,11 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 /**
+ * @author Jack Kennelly
+ * @author Dustin Michels
+ * @author David Goodell
  * MainDisplay.java
- * Generates all necessary views.
+ * The main class of the GradeTracker program
  */
 public class MainDisplay extends Application implements GTObserver {
     public static Stage univPrimaryStage;
@@ -181,7 +184,7 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     // ------------------------------------------------------------------------
-    // Auxulary functions: used by makeCourses(), makeCategories, makeAssignments()
+    // Auxiliary functions: used by makeCourses(), makeCategories, makeAssignments()
     // to format and generate content
     // ------------------------------------------------------------------------
 
@@ -353,20 +356,6 @@ public class MainDisplay extends Application implements GTObserver {
         dropShadow = new DropShadow();
         dropShadow.setRadius(20.0);
     }
-
-//    public void printDiagnostic() {
-//        System.out.println("Diagnostic");
-//        System.out.flush();
-//    }
-
-//    public int getNumberOfCourses() {
-//        this.updateCourses();
-//        int counter = 0;
-//        for (ModelCourse course : latestCourses.values()) {
-//            counter++;
-//        }
-//        return counter;
-//    }
 
     public void notifyOfChange() {
         this.upToDate = false;
@@ -555,6 +544,9 @@ public class MainDisplay extends Application implements GTObserver {
         return btnsAndTitle;
     }
 
+    // This function was used during testing to generate a set of courses.
+    // We left it here in case the graders want to use it to pre-generate a set of courses
+    // instead of creating all of their courses manually.
     private void makeDemoAssignmentList() {
 
         int[] gScale = {96, 93, 90, 87, 83, 80, 77, 73, 70, 67, 63, 60};
