@@ -400,7 +400,11 @@ public class MainDisplay extends Application implements GTObserver {
                     boolean isBtnCol = columnCounter % numberOfColumns == 2;
                     if (isBtnCol) {
 
-                        styleBtnCol((Label) n, control);
+                        // todo quick fix
+                        if (n instanceof Label) {
+
+                            styleBtnCol((Label) n, control);
+                        }
 
                     }
                 }
