@@ -18,13 +18,18 @@ public class HelpWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        primaryStage.setTitle("Grade Tracker Help");
+
         BorderPane borderPane = new BorderPane();
         borderPane.setId("HelpMsg");
         String introMsg = "\nWelcome to our program!\n\n";
+        String helpMsg = "Click on the plus icons to add new courses or new assingments for those courses.\n\n" +
+                "Use the save button to save your couses to the hard drive before exiting the program \n\n" +
+                "Blue text denotes a clickable button.";
         Text introText = new Text(introMsg);
         Font font = new Font("Tahoma", 20);
         introText.setFont(font);
-        String helpMsg = "Click on the plus icons to add new courses or new assingments for those courses.";
+
         Label helpText = new Label(helpMsg);
         helpText.setTextAlignment(TextAlignment.LEFT);
         helpText.setWrapText(true);
