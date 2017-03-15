@@ -17,7 +17,7 @@ COURSE MENU:
     ADDING A NEW COURSE CATEGORY / ASSIGNMENT: Click the '+' button in the bottom right
     DELETING COURSE CATEGORY / ASSIGNMENT: Once a course has been added, click the x button next to the course name.
     EDITING GRADES: Click the grades, enter a number, then press enter. If the grades are not editable, then it is
-    a category. To edit these grades, click the category name and enter the subfields.
+    a compound category. To edit these grades, click the category name and enter the subfields.
 
 ASSIGNMENT MENU:
     ACCESSING ASSIGNMENT INFORMATION: Click the name of the categoryID, which is shadowed when the user hovers over it.
