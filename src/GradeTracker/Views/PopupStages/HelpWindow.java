@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
@@ -22,12 +23,13 @@ public class HelpWindow extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setId("HelpMsg");
         String introMsg = "\nWelcome to our program!\n\n";
-        String helpMsg = "Click on the plus icons to add new courses or new assingments for those courses.";
         Text introText = new Text(introMsg);
+        Font font = new Font("Tahoma", 20);
+        introText.setFont(font);
+        String helpMsg = "Click on the plus icons to add new courses or new assingments for those courses.";
         Label helpText = new Label(helpMsg);
         helpText.setTextAlignment(TextAlignment.LEFT);
         helpText.setWrapText(true);
-
         introText.setId("HelpMsg");
         introText.setTextAlignment(TextAlignment.CENTER);
 

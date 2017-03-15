@@ -12,7 +12,6 @@ import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import GradeTracker.Views.PopupStages.HelpWindow;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -98,7 +97,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer);
         HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this, this.model).getRoot();
-        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        HBox titleBar = generateTitleBar(screenTitle);
         titleBar.setId("Titlebar");
 
         // Format GridPane
@@ -126,7 +125,7 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
-        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        HBox titleBar = generateTitleBar(screenTitle);
         titleBar.setId("TitleBar");
 
         Text gradeMsg = getGradeMessage(course);
@@ -161,7 +160,7 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
-        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        HBox titleBar = generateTitleBar(screenTitle);
         titleBar.setId("TitleBar");
 
         Text gradeMsg = getGradeMessage(course);
@@ -515,8 +514,10 @@ public class MainDisplay extends Application implements GTObserver {
         });
     }
 
-    private HBox generateTitleAndSaveBtn(Text screenTitle) {
-        HBox saveButtonAndScreenTitle = new HBox();
+    private HBox generateTitleBar(Text screenTitle) {
+        HBox btnsAndTitle = new HBox();
+
+        // Save Button
         Button save = new Button();
         this.addDropShadow(save);
         save.setPadding(new Insets(5, 5, 5, 5));
@@ -526,6 +527,7 @@ public class MainDisplay extends Application implements GTObserver {
             model.saveCouses();
         });
 
+        // Help Button
         Button help = new Button();
         this.addDropShadow(help);
         help.setPadding(new Insets(5, 5, 5, 5));
@@ -545,12 +547,12 @@ public class MainDisplay extends Application implements GTObserver {
         VBox titleBar = new VBox(titleBtns, title);
         titleBar.setId("TitleAndSave");
 
-        saveButtonAndScreenTitle.getChildren().addAll(titleBar);
+        btnsAndTitle.getChildren().addAll(titleBar);
 
-        saveButtonAndScreenTitle.setPadding(new Insets(10,10,10,10));
-        saveButtonAndScreenTitle.setSpacing(10);
+        btnsAndTitle.setPadding(new Insets(10,10,10,10));
+        btnsAndTitle.setSpacing(10);
 
-        return saveButtonAndScreenTitle;
+        return btnsAndTitle;
     }
 
     private void makeDemoAssignmentList() {
