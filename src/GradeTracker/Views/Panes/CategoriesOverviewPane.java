@@ -8,6 +8,7 @@ import GradeTracker.Samples.AtomicAssignment;
 import GradeTracker.Samples.CompoundAssignment;
 import GradeTracker.Views.MainDisplay;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
@@ -48,6 +49,7 @@ public class CategoriesOverviewPane {
     // --------------------------------------------------
 
     private GridPane generateGridPane() {
+        DecimalFormat decimalFormatter = new DecimalFormat("#0.##");
 
         Map<String, AtomicAssignment> atomicAsssignmentCategories = this.course.getAtomicAssignmentCategories();
         Map<String, CompoundAssignment> compoundAsssignmentCategories = this.course.getCompoundAssignmentCategories();
@@ -99,20 +101,20 @@ public class CategoriesOverviewPane {
             });
 
             // Fill POINTS POSSIBLE Column
-            Label tempPointsPos = new Label(Double.toString(compAss.getPointsPossible()));
+            Label tempPointsPos = new Label(decimalFormatter.format(compAss.getPointsPossible()));
 
             // Fill POINTS EARNED Column
-            Label tempPointsScore = new Label(Double.toString(compAss.getPointsScore()));
+            Label tempPointsScore = new Label(decimalFormatter.format(compAss.getPointsScore()));
 
             // Fill PERCENT SCORE Column
-            Label tempPercentScore = new Label(Double.toString(compAss.getPercentageScore()));
+            Label tempPercentScore = new Label(decimalFormatter.format(100*compAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(Double.toString(weightMap.get(compAss.getName())));
+            Label tempWeight = new Label(decimalFormatter.format(weightMap.get(compAss.getName())));
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
-            Label tempWeightedScore = new Label(Double.toString(weightedScore));
+            Label tempWeightedScore = new Label(decimalFormatter.format(weightedScore));
 
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
@@ -140,7 +142,7 @@ public class CategoriesOverviewPane {
 
             // Fill POINTS POSSIBLE Column; pressing "enter" sends new value to model
             TextField pointsPos = new TextField();
-            String currPointsPos = Double.toString(atomAss.getPointsPossible());
+            String currPointsPos = decimalFormatter.format(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
 
             pointsPos.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -157,7 +159,7 @@ public class CategoriesOverviewPane {
 
             // Fill POINTS EARNED Column; pressing "enter" sends new value to model
             TextField pointsEarned = new TextField();
-            String currPointsScore = Double.toString(atomAss.getPointsScore());
+            String currPointsScore = decimalFormatter.format(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
 
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -173,14 +175,14 @@ public class CategoriesOverviewPane {
             });
 
             // Fill PERCENT SCORE Column
-            Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
+            Label tempPercentScore = new Label(decimalFormatter.format(100*atomAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(Double.toString(weightMap.get(atomAss.getName())));
+            Label tempWeight = new Label(decimalFormatter.format(weightMap.get(atomAss.getName())));
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
-            Label tempWeightedScore = new Label(Double.toString(weightedScore));
+            Label tempWeightedScore = new Label(decimalFormatter.format(weightedScore));
 
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
