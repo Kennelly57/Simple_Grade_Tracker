@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.ModelComponents;
 
 import java.io.*;
 import java.util.ArrayList;

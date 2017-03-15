@@ -1,6 +1,6 @@
 package GradeTracker.Views.Panes.PopupPanes;
 
-import GradeTracker.GTModel;
+import GradeTracker.ModelComponents.GTModel;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import com.sun.istack.internal.NotNull;
 import javafx.geometry.Insets;
@@ -9,13 +9,8 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-
-import java.util.Arrays;
-import java.util.List;
 
 public class CreateAssignmentPane {
 

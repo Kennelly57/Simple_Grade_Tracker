@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.ModelComponents;
 
 /**
  * Created by Kilian on 3/8/2017.

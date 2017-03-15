@@ -1,6 +1,6 @@
 package GradeTracker.Views.Panes.PopupPanes;
 
-import GradeTracker.ModelCourse;
+import GradeTracker.ModelComponents.ModelCourse;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

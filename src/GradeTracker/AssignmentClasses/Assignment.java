@@ -7,8 +7,6 @@ public interface Assignment extends Cloneable {
 
     String getName();
 
-    String getGrade();
-
     double getPointsPossible();
 
     double getPointsScore();

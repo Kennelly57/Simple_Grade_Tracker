@@ -1,6 +1,6 @@
 //package GradeTracker.Views;
 //
-//import GradeTracker.GTModel;
+//import GradeTracker.ModelComponents.GTModel;
 //import javafx.scene.control.Menu;
 //import javafx.scene.control.MenuBar;
 //

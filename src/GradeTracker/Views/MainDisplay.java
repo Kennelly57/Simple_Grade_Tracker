@@ -1,8 +1,8 @@
 package GradeTracker.Views;
 
-import GradeTracker.GTModel;
-import GradeTracker.GTObserver;
-import GradeTracker.ModelCourse;
+import GradeTracker.ModelComponents.GTModel;
+import GradeTracker.ModelComponents.GTObserver;
+import GradeTracker.ModelComponents.ModelCourse;
 import GradeTracker.AssignmentClasses.AtomicAssignment;
 import GradeTracker.Views.Panes.AssignmentsOverviewPane;
 import GradeTracker.AssignmentClasses.CompoundAssignment;

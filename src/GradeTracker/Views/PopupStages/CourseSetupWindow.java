@@ -1,7 +1,7 @@
 package GradeTracker.Views.PopupStages;
 
-import GradeTracker.GTModel;
-import GradeTracker.ModelCourse;
+import GradeTracker.ModelComponents.GTModel;
+import GradeTracker.ModelComponents.ModelCourse;
 import GradeTracker.Views.Panes.PopupPanes.GradePane;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.util.LinkedList;
 
 public class CourseSetupWindow extends Application {

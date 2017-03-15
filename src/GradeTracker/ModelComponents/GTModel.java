@@ -1,12 +1,10 @@
-package GradeTracker;
+package GradeTracker.ModelComponents;
 
 import GradeTracker.AssignmentClasses.AtomicAssignment;
 import GradeTracker.AssignmentClasses.CompoundAssignment;
 
 import java.io.FileNotFoundException;
 import java.util.*;
-
-import static GradeTracker.ArrayListSaveAndLoad.returnCourseList;
 
 /**
  * Created by Kilian on 3/7/2017.
@@ -362,13 +360,11 @@ public class GTModel {
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
     public void loadCourses() throws FileNotFoundException {
-        ArrayList<String> data = returnCourseList();
+        ArrayList<String> data = ArrayListSaveAndLoad.returnCourseList();
         if (data == null){
             throw new FileNotFoundException();
         }
 
-        System.out.print("READING FROM: ");
-        System.out.println(data);
         String subCategoryName = null;
         String courseName = null;
         String gradeScale = null;

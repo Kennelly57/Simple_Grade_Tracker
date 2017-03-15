@@ -1,7 +1,7 @@
 package GradeTracker.Views.PopupStages;
 
 
-import GradeTracker.GTModel;
+import GradeTracker.ModelComponents.GTModel;
 import GradeTracker.Views.Panes.PopupPanes.CreateAssignmentPane;
 import GradeTracker.Views.Panes.PopupPanes.CreateSubAssignmentPane;
 import javafx.application.Application;

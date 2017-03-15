@@ -1,7 +1,7 @@
 package GradeTracker.Views.Panes;
 
-import GradeTracker.GTModel;
-import GradeTracker.ModelCourse;
+import GradeTracker.ModelComponents.GTModel;
+import GradeTracker.ModelComponents.ModelCourse;
 import GradeTracker.Views.MainDisplay;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import javafx.event.EventHandler;

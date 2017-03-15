@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.ModelComponents;
 
 import GradeTracker.AssignmentClasses.Assignment;
 import GradeTracker.AssignmentClasses.AtomicAssignment;

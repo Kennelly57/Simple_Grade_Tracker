@@ -1,6 +1,6 @@
 package GradeTracker.Controller;
 
-import GradeTracker.GTModel;
+import GradeTracker.ModelComponents.GTModel;
 import GradeTracker.Views.MainDisplay;
 
 /**
