@@ -56,11 +56,21 @@
 
 #Save {
     -fx-alignment: top-left;
+    -fx-background-color: aliceblue;
+    -fx-border-color: cadetblue;
+    -fx-text-fill: blue;
+    -fx-border-width: 3px;
     -fx-background-radius: 10%;
-    -fx-padding: 5%;
-    -fx-spacing: 550pt;
+    -fx-font-family: Tahoma;
+    -fx-padding: 7px;
+    -fx-spacing: 500pt;
 }
 
 #Title {
     -fx-alignment: center;
+    -fx-font-family: Tahoma;
+}
+
+#TitleAndSave{
+    -fx-padding: 10px;
 }

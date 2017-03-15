@@ -95,7 +95,7 @@ public class MainDisplay extends Application implements GTObserver {
         HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this, this.model).getRoot();
         HBox titleBar = generateTitleAndSaveBtn(screenTitle);
-        titleBar.setId("Save");
+        titleBar.setId("Titlebar");
 
         // Format GridPane
         double numberOfColumns = 4.0;
@@ -123,7 +123,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
         HBox titleBar = generateTitleAndSaveBtn(screenTitle);
-        titleBar.setId("Save");
+        titleBar.setId("TitleBar");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -158,7 +158,7 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
         HBox titleBar = generateTitleAndSaveBtn(screenTitle);
-        titleBar.setId("Save");
+        titleBar.setId("TitleBar");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -505,6 +505,8 @@ public class MainDisplay extends Application implements GTObserver {
     private HBox generateTitleAndSaveBtn(Text screenTitle) {
         HBox saveButtonAndScreenTitle = new HBox();
         Button save = new Button();
+        this.addDropShadow(save);
+        save.setPadding(new Insets(5, 5, 5, 5));
         save.setId("Save");
         save.setText("Save");
         save.setOnAction(ActionEvent -> {
@@ -514,6 +516,7 @@ public class MainDisplay extends Application implements GTObserver {
         HBox titleBar = new HBox(screenTitle);
         titleBar.setId("Title");
         VBox titleAndSave = new VBox(save, titleBar);
+        titleAndSave.setId("TitleAndSave");
 
         saveButtonAndScreenTitle.getChildren().addAll(titleAndSave);
 
