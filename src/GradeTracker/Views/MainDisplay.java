@@ -115,7 +115,7 @@ public class MainDisplay extends Application implements GTObserver {
     public void showCategories(String courseID) {
         this.layer = 1;
         this.updateCourses();
-        ModelCourse course = this.latestCourses.get(courseID); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        ModelCourse course = this.latestCourses.get(courseID);
         this.courseShowing = course;
 
         // Borderpane "root" will hold other panes
@@ -148,7 +148,7 @@ public class MainDisplay extends Application implements GTObserver {
     public void showAssignments(String courseID, String categoryName) {
         this.layer = 2;
         this.updateCourses();
-        ModelCourse course = this.latestCourses.get(courseID); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        ModelCourse course = this.latestCourses.get(courseID);
         CompoundAssignment category = course.getCompoundAssignmentCategories().get(categoryName);
         this.courseShowing = course;
         this.categoryShowing = category;

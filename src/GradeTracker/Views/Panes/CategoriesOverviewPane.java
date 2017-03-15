@@ -1,7 +1,5 @@
 package GradeTracker.Views.Panes;
 
-
-import GradeTracker.Assignment;
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Samples.AtomicAssignment;
@@ -11,9 +9,6 @@ import GradeTracker.Views.MainDisplay;
 import java.text.DecimalFormat;
 import java.util.Map;
 
-//import com.sun.tools.internal.ws.processor.model.Model;
-import GradeTracker.Views.PopupStages.CourseSetupWindow;
-import com.sun.nio.sctp.AssociationChangeNotification;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 
@@ -25,8 +20,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 public class CategoriesOverviewPane {
 

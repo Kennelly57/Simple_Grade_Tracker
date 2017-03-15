@@ -1,6 +1,5 @@
 package GradeTracker.Views.Panes;
 
-
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Samples.CompoundAssignment;
@@ -20,8 +19,6 @@ import javafx.scene.layout.HBox;
 
 import java.text.DecimalFormat;
 import java.util.Map;
-
-//import com.sun.tools.internal.ws.processor.model.Model;
 
 public class AssignmentsOverviewPane {
 
