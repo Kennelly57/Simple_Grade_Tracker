@@ -1,4 +1,4 @@
-package GradeTracker;
+package GradeTracker.AssignmentClasses;
 
 /**
  * Created by robertsk2 on 3/4/17.

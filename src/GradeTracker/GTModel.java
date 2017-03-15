@@ -1,7 +1,7 @@
 package GradeTracker;
 
-import GradeTracker.Samples.AtomicAssignment;
-import GradeTracker.Samples.CompoundAssignment;
+import GradeTracker.AssignmentClasses.AtomicAssignment;
+import GradeTracker.AssignmentClasses.CompoundAssignment;
 
 import java.io.FileNotFoundException;
 import java.util.*;

@@ -1,8 +1,8 @@
 package GradeTracker;
 
-import GradeTracker.Samples.AtomicAssignment;
-import GradeTracker.Samples.CompoundAssignment;
-import com.sun.javafx.sg.prism.NGShape;
+import GradeTracker.AssignmentClasses.Assignment;
+import GradeTracker.AssignmentClasses.AtomicAssignment;
+import GradeTracker.AssignmentClasses.CompoundAssignment;
 
 import java.util.*;
 

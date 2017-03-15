@@ -1,12 +1,7 @@
 package GradeTracker;
 
-import GradeTracker.Samples.AtomicAssignment;
-import GradeTracker.Samples.CompoundAssignment;
-
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Jack on 3/12/2017.

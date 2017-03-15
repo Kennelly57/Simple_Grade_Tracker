@@ -2,8 +2,8 @@ package GradeTracker.Views.Panes;
 
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
-import GradeTracker.Samples.AtomicAssignment;
-import GradeTracker.Samples.CompoundAssignment;
+import GradeTracker.AssignmentClasses.AtomicAssignment;
+import GradeTracker.AssignmentClasses.CompoundAssignment;
 import GradeTracker.Views.MainDisplay;
 
 import java.text.DecimalFormat;
