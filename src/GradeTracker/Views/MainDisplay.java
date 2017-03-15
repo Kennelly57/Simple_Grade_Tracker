@@ -112,10 +112,10 @@ public class MainDisplay extends Application implements GTObserver {
         createScene(root);
     }
 
-    public void showCategories(ModelCourse course) {
+    public void showCategories(String courseID) {
         this.layer = 1;
         this.updateCourses();
-        course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        ModelCourse course = this.latestCourses.get(courseID); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
         this.courseShowing = course;
 
         // Borderpane "root" will hold other panes
@@ -145,11 +145,11 @@ public class MainDisplay extends Application implements GTObserver {
         createScene(root);
     }
 
-    public void showAssignments(ModelCourse course, CompoundAssignment category) {
+    public void showAssignments(String courseID, String categoryName) {
         this.layer = 2;
         this.updateCourses();
-        course = this.latestCourses.get(course.getID()); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
-        category = course.getCompoundAssignmentCategories().get(category.getName());
+        ModelCourse course = this.latestCourses.get(courseID); //todo THIS IS JUST A HACKED-TOGETHER THING. REPLACE IT WITH SOMETHING BETTER.
+        CompoundAssignment category = course.getCompoundAssignmentCategories().get(categoryName);
         this.courseShowing = course;
         this.categoryShowing = category;
 
@@ -280,7 +280,7 @@ public class MainDisplay extends Application implements GTObserver {
                 showCourses();
             }
             if (layer == 2) {
-                showCategories(course[0]);
+                showCategories(course[0].getID());
             }
         });
         addDropShadow(btnBack);
@@ -371,9 +371,9 @@ public class MainDisplay extends Application implements GTObserver {
             if (this.layer == 0) {
                 this.showCourses();
             } else if (this.layer == 1) {
-                this.showCategories(this.courseShowing);
+                this.showCategories(this.courseShowing.getID());
             } else if (this.layer == 2) {
-                this.showAssignments(this.courseShowing, this.categoryShowing);
+                this.showAssignments(this.courseShowing.getID(), this.categoryShowing.getName());
             }
         }
     }

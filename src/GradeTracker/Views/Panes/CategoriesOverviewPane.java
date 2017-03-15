@@ -97,7 +97,7 @@ public class CategoriesOverviewPane {
             // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
             Label tempName = new Label(compAss.getName());
             tempName.setOnMouseClicked((MouseEvent) -> {
-                this.mainDisplay.showAssignments(course, compAss);
+                this.mainDisplay.showAssignments(course.getID(), compAss.getName());
             });
 
             // Fill POINTS POSSIBLE Column
