@@ -156,7 +156,6 @@ public class GTModel {
         if (this.courseMap.containsKey(courseID)){
             boolean sucessBool = courseMap.get(courseID).removeAssignmentFromCompoundCategory(categoryName, assignmentName);
             this.updateCourse(courseID);
-            System.out.println(sucessBool);
             return sucessBool;
         }
         return false;
