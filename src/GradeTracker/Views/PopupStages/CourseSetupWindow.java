@@ -18,6 +18,11 @@ import javafx.stage.Stage;
 
 import java.util.LinkedList;
 
+/**
+ * CourseSetupWindow
+ *
+ * Creates popup dialogue when "add" or "edit" course is pressed.
+ */
 public class CourseSetupWindow extends Application {
     private Scene crsIDandNameScene;
     private Scene gradeDistributionScene;
@@ -33,6 +38,7 @@ public class CourseSetupWindow extends Application {
     public void start(final Stage primaryStage, GTModel theModel, ModelCourse...courses) {
         this.model = theModel;
 
+        // If we are passed a course object...
         if (courses.length >= 1) {
             editingExistingCourse = true;
             this.course = courses[0];

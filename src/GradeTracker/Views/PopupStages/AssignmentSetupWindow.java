@@ -9,6 +9,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+/**
+ * AssignmentSetupWindow
+ *
+ * Create popup dialogue when "add" assignment is pressed.
+ */
 public class AssignmentSetupWindow extends Application {
 
     public static Stage stage;

@@ -15,6 +15,12 @@ import javafx.stage.Stage;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * CreateSubAssignmentPane
+ *
+ * Called by SubAssignmentSetupWindow
+ * Provides pane for that popup dialogue.
+ */
 public class CreateSubAssignmentPane {
 
     private BorderPane root;

@@ -12,6 +12,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * CreateAssignmentPane
+ *
+ * Called by AssignmentSetupWindow, creates pane for
+ * that popup dialogue.
+ */
 public class CreateAssignmentPane {
 
     private BorderPane root;
@@ -54,8 +60,6 @@ public class CreateAssignmentPane {
         Label categoryNameLabel = new Label("Category Name:");
         Label weightLabel = new Label("Weight:");
         Label subItemsLabel = new Label("Contains Sub-assignments:");
-
-        //VBox relevantFieldsVBox = generateRelevantFieldsVBox();
 
         dataGrid.add(categoryNameLabel, 0, 0);
         dataGrid.add(categoryNameTF, 1, 0);

@@ -12,6 +12,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * GradePane
+ *
+ * Called by CourseSetupWindow, creates a pane object.
+ * It provides the second screen in the courseSetup popup dialogue,
+ * where the user is asked to enter grading scheme for the course.
+ */
 public class GradePane {
 
     private VBox root;

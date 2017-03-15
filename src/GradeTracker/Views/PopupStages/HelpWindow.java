@@ -13,6 +13,10 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+/**
+ * HelpWindow
+ * Creates popup when "help" button is pressed.
+ */
 public class HelpWindow extends Application {
 
 
