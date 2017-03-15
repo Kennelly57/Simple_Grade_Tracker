@@ -77,6 +77,8 @@ public class MainDisplay extends Application implements GTObserver {
         showCourses();
     }
 
+
+
     // ------------------------------------------------------------------------
     // Core functions: makeCourses(), makeCategories, makeAssignments()
     // Each creates a scene and sets the stage to that scene
@@ -94,8 +96,8 @@ public class MainDisplay extends Application implements GTObserver {
         Button btnAdd = generateBtnAdd(layer);
         HBox controlBtns = generateControlBtnPane_NoBackBtn(btnAdd);
         GridPane dataPane = new CoursesOverviewPane(this.latestCourses, this, this.model).getRoot();
-        HBox saveButton = generateSaveButton(screenTitle);
-        saveButton.setId("Save");
+        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        titleBar.setId("Save");
 
         // Format GridPane
         double numberOfColumns = 4.0;
@@ -103,7 +105,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, dataPane, controlBtns, saveButton);
+        addPanesToRoot(root, dataPane, controlBtns, titleBar);
 
         // Set stage to scene
         createScene(root);
@@ -122,8 +124,8 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID());
         Button btnBack = generateBtnBack(layer);
-        HBox saveButton = generateSaveButton(screenTitle);
-        saveButton.setId("Save");
+        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        titleBar.setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -136,7 +138,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, dataPane, controlBtns, saveButton);
+        addPanesToRoot(root, dataPane, controlBtns, titleBar);
 
         // Set stage to scene
         createScene(root);
@@ -157,8 +159,8 @@ public class MainDisplay extends Application implements GTObserver {
         Text screenTitle = generateSetupTitle(layer, course.getName(), category.getName());
         Button btnAdd = generateBtnAdd(layer, course.getID(), category.getName());
         Button btnBack = generateBtnBack(layer, course);
-        HBox saveButton = generateSaveButton(screenTitle);
-        saveButton.setId("Save");
+        HBox titleBar = generateTitleAndSaveBtn(screenTitle);
+        titleBar.setId("Save");
 
         Text gradeMsg = getGradeMessage(course);
 
@@ -171,7 +173,7 @@ public class MainDisplay extends Application implements GTObserver {
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
-        addPanesToRoot(root, dataPane, controlBtns, saveButton);
+        addPanesToRoot(root, dataPane, controlBtns, titleBar);
 
         // Set stage to scene
         createScene(root);
@@ -317,6 +319,7 @@ public class MainDisplay extends Application implements GTObserver {
      * Adds title, grid full of content, and control buttons to the root BorderPane for a scene
      */
     private void addPanesToRoot(BorderPane root, GridPane dataPane, HBox controlBtns, HBox saveButtonAndTitle) {
+
         root.setTop(saveButtonAndTitle);
         root.setAlignment(saveButtonAndTitle, Pos.CENTER);
 
@@ -501,7 +504,7 @@ public class MainDisplay extends Application implements GTObserver {
         });
     }
 
-    private HBox generateSaveButton(Text screenTitle) {
+    private HBox generateTitleAndSaveBtn(Text screenTitle) {
         HBox saveButtonAndScreenTitle = new HBox();
         Button save = new Button();
         save.setId("Save");
@@ -510,7 +513,12 @@ public class MainDisplay extends Application implements GTObserver {
             ArrayList<String> saveData = OfflineLists.dataGenerator(this.model.getLatestCourses());
             OfflineLists.storeCourseList(saveData);
         });
-        saveButtonAndScreenTitle.getChildren().addAll(save, screenTitle);
+
+        HBox titleBar = new HBox(screenTitle);
+        titleBar.setId("Title");
+        VBox titleAndSave = new VBox(save, titleBar);
+
+        saveButtonAndScreenTitle.getChildren().addAll(titleAndSave);
 
         return saveButtonAndScreenTitle;
     }

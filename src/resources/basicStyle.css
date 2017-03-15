@@ -60,3 +60,7 @@
     -fx-padding: 5%;
     -fx-spacing: 550pt;
 }
+
+#Title {
+    -fx-alignment: center;
+}
