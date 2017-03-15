@@ -1,11 +1,8 @@
 package GradeTracker.Views;
 
 import GradeTracker.GTModel;
-import GradeTracker.OfflineLists;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-
-import java.util.ArrayList;
 
 // todo No worries if we delete this, just one attempt at fixing the title (which failed...)
 public class DropdownMenu {
@@ -32,8 +29,7 @@ public class DropdownMenu {
         menuSave.setId("Save");
         menuSave.setText("Save");
         menuSave.setOnAction(ActionEvent -> {
-            ArrayList<String> saveData = OfflineLists.dataGenerator(model.getLatestCourses());
-            OfflineLists.storeCourseList(saveData);
+            model.saveCouses();
         });
     }
 

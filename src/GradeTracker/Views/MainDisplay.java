@@ -3,7 +3,6 @@ package GradeTracker.Views;
 import GradeTracker.GTModel;
 import GradeTracker.GTObserver;
 import GradeTracker.ModelCourse;
-import GradeTracker.OfflineLists;
 import GradeTracker.Samples.AtomicAssignment;
 import GradeTracker.Views.Panes.AssignmentsOverviewPane;
 import GradeTracker.Samples.CompoundAssignment;
@@ -28,7 +27,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**
@@ -59,12 +57,12 @@ public class MainDisplay extends Application implements GTObserver {
         model = new GTModel();
         model.registerObserver(this);
         try {
-            model.dataSetter();
+            model.loadCourses();
         } catch (FileNotFoundException e) {
             System.out.println("No file found, generating a new one.");
             System.out.flush();
         }
-        //makeDemoAssignmentList();
+        makeDemoAssignmentList();
 
         // get screen size & set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -510,8 +508,7 @@ public class MainDisplay extends Application implements GTObserver {
         save.setId("Save");
         save.setText("Save");
         save.setOnAction(ActionEvent -> {
-            ArrayList<String> saveData = OfflineLists.dataGenerator(this.model.getLatestCourses());
-            OfflineLists.storeCourseList(saveData);
+            model.saveCouses();
         });
 
         HBox titleBar = new HBox(screenTitle);

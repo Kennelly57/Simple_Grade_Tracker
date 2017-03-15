@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 //import com.sun.tools.internal.ws.processor.model.Model;
@@ -49,6 +50,7 @@ public class AssignmentsOverviewPane {
     // --------------------------------------------------
 
     private GridPane generateGridPane() {
+        DecimalFormat decimalFormatter = new DecimalFormat("#0.##");
 
         Map<String, AtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
 
@@ -88,7 +90,7 @@ public class AssignmentsOverviewPane {
 
             // Fill POINTS POSSIBLE Column; pressing "enter" sends new value to model
             TextField pointsPos = new TextField();
-            String currPointsPos = Double.toString(atomAss.getPointsPossible());
+            String currPointsPos = this.formatDouble(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
 
             pointsPos.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -105,7 +107,7 @@ public class AssignmentsOverviewPane {
 
             // Fill POINTS EARNED Column; pressing "enter" sends new value to model
             TextField pointsEarned = new TextField();
-            String currPointsScore = Double.toString(atomAss.getPointsScore());
+            String currPointsScore = this.formatDouble(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -120,7 +122,9 @@ public class AssignmentsOverviewPane {
             });
 
             // Fill PERCENT SCORE Column
-            Label tempPercentScore = new Label(Double.toString(100*atomAss.getPercentageScore()));
+            Label tempPercentScore = new Label(this.formatDouble(100*atomAss.getPercentageScore()));
+//            System.out.println(decimalFormatter.format(atomAss.getPercentageScore()));
+//            System.out.println(atomAss.getPercentageScore());
 
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
@@ -133,6 +137,15 @@ public class AssignmentsOverviewPane {
         }
 
         return dataGrid;
+    }
+
+    private String formatDouble(double number){
+        if (Double.isNaN(number)){
+            return "NaN";
+        }else {
+            DecimalFormat decimalFormatter = new DecimalFormat("#0.##");
+            return decimalFormatter.format(number);
+        }
     }
 
     // --------------------------------------------------

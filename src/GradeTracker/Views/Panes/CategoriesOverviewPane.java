@@ -101,20 +101,20 @@ public class CategoriesOverviewPane {
             });
 
             // Fill POINTS POSSIBLE Column
-            Label tempPointsPos = new Label(decimalFormatter.format(compAss.getPointsPossible()));
+            Label tempPointsPos = new Label(this.formatDouble(compAss.getPointsPossible()));
 
             // Fill POINTS EARNED Column
-            Label tempPointsScore = new Label(decimalFormatter.format(compAss.getPointsScore()));
+            Label tempPointsScore = new Label(this.formatDouble(compAss.getPointsScore()));
 
             // Fill PERCENT SCORE Column
-            Label tempPercentScore = new Label(decimalFormatter.format(100*compAss.getPercentageScore()));
+            Label tempPercentScore = new Label(this.formatDouble(100*compAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(decimalFormatter.format(weightMap.get(compAss.getName())));
+            Label tempWeight = new Label(this.formatDouble(weightMap.get(compAss.getName())));
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
-            Label tempWeightedScore = new Label(decimalFormatter.format(weightedScore));
+            Label tempWeightedScore = new Label(this.formatDouble(weightedScore));
 
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
@@ -142,7 +142,7 @@ public class CategoriesOverviewPane {
 
             // Fill POINTS POSSIBLE Column; pressing "enter" sends new value to model
             TextField pointsPos = new TextField();
-            String currPointsPos = decimalFormatter.format(atomAss.getPointsPossible());
+            String currPointsPos = this.formatDouble(atomAss.getPointsPossible());
             pointsPos.setPromptText(currPointsPos);
 
             pointsPos.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -159,7 +159,7 @@ public class CategoriesOverviewPane {
 
             // Fill POINTS EARNED Column; pressing "enter" sends new value to model
             TextField pointsEarned = new TextField();
-            String currPointsScore = decimalFormatter.format(atomAss.getPointsScore());
+            String currPointsScore = this.formatDouble(atomAss.getPointsScore());
             pointsEarned.setPromptText(currPointsScore);
 
             pointsEarned.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -175,14 +175,14 @@ public class CategoriesOverviewPane {
             });
 
             // Fill PERCENT SCORE Column
-            Label tempPercentScore = new Label(decimalFormatter.format(100*atomAss.getPercentageScore()));
+            Label tempPercentScore = new Label(this.formatDouble(100*atomAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(decimalFormatter.format(weightMap.get(atomAss.getName())));
+            Label tempWeight = new Label(this.formatDouble(weightMap.get(atomAss.getName())));
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
-            Label tempWeightedScore = new Label(decimalFormatter.format(weightedScore));
+            Label tempWeightedScore = new Label(this.formatDouble(weightedScore));
 
             // Add columns to Grid
             dataGrid.add(hBoxEditDel, 0, i+1);
@@ -197,6 +197,15 @@ public class CategoriesOverviewPane {
         }
 
         return dataGrid;
+    }
+
+    private String formatDouble(double number){
+        if (Double.isNaN(number)){
+            return "NaN";
+        }else {
+            DecimalFormat decimalFormatter = new DecimalFormat("#0.##");
+            return decimalFormatter.format(number);
+        }
     }
 
     // --------------------------------------------------

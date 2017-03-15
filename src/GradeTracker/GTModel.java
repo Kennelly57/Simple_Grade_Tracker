@@ -1,9 +1,12 @@
 package GradeTracker;
 
+import GradeTracker.Samples.AtomicAssignment;
+import GradeTracker.Samples.CompoundAssignment;
+
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import static GradeTracker.OfflineLists.returnCourseList;
+import static GradeTracker.ArrayListSaveAndLoad.returnCourseList;
 
 /**
  * Created by Kilian on 3/7/2017.
@@ -240,10 +243,19 @@ public class GTModel {
         return gScale;
     }
 
+    //-------------------------------------------------------------------------------------------------------------
+
+    //----------------------------------------SAVE/LOAD METHODS----------------------------------------------------
+
+    public void saveCouses(){
+        ArrayList<String> saveData = this.dataGenerator(this.getLatestCourses());
+        ArrayListSaveAndLoad.storeCourseList(saveData);
+    }
+
     /* Reads the data file and sets the model appropriately.
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
-    public void dataSetter() throws FileNotFoundException {
+    public void loadCourses() throws FileNotFoundException {
         ArrayList<String> data = returnCourseList();
         if (data == null){
             throw new FileNotFoundException();
@@ -286,5 +298,56 @@ public class GTModel {
             }
         }
     }
+
+    public static ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
+        ArrayList<String> dataList = new ArrayList<>();
+        for (ModelCourse course : coursesMap.values()){
+            dataList.add("<course>");
+            dataList.add(course.getName());
+            dataList.add(course.getID());
+            dataList.add(intArrayConverter(course.getGradingScale()));
+            for (AtomicAssignment atomicCat : course.getAtomicAssignmentCategories().values()){
+                dataList.add("<atomicCategory>");
+                dataList.add(atomicCat.getName());
+                dataList.add(Integer.toString(course.getCategoryWeights().get(atomicCat.getName())));
+                dataList.add(Double.toString(atomicCat.getPointsPossible()));
+                dataList.add(Double.toString(atomicCat.getPointsScore()));
+                dataList.add(Boolean.toString(atomicCat.completed()));
+                dataList.add("</atomicCategory>");
+            }
+            for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
+                dataList.add("<compoundCategory>");
+                dataList.add(compCat.getName());
+                dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
+                for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
+                    dataList.add("<subCategory>");
+                    dataList.add(subCat.getName());
+                    dataList.add(Double.toString(subCat.getPointsPossible()));
+                    dataList.add(Double.toString(subCat.getPointsScore()));
+                    dataList.add(Boolean.toString(subCat.completed()));
+                    dataList.add("</subCategory>");
+                }
+                dataList.add("</compoundCategory>");
+            }
+
+            dataList.add("</course>");
+        }
+        System.out.println(dataList);
+        System.out.flush();
+        return dataList;
+    }
+
+    public static String intArrayConverter(int[] gradeArray){
+        String gradeScale = "";
+        String temp = "";
+        for (int item : gradeArray){
+            temp = Integer.toString(item);
+            gradeScale = gradeScale + "," + temp;
+        }
+        return gradeScale;
+    }
+    //-------------------------------------------------------------------------------------------------------------
+
+
 
 }

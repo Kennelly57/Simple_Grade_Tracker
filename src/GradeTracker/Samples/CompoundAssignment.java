@@ -58,16 +58,16 @@ public class CompoundAssignment implements Assignment {
     }
     public boolean containsAtomic(String assignmentName){
 
-        if (assignmentName.equalsIgnoreCase("test")){
-            System.out.println("Finding Test");
-        }
+//        if (assignmentName.equalsIgnoreCase("test")){
+//            //System.out.println("Finding Test");
+//        }
 
         for (AtomicAssignment subAssignment: atomicSubAssignmentMap.values()) {
             if(subAssignment.getName().equalsIgnoreCase(assignmentName)){
 
-                if (assignmentName.equalsIgnoreCase("test")){
-                    System.out.println("Finding in Atomic True");
-                }
+//                if (assignmentName.equalsIgnoreCase("test")){
+//                    System.out.println("Finding in Atomic True");
+//                }
 
                 return true;
             }
@@ -75,17 +75,17 @@ public class CompoundAssignment implements Assignment {
         for (CompoundAssignment subAssignment: compoundSubAssignmentMap.values()) {
             if(subAssignment.containsAtomic(assignmentName)){
 
-                if (assignmentName.equalsIgnoreCase("test")){
-                    System.out.println("Finding Test In Compound");
-                }
+//                if (assignmentName.equalsIgnoreCase("test")){
+//                    System.out.println("Finding Test In Compound");
+//                }
 
                 return true;
             }
         }
 
-        if (assignmentName.equalsIgnoreCase("test")){
-            System.out.println("Finding Test False");
-        }
+//        if (assignmentName.equalsIgnoreCase("test")){
+//            System.out.println("Finding Test False");
+//        }
 
         return false;
     }
@@ -180,12 +180,12 @@ public class CompoundAssignment implements Assignment {
             if (this.getName().equalsIgnoreCase(compoundToAddTo)){
                 this.atomicSubAssignmentMap.put(atomicAssignment.getName(), atomicAssignment);
                 int i = 0;
-                for (AtomicAssignment a:this.atomicSubAssignmentMap.values()) {
-                    System.out.print("ASSIGNMENT ");
-                    System.out.print(atomicAssignment.getName());
-                    System.out.print(" IS IN " + Integer.toString(i) + " ");
-                    System.out.println(this.getName());
-                }
+//                for (AtomicAssignment a:this.atomicSubAssignmentMap.values()) {
+//                    System.out.print("ASSIGNMENT ");
+//                    System.out.print(atomicAssignment.getName());
+//                    System.out.print(" IS IN " + Integer.toString(i) + " ");
+//                    System.out.println(this.getName());
+//                }
 
                 return true;
             } else {
