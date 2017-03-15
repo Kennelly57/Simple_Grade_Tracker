@@ -10,7 +10,9 @@ import GradeTracker.Views.Panes.CoursesOverviewPane;
 import GradeTracker.Views.Panes.CategoriesOverviewPane;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
+import GradeTracker.Views.PopupStages.HelpWindow;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -77,7 +79,6 @@ public class MainDisplay extends Application implements GTObserver {
         // the initial view is the courses screen
         showCourses();
     }
-
 
 
     // ------------------------------------------------------------------------
@@ -330,7 +331,10 @@ public class MainDisplay extends Application implements GTObserver {
         root.setBottom(controlBtns);
         root.setAlignment(controlBtns, Pos.CENTER);
 
-        root.setMargin(controlBtns, new Insets(15, 15, 15, 15));
+        Insets margin = new Insets(15, 15, 15, 15);
+        Insets padding = new Insets(15, 15, 15, 15);
+
+        root.setMargin(controlBtns, margin);
     }
 
     /**
@@ -522,12 +526,29 @@ public class MainDisplay extends Application implements GTObserver {
             model.saveCouses();
         });
 
-        HBox titleBar = new HBox(screenTitle);
-        titleBar.setId("Title");
-        VBox titleAndSave = new VBox(save, titleBar);
-        titleAndSave.setId("TitleAndSave");
+        Button help = new Button();
+        this.addDropShadow(help);
+        help.setPadding(new Insets(5, 5, 5, 5));
+        help.setId("Save");
+        help.setText("Help");
+        help.setOnAction(ActionEvent -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(univPrimaryStage);
+            new HelpWindow().start(dialog);
+        });
 
-        saveButtonAndScreenTitle.getChildren().addAll(titleAndSave);
+        HBox titleBtns = new HBox();
+        titleBtns.getChildren().addAll(save, help);
+        titleBtns.setSpacing(10);
+        HBox title = new HBox(screenTitle);
+        VBox titleBar = new VBox(titleBtns, title);
+        titleBar.setId("TitleAndSave");
+
+        saveButtonAndScreenTitle.getChildren().addAll(titleBar);
+
+        saveButtonAndScreenTitle.setPadding(new Insets(10,10,10,10));
+        saveButtonAndScreenTitle.setSpacing(10);
 
         return saveButtonAndScreenTitle;
     }

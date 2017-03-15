@@ -52,7 +52,7 @@
     -fx-font-family: Tahoma;
     -fx-alignment: center;
     -fx-font-size: 18pt;
-    -fx-innershadow: gaussian, 100,100,100,100;
+    -fx-innershadow: gaussian, 100, 100, 100, 100;
 }
 
 #gradeMsg {
@@ -62,7 +62,6 @@
     -fx-font-weight: bold;
 
 }
-
 
 #Save {
     -fx-alignment: top-left;
@@ -81,6 +80,13 @@
     -fx-font-family: Tahoma;
 }
 
-#TitleAndSave{
+#TitleAndSave {
     -fx-padding: 10px;
+}
+
+#HelpMsg {
+    -fx-font: 60px Tahoma;
+    -fx-text-fill: midnightblue;
+    -fx-padding: 7px;
+    -fx-spacing: 500pt;
 }
