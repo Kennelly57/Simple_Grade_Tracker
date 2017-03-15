@@ -393,7 +393,7 @@ public class MainDisplay extends Application implements GTObserver {
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
 
-                boolean isFirstRow = columnCounter < numberOfColumns;
+                boolean isFirstRow = columnCounter <= numberOfColumns;
                 if (isFirstRow) {
                     control.setId("categories");
                 } else {
