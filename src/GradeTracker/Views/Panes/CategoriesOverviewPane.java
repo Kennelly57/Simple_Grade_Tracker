@@ -103,7 +103,21 @@ public class CategoriesOverviewPane {
             Label tempPercentScore = new Label(this.formatDouble(100*compAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(this.formatDouble(weightMap.get(compAss.getName())));
+            TextField weightField = new TextField();
+            String curWeight = this.formatDouble(course.getCategoryWeights().get(compAss.getName()));
+            weightField.setPromptText(curWeight);
+
+            weightField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent ke) {
+                    if (ke.getCode().equals(KeyCode.ENTER)) {
+                        if (stringIsInt(weightField)) {
+                            int updateVal = Integer.parseInt(weightField.getText());
+                            theModel.setAssignmentCategoryWeight(course.getID(), compAss.getName(), updateVal);
+                        }
+                    }
+                }
+            });
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = compAss.getPercentageScore() * weightMap.get(compAss.getName());
@@ -115,7 +129,7 @@ public class CategoriesOverviewPane {
             dataGrid.add(tempPointsPos, 2, i + 1);
             dataGrid.add(tempPointsScore, 3, i + 1);
             dataGrid.add(tempPercentScore, 4, i + 1);
-            dataGrid.add(tempWeight, 5, i + 1);
+            dataGrid.add(weightField, 5, i + 1);
             dataGrid.add(tempWeightedScore, 6, i + 1);
 
             i++;
@@ -142,7 +156,7 @@ public class CategoriesOverviewPane {
                 @Override
                 public void handle(KeyEvent ke) {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
-                        if (inputOkay(pointsPos)) {
+                        if (stringIsDouble(pointsPos)) {
                             double updateVal = Double.parseDouble(pointsPos.getText());
                             theModel.setAssignmentPointsPossible(course.getID(), atomAss.getName(), updateVal);
                         }
@@ -159,7 +173,7 @@ public class CategoriesOverviewPane {
                 @Override
                 public void handle(KeyEvent ke) {
                     if (ke.getCode().equals(KeyCode.ENTER)) {
-                        if (inputOkay(pointsEarned)) {
+                        if (stringIsDouble(pointsEarned)) {
                             double updateVal = Double.parseDouble(pointsEarned.getText());
                             theModel.setAssignmentScore(course.getID(), atomAss.getName(), updateVal);
                         }
@@ -171,7 +185,21 @@ public class CategoriesOverviewPane {
             Label tempPercentScore = new Label(this.formatDouble(100*atomAss.getPercentageScore()));
 
             // Fill WEIGHT Column
-            Label tempWeight = new Label(this.formatDouble(weightMap.get(atomAss.getName())));
+            TextField weightField = new TextField();
+            String curWeight = this.formatDouble(course.getCategoryWeights().get(atomAss.getName()));
+            weightField.setPromptText(curWeight);
+
+            weightField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent ke) {
+                    if (ke.getCode().equals(KeyCode.ENTER)) {
+                        if (stringIsInt(weightField)) {
+                            int updateVal = Integer.parseInt(weightField.getText());
+                            theModel.setAssignmentCategoryWeight(course.getID(), atomAss.getName(), updateVal);
+                        }
+                    }
+                }
+            });
 
             // Fill WEIGHTED SCORE Column
             double weightedScore = atomAss.getPercentageScore() * weightMap.get(atomAss.getName());
@@ -183,7 +211,7 @@ public class CategoriesOverviewPane {
             dataGrid.add(pointsPos, 2, i + 1);
             dataGrid.add(pointsEarned, 3, i + 1);
             dataGrid.add(tempPercentScore, 4, i + 1);
-            dataGrid.add(tempWeight, 5, i + 1);
+            dataGrid.add(weightField, 5, i + 1);
             dataGrid.add(tempWeightedScore, 6, i + 1);
 
             i++;
@@ -240,11 +268,21 @@ public class CategoriesOverviewPane {
     }
 
     // Makes sure user only inputs a double
-    private boolean inputOkay(TextField pointsEarned) {
+    private boolean stringIsDouble(TextField pointsEarned) {
         boolean matches = false;
         if (pointsEarned.getText().matches("[0-9]*\\.[0-9]+|[0-9]+")){
             matches = true;
         }
+        return matches;
+    }
+
+    private boolean stringIsInt(TextField pointsEarned) {
+        boolean matches = false;
+        if (pointsEarned.getText().matches("[0-9]+")){
+            System.out.println("TRUE");
+            matches = true;
+        }
+        System.out.println("False");
         return matches;
     }
 
