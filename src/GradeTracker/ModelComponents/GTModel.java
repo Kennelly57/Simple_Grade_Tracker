@@ -405,6 +405,8 @@ public class GTModel {
     * it can be re-read by loadCourses at a later point in time.*/
     private static ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
+
+        // Write each of the courses to the array
         for (ModelCourse course : coursesMap.values()){
             dataList.add("<course>");
             dataList.add(course.getName());
@@ -419,10 +421,14 @@ public class GTModel {
                 dataList.add(Boolean.toString(atomicCat.completed()));
                 dataList.add("</atomicCategory>");
             }
+
+            // Write each of the course's compound categories to the array
             for (CompoundAssignment compCat: course.getCompoundAssignmentCategories().values()) {
                 dataList.add("<compoundCategory>");
                 dataList.add(compCat.getName());
                 dataList.add(Integer.toString(course.getCategoryWeights().get(compCat.getName())));
+
+                // Write each of the atomic assignments in the compound categories to the array
                 for (AtomicAssignment subCat : compCat.getAtomicSubAssignmentMap().values()){
                     dataList.add("<subCategory>");
                     dataList.add(subCat.getName());
@@ -436,8 +442,6 @@ public class GTModel {
 
             dataList.add("</course>");
         }
-        System.out.println(dataList);
-        System.out.flush();
         return dataList;
     }
 
