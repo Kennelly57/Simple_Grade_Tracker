@@ -3,7 +3,6 @@ package GradeTracker.Views.PopupStages;
 import GradeTracker.GTModel;
 import GradeTracker.ModelCourse;
 import GradeTracker.Views.Panes.PopupPanes.GradePane;
-import GradeTracker.handleCSV;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,7 +30,6 @@ public class CourseSetupWindow extends Application {
     private GTModel model;
     private ModelCourse course;
 
-    private handleCSV csvHandler = new handleCSV();
 
     public void start(final Stage primaryStage, GTModel theModel, ModelCourse...courses) {
         this.model = theModel;
@@ -103,8 +101,6 @@ public class CourseSetupWindow extends Application {
         btnNext.setDefaultButton(true);
         btnNext.setOnAction(event -> {
 
-            csvHandler.dataCollector(identificationTextField.getText());
-            csvHandler.dataCollector(crsNameTextField.getText());
 
             this.courseID = identificationTextField.getText();
             this.courseName = crsNameTextField.getText();
@@ -172,14 +168,6 @@ public class CourseSetupWindow extends Application {
                allInts = false;
             }
 
-            for (String item : gradeStringList) {
-                csvHandler.dataCollector(item);
-            }
-            try {
-                csvHandler.addCourse();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
 
             // UPDATE MODEL
 

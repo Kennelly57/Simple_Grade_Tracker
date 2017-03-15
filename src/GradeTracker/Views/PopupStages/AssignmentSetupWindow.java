@@ -33,7 +33,7 @@ public class AssignmentSetupWindow extends Application {
         stage = primaryStage;
         stage.setTitle(setupType.concat(" creation"));
         BorderPane aswBorderPane = new CreateAssignmentPane(setupType, this.model, currentCourseID).getRoot();
-        Scene aswScene = new Scene(aswBorderPane, 450, 350);
+        Scene aswScene = new Scene(aswBorderPane, 450, 250);
         stage.setScene(aswScene);
         stage.show();
     }
@@ -42,7 +42,7 @@ public class AssignmentSetupWindow extends Application {
         stage = primaryStage;
         stage.setTitle(setupType.concat(" creation"));
         BorderPane aswBorderPane = new CreateSubAssignmentPane(setupType, this.model, currentCourseID, categoryName).getRoot();
-        Scene aswScene = new Scene(aswBorderPane, 450, 350);
+        Scene aswScene = new Scene(aswBorderPane, 450, 250);
         stage.setScene(aswScene);
         stage.show();
     }

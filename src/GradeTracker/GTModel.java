@@ -247,12 +247,15 @@ public class GTModel {
 
     //----------------------------------------SAVE/LOAD METHODS----------------------------------------------------
 
+
+    /* Calls the saving method. Saves the model as a txt file, which can be re-read when the program
+     * is reopened. */
     public void saveCouses(){
         ArrayList<String> saveData = this.dataGenerator(this.getLatestCourses());
         ArrayListSaveAndLoad.storeCourseList(saveData);
     }
 
-    /* Reads the data file and sets the model appropriately.
+    /* Reads the data file and sets sets the variables of the model appropriately.
     * Relies on good data being saved (handled in offlineLists.java)
     * to set up everything properly. */
     public void loadCourses() throws FileNotFoundException {
@@ -299,6 +302,8 @@ public class GTModel {
         }
     }
 
+    /* Packages the data within the model into an array. The array is properly formatted so that
+    * it can be re-read by loadCourses at a later point in time.*/
     public static ArrayList<String> dataGenerator(Map<String, ModelCourse> coursesMap){
         ArrayList<String> dataList = new ArrayList<>();
         for (ModelCourse course : coursesMap.values()){
@@ -337,6 +342,7 @@ public class GTModel {
         return dataList;
     }
 
+    /* Converts the integer array into a String, which allows it to be saved easily with the rest of the data*/
     public static String intArrayConverter(int[] gradeArray){
         String gradeScale = "";
         String temp = "";
