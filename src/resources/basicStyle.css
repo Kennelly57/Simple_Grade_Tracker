@@ -8,9 +8,17 @@
 #dataPane {
     -fx-border-color: antiquewhite;
     -fx-grid-lines-visible: false;
+    -fx-background-color: black;
+    -fx-padding: 2;
+    -fx-hgap: 2;
+    -fx-vgap: 2;
+    -fx-snap-to-pixel: false;
+}
+
+#blankdataPane {
+    -fx-border-color: rgb(208, 215, 226);
+    -fx-grid-lines-visible: false;
     -fx-background-color: rgb(208, 215, 226);
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
     -fx-padding: 2;
     -fx-hgap: 2;
     -fx-vgap: 2;
@@ -27,24 +35,13 @@
 #gridNodes {
     -fx-background-color: aliceblue;
     -fx-alignment: center;
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
 }
 
 #categories {
     -fx-background-color: aliceblue;
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
     -fx-alignment: center;
     -fx-font-size: 20pt;
     -fx-font-weight: bold;
-}
-
-#nothingToSee {
-    -fx-background-color: aliceblue;
-    -fx-alignment: baseline-left;
-    -fx-font-size: 15pt;
-    -fx-font-weight: normal;
 }
 
 #labelButton {

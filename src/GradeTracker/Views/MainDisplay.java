@@ -40,6 +40,7 @@ public class MainDisplay extends Application implements GTObserver {
     private boolean upToDate;
     private DropShadow dropShadow;
     private Button btnAdd;
+    private boolean active = false;
 
     private int layer;
     private ModelCourse courseShowing;
@@ -62,7 +63,9 @@ public class MainDisplay extends Application implements GTObserver {
             System.out.println("No file found, generating a new one.");
             System.out.flush();
         }
-        makeDemoAssignmentList();
+        //makeDemoAssignmentList();
+
+        this.active = true;
 
         // get screen size & set Stage boundaries to visible bounds of the main screen
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
@@ -167,7 +170,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Format GridPane
         double numberOfColumns = 5.0;
-        double numberOfRows = 5.0;
+        double numberOfRows = category.getAtomicSubAssignmentMap().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane
@@ -364,12 +367,14 @@ public class MainDisplay extends Application implements GTObserver {
 
     public void notifyOfChange() {
         this.upToDate = false;
-        if (this.layer == 0) {
-            this.showCourses();
-        } else if (this.layer == 1) {
-            this.showCategories(this.courseShowing);
-        } else if (this.layer == 2) {
-            this.showAssignments(this.courseShowing, this.categoryShowing);
+        if (this.active) {
+            if (this.layer == 0) {
+                this.showCourses();
+            } else if (this.layer == 1) {
+                this.showCategories(this.courseShowing);
+            } else if (this.layer == 2) {
+                this.showAssignments(this.courseShowing, this.categoryShowing);
+            }
         }
     }
 
@@ -384,7 +389,11 @@ public class MainDisplay extends Application implements GTObserver {
      * Called after generating a GridPane to ensure proper styling is applied
      */
     private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
-        dataPane.setId("dataPane");
+        if (numberOfRows == 0){
+            dataPane.setId("blankDataPane");
+        } else {
+            dataPane.setId("dataPane");
+        }
         int columnCounter = 0;
         int children = dataPane.getChildren().size();
         for (Node n : dataPane.getChildren()) {
