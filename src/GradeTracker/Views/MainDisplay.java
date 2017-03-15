@@ -168,7 +168,7 @@ public class MainDisplay extends Application implements GTObserver {
         GridPane dataPane = new AssignmentsOverviewPane(course, category, this, this.model).getRoot();
 
         // Format GridPane
-        double numberOfColumns = 4.0;
+        double numberOfColumns = 5.0;
         double numberOfRows = category.getAtomicSubAssignmentMap().size();
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
@@ -400,9 +400,7 @@ public class MainDisplay extends Application implements GTObserver {
                 boolean isNotFirstRow = columnCounter >= numberOfColumns;
                 boolean isBtnCol = columnCounter % numberOfColumns == 0;
                 if (isNotFirstRow && isBtnCol) {
-
                     styleLeftMostCol((Label) n, control);
-
                 }
                 columnCounter++;
             }

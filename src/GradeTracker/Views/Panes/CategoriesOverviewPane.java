@@ -59,6 +59,7 @@ public class CategoriesOverviewPane {
         dataGrid.setPadding(new Insets(15, 0, 0, 0));
         dataGrid.setGridLinesVisible(true);
 
+        Label delHeader = new Label("Delete");
         Label nameHeader = new Label("Category");
         Label pointsPosHeader = new Label("Points Possible");
         Label scorePtsHeader = new Label("Points Earned");
@@ -66,12 +67,13 @@ public class CategoriesOverviewPane {
         Label weightHeader = new Label("Weight");
         Label weightedHeader = new Label("Weighted Score");
 
-        dataGrid.add(nameHeader, 0, 0);
-        dataGrid.add(pointsPosHeader, 1, 0);
-        dataGrid.add(scorePtsHeader, 2, 0);
-        dataGrid.add(scorePercentHeader, 3, 0);
-        dataGrid.add(weightHeader, 4, 0);
-        dataGrid.add(weightedHeader, 5, 0);
+        dataGrid.add(delHeader, 0, 0);
+        dataGrid.add(nameHeader, 1, 0);
+        dataGrid.add(pointsPosHeader, 2, 0);
+        dataGrid.add(scorePtsHeader, 3, 0);
+        dataGrid.add(scorePercentHeader, 4, 0);
+        dataGrid.add(weightHeader, 5, 0);
+        dataGrid.add(weightedHeader, 6, 0);
 
 
         // --------------------------------------------------
@@ -87,7 +89,7 @@ public class CategoriesOverviewPane {
         for (CompoundAssignment compAss: compoundAsssignmentCategories.values()) {
 
             // Fill DELETE Column
-            Button btnDel = generateDelBtn(compAss);
+            Button btnDel = generateDelBtn(course.getID(), compAss.getName());
             HBox hBoxEditDel = generateDelBtnPane(btnDel);
 
             // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
@@ -131,7 +133,7 @@ public class CategoriesOverviewPane {
         for (AtomicAssignment atomAss: atomicAsssignmentCategories.values()) {
 
             // Fill DELETE Column
-            Button btnDel = generateDelBtn(atomAss);
+            Button btnDel = generateDelBtn(course.getID(), atomAss.getName());
             HBox hBoxEditDel = generateDelBtnPane(btnDel);
 
             // Fill NAME Column
@@ -197,7 +199,7 @@ public class CategoriesOverviewPane {
     }
 
     // --------------------------------------------------
-    // Auxillary functions
+    // Auxiliary functions
     // --------------------------------------------------
 
     public GridPane getRoot() {
@@ -207,14 +209,12 @@ public class CategoriesOverviewPane {
     /**
      * generateDelBtn
      */
-    private Button generateDelBtn(Assignment myAssignment) {
+    private Button generateDelBtn(String courseID, String assignmentCategoryName) {
         Button btnDel = new Button();
         btnDel.setText("✘");
         btnDel.setId("labelButton");
         btnDel.setOnAction(event -> {
-//            String courseID = course.getID();
-//            this.model.removeCourse(courseID);
-//            this.mainDisplay.showCourses();
+            model.removeAssignmentCategory(courseID, assignmentCategoryName);
         });
         addDropShadow(btnDel);
         return btnDel;

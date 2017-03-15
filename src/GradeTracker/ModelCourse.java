@@ -189,11 +189,10 @@ public class ModelCourse implements Cloneable {
             computeTotalWeight();
             return true;
         }
-
         return false;
     }
 
-    public boolean removeAssignmentCategory(String assignmentCategoryName) { //THIS IS BAD THIS IS BAD THIS IS BAD
+    public boolean removeAssignmentCategory(String assignmentCategoryName) {
         if (this.contains(assignmentCategoryName)) {
             int weight = assignmentCategoryWeights.get(assignmentCategoryName);
             assignmentCategoryWeights.remove(assignmentCategoryName);
