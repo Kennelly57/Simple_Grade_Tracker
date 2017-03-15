@@ -80,7 +80,7 @@ public class CoursesOverviewPane {
 
             tempID.setOnMouseClicked((MouseEvent) -> {
                 // Send to assignment overview scene
-                this.mainDisplay.showCategories(course);
+                this.mainDisplay.showCategories(course.getID());
             });
 
             // Fill NAME Column
@@ -124,14 +124,17 @@ public class CoursesOverviewPane {
      * generateEditBtn
      */
     private Button generateEditBtn(ModelCourse course) {
-        Button btnBack = new Button();
-        btnBack.setText("✐");
-        btnBack.setId("labelButton");
-        btnBack.setOnAction((ActionEvent) -> {
-            ;
+        Button btnEdit = new Button();
+        btnEdit.setText("✐");
+        btnEdit.setId("labelButton");
+        btnEdit.setOnAction((ActionEvent) -> {
+            final Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(mainDisplay.univPrimaryStage);
+            new CourseSetupWindow().start(dialog, this.model, course);
         });
-        addDropShadow(btnBack);
-        return btnBack;
+        addDropShadow(btnEdit);
+        return btnEdit;
     }
 
 
