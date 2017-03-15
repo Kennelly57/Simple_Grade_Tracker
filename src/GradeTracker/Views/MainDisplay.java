@@ -167,7 +167,7 @@ public class MainDisplay extends Application implements GTObserver {
 
         // Format GridPane
         double numberOfColumns = 5.0;
-        double numberOfRows = category.getAtomicSubAssignmentMap().size();
+        double numberOfRows = 5.0;
         formatGridPane(dataPane, numberOfColumns, numberOfRows);
 
         // Place subpanes in "root" pane

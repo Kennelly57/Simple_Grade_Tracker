@@ -8,9 +8,7 @@
 #dataPane {
     -fx-border-color: antiquewhite;
     -fx-grid-lines-visible: false;
-    -fx-background-color: rgb(208, 215, 226);
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
+    -fx-background-color: black;
     -fx-padding: 2;
     -fx-hgap: 2;
     -fx-vgap: 2;
@@ -27,24 +25,13 @@
 #gridNodes {
     -fx-background-color: aliceblue;
     -fx-alignment: center;
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
 }
 
 #categories {
     -fx-background-color: aliceblue;
-    -fx-border-color: rgb(208, 215, 226);;
-    -fx-border-width: 2;
     -fx-alignment: center;
     -fx-font-size: 20pt;
     -fx-font-weight: bold;
-}
-
-#nothingToSee {
-    -fx-background-color: aliceblue;
-    -fx-alignment: baseline-left;
-    -fx-font-size: 15pt;
-    -fx-font-weight: normal;
 }
 
 #labelButton {
@@ -69,21 +56,11 @@
 
 #Save {
     -fx-alignment: top-left;
-    -fx-background-color: aliceblue;
-    -fx-border-color: cadetblue;
-    -fx-text-fill: blue;
-    -fx-border-width: 3px;
     -fx-background-radius: 10%;
-    -fx-font-family: Tahoma;
-    -fx-padding: 7px;
-    -fx-spacing: 500pt;
+    -fx-padding: 5;
+    -fx-spacing: 550pt;
 }
 
 #Title {
     -fx-alignment: center;
-    -fx-font-family: Tahoma;
-}
-
-#TitleAndSave{
-    -fx-padding: 10px;
 }

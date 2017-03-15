@@ -50,8 +50,6 @@ public class AssignmentsOverviewPane {
     // --------------------------------------------------
 
     private GridPane generateGridPane() {
-        DecimalFormat decimalFormatter = new DecimalFormat("#0.##");
-
         Map<String, AtomicAssignment> subAssignmentMap = this.category.getAtomicSubAssignmentMap();
 
         GridPane dataGrid = new GridPane();
