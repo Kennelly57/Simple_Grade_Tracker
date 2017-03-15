@@ -12,7 +12,6 @@ import GradeTracker.Views.Panes.CategoriesOverviewPane;
 import GradeTracker.Views.PopupStages.AssignmentSetupWindow;
 import GradeTracker.Views.PopupStages.CourseSetupWindow;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -28,7 +27,6 @@ import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -62,7 +60,7 @@ public class MainDisplay extends Application implements GTObserver {
         model.registerObserver(this);
         try {
             model.dataSetter();
-        } catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println("No file found, generating a new one.");
             System.out.flush();
         }
@@ -387,28 +385,37 @@ public class MainDisplay extends Application implements GTObserver {
     private void formatGridPane(GridPane dataPane, Double numberOfColumns, Double numberOfRows) {
         dataPane.setId("dataPane");
         int columnCounter = 0;
+        int children = dataPane.getChildren().size();
         for (Node n : dataPane.getChildren()) {
             if (n instanceof Control) {
                 Control control = (Control) n;
                 control.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 control.setId("gridNodes");
-                if (columnCounter < numberOfColumns) {
-                    control.setId("categories");
-                }
 
-                // Only want to highlight left leftmost cells of grid, excluding the first row
-                boolean isNotFirstRow = columnCounter >= numberOfColumns;
-                boolean isBtnCol = columnCounter % numberOfColumns == 0;
-                if (isNotFirstRow && isBtnCol) {
-                    styleLeftMostCol((Label) n, control);
+                boolean isFirstRow = columnCounter < numberOfColumns;
+                if (isFirstRow) {
+                    control.setId("categories");
+                } else {
+
+                    boolean isBtnCol = columnCounter % numberOfColumns == 2;
+                    if (isBtnCol) {
+
+                        // todo quick fix
+                        if (n instanceof Label) {
+
+                            styleBtnCol((Label) n, control);
+                        }
+
+                    }
                 }
-                columnCounter++;
             }
             if (n instanceof Pane) {
                 Pane pane = (Pane) n;
                 pane.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
                 pane.setId("gridNodes");
             }
+
+            columnCounter++;
         }
 
         addColumnConstraints(dataPane, numberOfColumns);
@@ -416,7 +423,7 @@ public class MainDisplay extends Application implements GTObserver {
     }
 
     // Helper fcn for styling elements of grids that act as buttons.
-    private void styleLeftMostCol(Label label, Control control) {
+    private void styleBtnCol(Label label, Control control) {
         String key = label.getText();
         boolean isCourse = model.getLatestCourses().containsKey(key);
         boolean isCompoundAssignment = false;
@@ -430,6 +437,7 @@ public class MainDisplay extends Application implements GTObserver {
         // Check to see if cell refers to a course or compound assignment, i.e. if it should look clickable.
         if (isCourse || isCompoundAssignment) {
             control.setId("labelButton");
+            addDropShadow(label);
         }
     }
 
@@ -475,7 +483,25 @@ public class MainDisplay extends Application implements GTObserver {
         });
     }
 
-    private HBox generateSaveButton(Text screenTitle){
+    /**
+     * Used to generate drop shadow effect for clickable buttons
+     */
+    private void addDropShadow(final Label label) {
+        label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                label.setEffect(dropShadow);
+            }
+        });
+        label.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                label.setEffect(null);
+            }
+        });
+    }
+
+    private HBox generateSaveButton(Text screenTitle) {
         HBox saveButtonAndScreenTitle = new HBox();
         Button save = new Button();
         save.setId("Save");

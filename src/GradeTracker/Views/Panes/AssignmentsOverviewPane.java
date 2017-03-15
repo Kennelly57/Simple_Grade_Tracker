@@ -80,7 +80,7 @@ public class AssignmentsOverviewPane {
         for (AtomicAssignment atomAss: subAssignmentMap.values()) {
 
             // Fill DELETE Column
-            Button btnDel = generateDelBtn(course.getID(), atomAss.getName());
+            Button btnDel = generateDelBtn(course.getID(), category.getName(), atomAss.getName());
             HBox hBoxEditDel = generateDelBtnPane(btnDel);
 
             // Fill NAME Column
@@ -155,12 +155,14 @@ public class AssignmentsOverviewPane {
     /**
      * generateDelBtn
      */
-    private Button generateDelBtn(String courseID, String assignmentCategoryName) {
+    private Button generateDelBtn(String courseID, String categoryName, String assignmentName) {
         Button btnDel = new Button();
         btnDel.setText("✘");
         btnDel.setId("labelButton");
         btnDel.setOnAction(event -> {
-            model.removeAssignmentCategory(courseID, assignmentCategoryName);
+            System.out.println("Pressed delete Button, for sub-assignment.");
+            System.out.println(courseID + " " + categoryName + " " + assignmentName);
+            model.removeAssignmentFromCompoundCategory(courseID, categoryName, assignmentName);
         });
         addDropShadow(btnDel);
         return btnDel;

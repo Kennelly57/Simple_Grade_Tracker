@@ -94,7 +94,6 @@ public class CategoriesOverviewPane {
 
             // Fill NAME Column; clicking label calls showAssignments(), passing relevant category
             Label tempName = new Label(compAss.getName());
-            addDropshadow(tempName);
             tempName.setOnMouseClicked((MouseEvent) -> {
                 this.mainDisplay.showAssignments(course, compAss);
             });
@@ -243,22 +242,6 @@ public class CategoriesOverviewPane {
             matches = true;
         }
         return matches;
-    }
-
-    private void addDropshadow(final Label label) {
-        label.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent e) {
-                label.setEffect(shadow);
-            }
-        });
-
-        label.addEventHandler(MouseEvent.MOUSE_EXITED, new EventHandler<MouseEvent>(){
-            @Override
-            public void handle(MouseEvent e) {
-                label.setEffect(null);
-            }
-        });
     }
 
     private void addDropShadow(final Button button) {
