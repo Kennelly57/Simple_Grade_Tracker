@@ -279,10 +279,8 @@ public class CategoriesOverviewPane {
     private boolean stringIsInt(TextField pointsEarned) {
         boolean matches = false;
         if (pointsEarned.getText().matches("[0-9]+")){
-            System.out.println("TRUE");
             matches = true;
         }
-        System.out.println("False");
         return matches;
     }
 

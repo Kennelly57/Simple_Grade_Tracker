@@ -25,7 +25,9 @@ public class HelpWindow extends Application {
         String introMsg = "\nWelcome to our program!\n\n";
         String helpMsg = "Click on the plus icons to add new courses or new assingments for those courses.\n\n" +
                 "Use the save button to save your couses to the hard drive before exiting the program \n\n" +
-                "Blue text denotes a clickable button.";
+                "Blue text denotes a clickable button.\n\n" +
+                "Grey text is editable. When filling in a number (such as a score or weight), " +
+                "you must push the \"Enter\" button in order for the program to process your entry.";
         Text introText = new Text(introMsg);
         Font font = new Font("Tahoma", 20);
         introText.setFont(font);
@@ -52,7 +54,7 @@ public class HelpWindow extends Application {
         borderPane.setAlignment(btnOkay, Pos.BOTTOM_RIGHT);
         borderPane.setMargin(btnOkay, new Insets(20,20,20,20));
 
-        Scene scene = new Scene(borderPane, 400, 300);
+        Scene scene = new Scene(borderPane, 400, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
 
